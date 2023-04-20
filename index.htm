@@ -3,8 +3,8 @@
 <head>
 	<title>IFC Model Viewer</title>
 	<!-- Import the required scripts for the IFC model viewer -->
-	<script src="https://cdn.jsdelivr.net/npm/@xeokit/xeokit-sdk@5.0.1/xeokit-sdk.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/@xeokit/xeokit-converters@5.0.1/xeokit-converters.min.js"></script>
+	<script src="https://unpkg.com/@xeokit/xeokit-sdk@6.0.0/xeokit-sdk.min.js"></script>
+	<script src="https://unpkg.com/@xeokit/xeokit-converters@6.0.0/xeokit-converters.min.js"></script>
 </head>
 <body>
 	<!-- Create a div element where the IFC model will be displayed -->
@@ -29,13 +29,10 @@
 			});
 
 			// Load the merged XKT model into the Viewer object
-			viewer.scene.input.setMousedragRotate(true);
-			viewer.scene.input.setMousedragPan(true);
-			viewer.scene.input.setMousedragZoom(true);
-			viewer.scene.setObjects(model.objects);
+			viewer.scene.setObjects(model.getObjects());
 			viewer.cameraFlight.flyTo({
-			    aabb: model.getAABB(),
-			    duration: 0.0
+				aabb: model.getAABB(),
+				duration: 0.0
 			});
 		});
 	</script>
