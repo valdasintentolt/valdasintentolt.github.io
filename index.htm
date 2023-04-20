@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>IFC Model Viewer</title>
+	<!-- Import the required scripts for the IFC model viewer -->
+	<script src="https://cdn.jsdelivr.net/npm/@xeokit/xeokit-sdk@5.0.1/xeokit-sdk.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@xeokit/xeokit-converters@5.0.1/xeokit-converters.min.js"></script>
+</head>
+<body>
+	<!-- Create a div element where the IFC model will be displayed -->
+	<div id="myViewer" style="height: 600px"></div>
+
+	<!-- Create a script that loads and displays the IFC model -->
+	<script>
+		// Create a new XKTModel object
+		var model = new window.XKTModel();
+
+		// Load the IFC model from the same GitHub repository
+		var url = "model.ifc";
+		var format = "ifc";
+
+		window.xktConverters.convert(url, format, function (xktModel) {
+			// Merge the converted XKT model into the main XKT model
+			model.merge(xktModel);
+
+			// Create a new Viewer object and attach it to the div element
+			var viewer = new window.xeokit.Viewer({
+				canvasId: "myViewer"
+			});
+
+			// Load the merged XKT model into the Viewer object
+			viewer.scene.input.setMousedragRotate(true);
+			viewer.scene.input.setMousedragPan(true);
+			viewer.scene.input.setMousedragZoom(true);
+			viewer.scene.setObjects(model.objects);
+			viewer.cameraFlight.flyTo({
+			    aabb: model.getAABB(),
+			    duration: 0.0
+			});
+		});
+	</script>
+</body>
+</html>
