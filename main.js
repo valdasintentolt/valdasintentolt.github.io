@@ -218,13 +218,13 @@ loadButton.addEventListener('click', () => {
   inputElement.click();
 });
 
-const sectionButton = createSideMenuButton('./resources/section-plane-down.svg');
-sectionButton.addEventListener('click', () => {
-  sectionButton.blur();
-  viewer.clipper.toggle();
-});
+// const sectionButton = createSideMenuButton('./resources/section-plane-down.svg');
+// sectionButton.addEventListener('click', () => {
+//   sectionButton.blur();
+//   viewer.clipper.toggle();
+// });
 
-const modelButton = createSideMenuButton('./resources/section-plane-down.svg');
+const modelButton = createSideMenuButton('./resources/folder-icon.svg');
 modelButton.addEventListener('click', () => {
 
 
