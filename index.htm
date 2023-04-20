@@ -3,8 +3,9 @@
 <head>
 	<title>IFC Model Viewer</title>
 	<!-- Import the required scripts for the IFC model viewer -->
-	<script src="https://unpkg.com/@xeokit/xeokit-sdk@6.0.0/xeokit-sdk.min.js"></script>
-	<script src="https://unpkg.com/@xeokit/xeokit-converters@6.0.0/xeokit-converters.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/mjs-utilities@2.0.0/dist/mjs-utilities.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/ifcjs@0.8.0/dist/ifc.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
 </head>
 <body>
 	<!-- Create a div element where the IFC model will be displayed -->
@@ -12,29 +13,42 @@
 
 	<!-- Create a script that loads and displays the IFC model -->
 	<script>
-		// Create a new XKTModel object
-		var model = new window.XKTModel();
-
 		// Load the IFC model from the same GitHub repository
 		var url = "model.ifc";
-		var format = "ifc";
+		fetch(url)
+			.then(response => response.arrayBuffer())
+			.then(buffer => {
+				// Parse the IFC model data
+				var ifcModel = new ifc.Model();
+				ifcModel.loadData(buffer);
 
-		window.xktConverters.convert(url, format, function (xktModel) {
-			// Merge the converted XKT model into the main XKT model
-			model.merge(xktModel);
+				// Create a new Three.js scene and renderer
+				var scene = new THREE.Scene();
+				var renderer = new THREE.WebGLRenderer({ antialias: true });
+				renderer.setSize(window.innerWidth, window.innerHeight);
+				document.getElementById("myViewer").appendChild(renderer.domElement);
 
-			// Create a new Viewer object and attach it to the div element
-			var viewer = new window.xeokit.Viewer({
-				canvasId: "myViewer"
+				// Create a Three.js mesh from the IFC model
+				var mesh = ifcModel.getThreeMesh();
+				scene.add(mesh);
+
+				// Set up the camera and render the scene
+				var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+				camera.position.set(0, 0, 10);
+				var controls = new THREE.OrbitControls(camera, renderer.domElement);
+				controls.enableDamping = true;
+				controls.dampingFactor = 0.25;
+				controls.screenSpacePanning = false;
+				controls.minDistance = 1;
+				controls.maxDistance = 50;
+				controls.maxPolarAngle = Math.PI / 2;
+				var animate = function () {
+					requestAnimationFrame(animate);
+					controls.update();
+					renderer.render(scene, camera);
+				};
+				animate();
 			});
-
-			// Load the merged XKT model into the Viewer object
-			viewer.scene.setObjects(model.getObjects());
-			viewer.cameraFlight.flyTo({
-				aabb: model.getAABB(),
-				duration: 0.0
-			});
-		});
 	</script>
 </body>
 </html>
