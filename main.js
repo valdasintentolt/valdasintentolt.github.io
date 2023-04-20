@@ -224,8 +224,35 @@ sectionButton.addEventListener('click', () => {
   viewer.clipper.toggle();
 });
 
-const dropBoxButton = createSideMenuButton('./resources/dropbox-icon.svg');
-dropBoxButton.addEventListener('click', () => {
-  dropBoxButton.blur();
-  viewer.dropbox.loadDropboxIfc();
+const modelButton = createSideMenuButton('./resources/section-plane-down.svg');
+modelButton.addEventListener('click', () => {
+
+
+//window.addEventListener('load', () => {
+  const url = "model.ifc";
+  fetch(url)
+    .then(response => response.arrayBuffer())
+    .then(buffer => {
+      const overlay = document.getElementById('loading-overlay');
+      const progressText = document.getElementById('loading-progress');
+
+      overlay.classList.remove('hidden');
+      progressText.innerText = `Loading`;
+
+      viewer.IFC.loader.ifcManager.setOnProgress((event) => {
+        const percentage = Math.floor((event.loaded * 100) / event.total);
+        progressText.innerText = `Loaded ${percentage}%`;
+      });
+
+      viewer.IFC.loader.ifcManager.parser.setupOptionalCategories({
+        [IFCSPACE]: false,
+        [IFCOPENINGELEMENT]: false
+      });
+
+      model = viewer.IFC.loadIfcFromMemory(buffer, 'model.ifc', false);
+      viewer.shadowDropper.renderShadow(model.modelID);
+      overlay.classList.add('hidden');
+    });
+//});
+  
 });
