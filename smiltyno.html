@@ -17,5 +17,33 @@
       <h1 id="loading-progress" class="loading-progress"></h1>
     </div>
     <script type="module" src="./build/main.js"></script>
+    <script>
+      window.addEventListener('load', () => {
+        const url = "model.ifc";
+        fetch(url)
+          .then(response => response.arrayBuffer())
+          .then(buffer => {
+            const overlay = document.getElementById('loading-overlay');
+            const progressText = document.getElementById('loading-progress');
+
+            overlay.classList.remove('hidden');
+            progressText.innerText = `Loading`;
+
+            viewer.IFC.loader.ifcManager.setOnProgress((event) => {
+              const percentage = Math.floor((event.loaded * 100) / event.total);
+              progressText.innerText = `Loaded ${percentage}%`;
+            });
+
+            viewer.IFC.loader.ifcManager.parser.setupOptionalCategories({
+              [IFCSPACE]: false,
+              [IFCOPENINGELEMENT]: false
+            });
+
+            model = viewer.IFC.loadIfcFromMemory(buffer, 'model.ifc', false);
+            viewer.shadowDropper.renderShadow(model.modelID);
+            overlay.classList.add('hidden');
+          });
+      });
+    </script>
   </body>
 </html>
