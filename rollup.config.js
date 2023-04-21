@@ -1,12 +1,14 @@
-import {nodeResolve} from '@rollup/plugin-node-resolve';
-import commonjs from '@rollup/plugin-commonjs';
+import resolve from '@rollup/plugin-node-resolve';
 
 export default {
-  input: 'main.js',
-  output: {
-    file: "build/main.js",
-    format: 'iife',
-    inlineDynamicImports: true, //Necessary for jspdf
-  },
-  plugins: [ nodeResolve(), commonjs() ]
+  input: 'examples/web-ifc-viewer/visibility/app.js',
+  output: [
+    {
+      format: 'esm',
+      file: 'examples/web-ifc-viewer/visibility/bundle.js'
+    },
+  ],
+  plugins: [
+    resolve(),
+  ]
 };
