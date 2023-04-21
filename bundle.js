@@ -113714,16 +113714,17 @@ main();
 
 async function main() {
 	const viewer = await setupScene();
-	const ifcModel = await viewer.IFC.loadIfcUrl('model.ifc');
+	const ifcModel = await viewer.IFC.loadIfcUrl('model.ifc', false);
+	console.log(ifcModel)
 	try {
 		const allIDs = getAllIds(ifcModel);
 		const subset = getWholeSubset(viewer, ifcModel, allIDs);
 		replaceOriginalModelBySubset(viewer, ifcModel, subset);
+		setupEvents(viewer, allIDs);
 	} 
 	catch (e) { 
 		console.log(e);
 	}
-	setupEvents(viewer, allIDs);
 }
 
 function setupEvents(viewer, allIDs) {
@@ -113744,7 +113745,6 @@ function setupEvents(viewer, allIDs) {
 }
 
 function getAllIds(ifcModel) {
-	console.log(ifcModel)
 	return Array.from(
 		new Set(ifcModel.geometry.attributes.expressID.array),
 	);
