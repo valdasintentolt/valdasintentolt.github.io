@@ -113742,6 +113742,20 @@ function setupEvents(viewer, allIDs) {
 		const props = await viewer.IFC.getProperties(modelID, id, true, false);
 		console.log(props);
 	};
+
+	let lastTap = 0;
+	document.addEventListener('touchstart', function(e) {
+		const currentTime = new Date().getTime();
+		const tapLength = currentTime - lastTap;
+		if (tapLength < 500 && tapLength > 0) {
+			hideClickedItem(viewer)
+			e.preventDefault();
+		} else {
+			// Single tap detected
+		}
+		lastTap = currentTime;
+	});
+
 }
 
 function getAllIds(ifcModel) {
