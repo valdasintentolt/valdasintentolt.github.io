@@ -113777,7 +113777,7 @@ async function setupScene() {
 	const viewer = new IfcViewerAPI({ container });
 	viewer.grid.setGrid();
 	viewer.axes.setAxes();
-	await viewer.IFC.setWasmPath('../../../');
+	await viewer.IFC.setWasmPath('files/');
 	return viewer;
 }
 
