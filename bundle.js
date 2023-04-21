@@ -113747,7 +113747,7 @@ function setupEvents(viewer, allIDs) {
 	document.addEventListener('touchstart', function(e) {
 		const currentTime = new Date().getTime();
 		const tapLength = currentTime - lastTap;
-		if (tapLength < 500 && tapLength > 0) {
+		if (tapLength < 350 && tapLength > 0) {
 			hideClickedItem(viewer)
 			e.preventDefault();
 		} else {
