@@ -113774,9 +113774,18 @@ function getWholeSubset(viewer, ifcModel, allIDs) {
 
 async function setupScene() {
 	const container = document.getElementById('viewer-container');
-	const viewer = new IfcViewerAPI({ container });
+	const viewer = new IfcViewerAPI({ container , backgroundColor: new Color(255, 255, 255)  });
 	viewer.grid.setGrid();
 	viewer.axes.setAxes();
+
+	// Set up stats
+	const stats = new Stats();
+	stats.showPanel(2);
+	document.body.append(stats.dom);
+	stats.dom.style.right = '0px';
+	stats.dom.style.left = 'auto';
+	viewer.context.stats = stats;
+	
 	await viewer.IFC.setWasmPath('files/');
 	return viewer;
 }
