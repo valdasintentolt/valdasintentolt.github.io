@@ -113778,13 +113778,13 @@ async function setupScene() {
 	viewer.grid.setGrid();
 	viewer.axes.setAxes();
 
-	// Set up stats
-	const stats = new Stats();
-	stats.showPanel(2);
-	document.body.append(stats.dom);
-	stats.dom.style.right = '0px';
-	stats.dom.style.left = 'auto';
-	viewer.context.stats = stats;
+	// // Set up stats
+	// const stats = new Stats();
+	// stats.showPanel(2);
+	// document.body.append(stats.dom);
+	// stats.dom.style.right = '0px';
+	// stats.dom.style.left = 'auto';
+	// viewer.context.stats = stats;
 	
 	await viewer.IFC.setWasmPath('files/');
 	return viewer;
