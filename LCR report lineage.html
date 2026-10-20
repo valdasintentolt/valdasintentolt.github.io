@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<!-- saved from url=(0068)file:///home/user/Work/lineage/lcr_lineage.html#tables/dataset/x_tpl -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style id="__________cytoscape_stylesheet">.__________cytoscape_container { position: relative; }</style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LCR report lineage</title>
+<style>
+:root {
+  color-scheme: light;
+  --page: #f9f9f7; --surface: #fcfcfb; --raised: #ffffff; --lane: #f2f1ed; --lane-ref: #f6f5f1;
+  --ink: #0b0b0b; --ink-2: #52514e; --muted: #898781; --hair: #e1e0d9; --base: #c3c2b7;
+  --ring: rgba(11,11,11,0.10); --hover: rgba(11,11,11,0.04);
+  --sys-snowflake: #2a78d6; --sys-maindb: #eb6834; --sys-excel: #1baf7a; --sys-python: #898781;
+  --step: #1f1f1d; --step-ink: #ffffff; --step-opt: #6b6a65;
+  --warn: #fab219; --warn-bg: #fff6e0; --gap: #d03b3b; --gap-bg: #fdecec; --note: #52514e; --note-bg: #f0efec;
+  --code-bg: #f4f3ef; --tok-kw: #7a3db8; --tok-str: #0d7a46; --tok-num: #b35400; --tok-com: #898781; --tok-fn: #1c5cab;
+  --path: #0b0b0b;
+}
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme="light"])) {
+    color-scheme: dark;
+    --page: #0d0d0d; --surface: #1a1a19; --raised: #222220; --lane: #171716; --lane-ref: #141413;
+    --ink: #ffffff; --ink-2: #c3c2b7; --muted: #898781; --hair: #2c2c2a; --base: #4a4a46;
+    --ring: rgba(255,255,255,0.10); --hover: rgba(255,255,255,0.05);
+    --sys-snowflake: #3987e5; --sys-maindb: #d95926; --sys-excel: #199e70; --sys-python: #898781;
+    --step: #ecebe6; --step-ink: #0b0b0b; --step-opt: #a8a79f;
+    --warn: #fab219; --warn-bg: #2e2612; --gap: #e66767; --gap-bg: #301a1a; --note: #c3c2b7; --note-bg: #242422;
+    --code-bg: #151514; --tok-kw: #c39bf0; --tok-str: #5cc68b; --tok-num: #f0a35e; --tok-com: #898781; --tok-fn: #86b6ef;
+    --path: #ffffff;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #0d0d0d; --surface: #1a1a19; --raised: #222220; --lane: #171716; --lane-ref: #141413;
+  --ink: #ffffff; --ink-2: #c3c2b7; --muted: #898781; --hair: #2c2c2a; --base: #4a4a46;
+  --ring: rgba(255,255,255,0.10); --hover: rgba(255,255,255,0.05);
+  --sys-snowflake: #3987e5; --sys-maindb: #d95926; --sys-excel: #199e70; --sys-python: #898781;
+  --step: #ecebe6; --step-ink: #0b0b0b; --step-opt: #a8a79f;
+  --warn: #fab219; --warn-bg: #2e2612; --gap: #e66767; --gap-bg: #301a1a; --note: #c3c2b7; --note-bg: #242422;
+  --code-bg: #151514; --tok-kw: #c39bf0; --tok-str: #5cc68b; --tok-num: #f0a35e; --tok-com: #898781; --tok-fn: #86b6ef;
+  --path: #ffffff;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+.app.wide { grid-template-columns: 0 minmax(0, 1fr); }
+.app.wide .rail { visibility: hidden; padding: 0; border: 0; }
+html, body { height: 100%; }
+body { margin: 0; background: var(--page); color: var(--ink); font: 13px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; overflow: hidden; }
+button, input { font: inherit; color: inherit; }
+code, pre, .mono { font-family: ui-monospace, "JetBrains Mono", "SF Mono", Menlo, monospace; }
+
+.app { display: grid; grid-template-columns: 256px minmax(0, 1fr); grid-template-rows: 56px minmax(0, 1fr); height: 100vh; }
+.top { grid-column: 1 / -1; display: flex; align-items: center; gap: 16px; padding: 0 16px; border-bottom: 1px solid var(--hair); background: var(--surface); }
+.brand { min-width: 240px; }
+.brand .t { font-weight: 650; font-size: 15px; letter-spacing: -0.01em; }
+.brand .t span { color: var(--muted); font-weight: 500; }
+.brand .s { color: var(--muted); font-size: 11.5px; }
+.seg { display: inline-flex; background: var(--page); border: 1px solid var(--hair); border-radius: 8px; padding: 2px; }
+.seg button { border: 0; background: none; padding: 5px 14px; border-radius: 6px; cursor: pointer; color: var(--ink-2); font-weight: 550; }
+.seg button[aria-pressed="true"] { background: var(--raised); color: var(--ink); box-shadow: 0 0 0 1px var(--ring), 0 1px 2px var(--ring); }
+.search { position: relative; flex: 1; max-width: 420px; }
+.search input { width: 100%; padding: 7px 10px 7px 30px; border: 1px solid var(--hair); border-radius: 8px; background: var(--page); outline: none; }
+.search input:focus { border-color: var(--ink-2); }
+.search::before { content: "⌕"; position: absolute; left: 10px; top: 5px; color: var(--muted); font-size: 15px; }
+.results { position: absolute; top: 38px; left: 0; right: 0; background: var(--raised); border: 1px solid var(--hair); border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,.12); max-height: 360px; overflow: auto; z-index: 20; }
+.results div { padding: 6px 10px; cursor: pointer; display: flex; gap: 8px; align-items: baseline; }
+.results div[aria-selected="true"], .results div:hover { background: var(--hover); }
+.results small { color: var(--muted); margin-left: auto; }
+.tools { display: flex; gap: 6px; margin-left: auto; }
+.btn { border: 1px solid var(--hair); background: var(--raised); border-radius: 7px; padding: 5px 10px; cursor: pointer; color: var(--ink-2); }
+.btn:hover { color: var(--ink); border-color: var(--base); }
+.btn[aria-pressed="true"] { color: var(--ink); border-color: var(--ink-2); }
+
+.rail { border-right: 1px solid var(--hair); background: var(--surface); overflow: auto; padding: 14px 12px 20px; }
+.rail h3 { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 14px 4px 6px; font-weight: 600; }
+.rail h3:first-child { margin-top: 0; }
+.stepitem { display: grid; grid-template-columns: 24px 1fr auto; gap: 8px; align-items: center; padding: 6px 6px; border-radius: 7px; cursor: pointer; }
+.stepitem:hover, .stepitem.on { background: var(--hover); }
+.stepitem.on { box-shadow: inset 2px 0 0 var(--ink); }
+.num { width: 22px; height: 22px; border-radius: 50%; background: var(--step); color: var(--step-ink); display: grid; place-items: center; font-size: 11px; font-weight: 650; }
+.num.opt { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--step-opt); }
+.stepitem .nm { font-weight: 550; line-height: 1.25; }
+.tag { font-size: 10px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); border: 1px solid var(--hair); border-radius: 4px; padding: 0 5px; white-space: nowrap; }
+.finding { display: grid; grid-template-columns: 18px 1fr; gap: 8px; padding: 6px; border-radius: 7px; cursor: pointer; line-height: 1.3; }
+.finding:hover, .finding.on { background: var(--hover); }
+.sev { width: 18px; height: 18px; border-radius: 4px; display: grid; place-items: center; font-size: 11px; font-weight: 700; }
+.sev.warning { background: var(--warn); color: #0b0b0b; }
+.sev.gap { background: var(--gap); color: #fff; }
+.sev.note { background: var(--note-bg); color: var(--ink-2); box-shadow: inset 0 0 0 1px var(--base); }
+.legend { display: grid; gap: 5px; padding: 0 4px; color: var(--ink-2); font-size: 12px; }
+.legend .row { display: flex; align-items: center; gap: 8px; }
+.sw { width: 18px; height: 12px; border-radius: 3px; flex: none; }
+.sw.card { background: var(--raised); box-shadow: inset 0 0 0 1px var(--base); background-image: linear-gradient(to right, var(--c) 0 4px, transparent 4px); }
+.ln { width: 26px; height: 0; border-top: 2px solid var(--base); flex: none; }
+.ln.dash { border-top-style: dashed; } .ln.dot { border-top-style: dotted; border-color: var(--muted); } .ln.path { border-color: var(--path); border-top-width: 2.5px; }
+.glyph { width: 18px; text-align: center; font-weight: 650; color: var(--ink); flex: none; }
+
+.stage { position: relative; overflow: hidden; background: var(--page); }
+#cy { position: absolute; inset: 0; }
+.stage.open #cy { right: 380px; }
+.hud { position: absolute; left: 12px; top: 12px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; pointer-events: none; }
+.hud > * { pointer-events: auto; }
+.chip { background: var(--raised); border: 1px solid var(--hair); border-radius: 999px; padding: 4px 11px; cursor: pointer; color: var(--ink-2); font-size: 12px; box-shadow: 0 1px 2px var(--ring); }
+.chip[aria-pressed="true"] { color: var(--ink); border-color: var(--ink-2); }
+.chip .x { margin-left: 6px; color: var(--muted); }
+.crumb { background: var(--raised); border: 1px solid var(--hair); border-radius: 8px; padding: 4px 10px; font-size: 12px; box-shadow: 0 1px 2px var(--ring); }
+.crumb b { font-weight: 650; }
+.hint { position: absolute; left: 12px; bottom: 10px; color: var(--muted); font-size: 11.5px; background: color-mix(in srgb, var(--page) 85%, transparent); padding: 2px 6px; border-radius: 4px; }
+.tip { position: absolute; pointer-events: none; background: var(--raised); border: 1px solid var(--hair); border-radius: 8px; padding: 8px 10px; max-width: 320px; box-shadow: 0 8px 24px rgba(0,0,0,.14); font-size: 12px; z-index: 10; }
+.tip b { display: block; margin-bottom: 2px; }
+.tip span { color: var(--ink-2); }
+
+.panel { position: absolute; top: 0; right: 0; bottom: 0; width: 380px; border-left: 1px solid var(--hair); background: var(--surface); overflow: auto; transform: translateX(100%); z-index: 15; }
+.ready .panel { transition: transform .18s ease; }
+.stage.open .panel { transform: none; box-shadow: -12px 0 32px rgba(0,0,0,.08); }
+.close { position: sticky; top: 10px; float: right; margin: 10px 12px 0 0; border: 1px solid var(--hair); background: var(--raised); border-radius: 7px; width: 28px; height: 28px; cursor: pointer; color: var(--ink-2); font-size: 16px; line-height: 1; z-index: 2; }
+.close:hover { color: var(--ink); }
+.pin { padding: 18px 20px 28px; }
+.kicker { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); font-weight: 600; display: flex; gap: 8px; align-items: center; }
+.kicker .dot { width: 9px; height: 9px; border-radius: 2px; }
+.panel h2 { font-size: 18px; line-height: 1.25; margin: 6px 0 4px; letter-spacing: -0.01em; word-break: break-word; }
+.panel h4 { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 20px 0 8px; font-weight: 600; }
+.panel p { margin: 6px 0; color: var(--ink-2); }
+.panel p.lead { color: var(--ink); font-size: 13.5px; }
+.sub { color: var(--muted); font-size: 12px; word-break: break-all; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.pill { border: 1px solid var(--hair); border-radius: 6px; padding: 2px 8px; cursor: pointer; background: var(--raised); font-size: 12px; display: inline-flex; gap: 6px; align-items: center; }
+.pill:hover { border-color: var(--base); }
+.pill .dot { width: 8px; height: 8px; border-radius: 2px; }
+.callout { border-radius: 8px; padding: 9px 11px; margin: 8px 0; display: grid; grid-template-columns: 18px 1fr; gap: 9px; }
+.callout.warning { background: var(--warn-bg); } .callout.gap { background: var(--gap-bg); } .callout.note { background: var(--note-bg); }
+.callout b { display: block; color: var(--ink); }
+.callout span { color: var(--ink-2); }
+.stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+.stat { background: var(--raised); border: 1px solid var(--hair); border-radius: 8px; padding: 9px 11px; }
+.stat .v { font-size: 20px; font-weight: 650; }
+.stat .k { color: var(--muted); font-size: 11.5px; }
+.bar { height: 6px; border-radius: 3px; background: var(--hair); overflow: hidden; display: flex; gap: 2px; margin-top: 8px; }
+.bar i { display: block; height: 100%; }
+.coderef { border: 1px solid var(--hair); border-radius: 8px; overflow: hidden; margin: 10px 0; background: var(--code-bg); }
+.coderef .hd { display: flex; gap: 10px; align-items: center; padding: 6px 10px; border-bottom: 1px solid var(--hair); background: var(--raised); font-size: 12px; }
+.coderef .hd .f { font-family: ui-monospace, Menlo, monospace; color: var(--ink-2); }
+.coderef .hd a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--base); }
+.coderef .hd a:first-of-type { margin-left: auto; }
+.code { display: grid; grid-template-columns: auto 1fr; font-size: 11.5px; line-height: 1.55; max-height: 340px; overflow: auto; }
+.code .g { color: var(--muted); text-align: right; padding: 8px 8px 8px 10px; user-select: none; white-space: pre; border-right: 1px solid var(--hair); }
+.code pre { margin: 0; padding: 8px 10px; white-space: pre; }
+.expr { background: var(--code-bg); border: 1px solid var(--hair); border-radius: 7px; padding: 8px 10px; font-size: 11.5px; white-space: pre-wrap; word-break: break-word; margin: 6px 0; }
+.hljs-keyword, .hljs-built_in { color: var(--tok-kw); } .hljs-string { color: var(--tok-str); } .hljs-number, .hljs-literal { color: var(--tok-num); }
+.hljs-comment { color: var(--tok-com); font-style: italic; } .hljs-title, .hljs-subst { color: var(--tok-fn); }
+table.cols { width: 100%; border-collapse: collapse; font-size: 12px; }
+table.cols td { padding: 5px 6px; border-top: 1px solid var(--hair); vertical-align: top; }
+table.cols tr { cursor: pointer; } table.cols tr:hover td { background: var(--hover); }
+table.cols td.g { width: 20px; text-align: center; font-weight: 650; }
+table.cols td.src { color: var(--muted); word-break: break-word; }
+.badge { font-size: 10px; text-transform: uppercase; letter-spacing: .05em; border-radius: 4px; padding: 1px 6px; border: 1px solid var(--hair); color: var(--muted); }
+.hop { border-left: 2px solid var(--hair); padding: 2px 0 2px 12px; margin: 6px 0 6px 4px; }
+.hop summary { cursor: pointer; list-style: none; display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.hop summary::-webkit-details-marker { display: none; }
+.hop summary::before { content: "▸"; color: var(--muted); width: 10px; }
+.hop[open] > summary::before { content: "▾"; }
+.hop .colref { font-weight: 600; cursor: pointer; border-bottom: 1px dotted var(--base); }
+.hop .why { color: var(--ink-2); font-size: 12px; margin: 4px 0; }
+.empty { color: var(--muted); }
+a { color: inherit; }
+</style>
+</head>
+<body class="ready">
+<div class="app">
+  <header class="top">
+    <div class="brand"><div class="t" id="title">LCR report <span>· data lineage</span></div><div class="s" id="subtitle">reports/lcr/lcr.py · 6e9d76a · 2026-10-19</div></div>
+    <div class="seg" role="group" aria-label="Level">
+      <button data-mode="tables" aria-pressed="true">Tables</button>
+      <button data-mode="columns" aria-pressed="false">Columns</button>
+    </div>
+    <div class="search"><input id="q" placeholder="Find a table, column or step   ( / )" autocomplete="off"><div class="results" id="results" hidden=""></div></div>
+    <div class="tools">
+      <button class="btn" id="overview" title="About this lineage" aria-pressed="false">Overview</button>
+      <button class="btn" id="fit" title="Fit to screen (F)">Fit</button>
+      <button class="btn" id="png" title="Download the current view as PNG">PNG</button>
+      <button class="btn" id="theme" title="Theme: auto / light / dark">◐ Auto</button>
+    </div>
+  </header>
+
+  <nav class="rail">
+    <h3>Pipeline steps</h3>
+    <div id="steps">
+    <div class="stepitem" data-step="s1">
+      <div class="num">1</div><div class="nm">Copy manual entries</div><span class="tag">python</span></div>
+    <div class="stepitem" data-step="s2">
+      <div class="num">2</div><div class="nm">Copy column setup</div><span class="tag">python</span></div>
+    <div class="stepitem" data-step="s3">
+      <div class="num">3</div><div class="nm">Aggregate source</div><span class="tag">sql</span></div>
+    <div class="stepitem" data-step="s4">
+      <div class="num">4</div><div class="nm">Append manual entries</div><span class="tag">sql</span></div>
+    <div class="stepitem" data-step="s5">
+      <div class="num">5</div><div class="nm">Classify &amp; sign</div><span class="tag">sql + config</span></div>
+    <div class="stepitem" data-step="s6">
+      <div class="num">6</div><div class="nm">Pivot to template cells</div><span class="tag">sql</span></div>
+    <div class="stepitem" data-step="s7">
+      <div class="num opt">7</div><div class="nm">Detail drill-down</div><span class="tag">sql</span></div>
+    <div class="stepitem" data-step="s8">
+      <div class="num opt">8</div><div class="nm">Export detail workbook</div><span class="tag">excel</span></div>
+    <div class="stepitem" data-step="s9">
+      <div class="num">9</div><div class="nm">Export raw cells</div><span class="tag">excel</span></div>
+    <div class="stepitem" data-step="s10">
+      <div class="num">10</div><div class="nm">Fill LCR template</div><span class="tag">excel</span></div></div>
+    <h3>Findings</h3>
+    <div id="findings">
+    <div class="finding" data-callout="c1">
+      <div class="sev gap">?</div><div>Source table chosen at runtime</div></div>
+    <div class="finding" data-callout="c2">
+      <div class="sev note">i</div><div>Manual rows merged in</div></div>
+    <div class="finding" data-callout="c3">
+      <div class="sev gap">?</div><div>Rules live in DB config, not code</div></div>
+    <div class="finding" data-callout="c4">
+      <div class="sev warning">!</div><div>Launch parameter pasted into SQL</div></div>
+    <div class="finding" data-callout="c5">
+      <div class="sev warning">!</div><div>Shared permanent table</div></div>
+    <div class="finding" data-callout="c6">
+      <div class="sev note">i</div><div>Currency variants differ</div></div>
+    <div class="finding" data-callout="c7">
+      <div class="sev warning">!</div><div>Sheet match is case-sensitive</div></div>
+    <div class="finding" data-callout="c8">
+      <div class="sev gap">?</div><div>Cell address comes from the template</div></div>
+    <div class="finding" data-callout="c9">
+      <div class="sev note">i</div><div>SELECT * moved through Python</div></div></div>
+    <h3>Legend</h3>
+    <div class="legend" id="legend"><div class="row"><span class="sw card" style="--c:var(--sys-snowflake)"></span>Snowflake</div><div class="row"><span class="sw card" style="--c:var(--sys-maindb)"></span>Main DB</div><div class="row"><span class="sw card" style="--c:var(--sys-python)"></span>Python (in memory)</div><div class="row"><span class="sw card" style="--c:var(--sys-excel)"></span>Excel</div><div class="row"><span class="sw" style="background:var(--step);border-radius:6px"></span>Transformation step</div><div class="row"><span class="sw card" style="--c:var(--base);border:1px dashed var(--base);box-shadow:none"></span>Reference / config</div><div class="row"><span class="ln"></span>Parsed from SQL</div><div class="row"><span class="ln dash"></span>Declared (Python / Excel)</div><div class="row"><span class="ln dot"></span>Filter / join influence</div><div class="row"><span class="ln path"></span>Selected path</div><div class="row"><span class="glyph mono">=</span>passed through / renamed</div><div class="row"><span class="glyph mono">ƒ</span>calculated / cast</div><div class="row"><span class="glyph mono">◇</span>conditional (CASE)</div><div class="row"><span class="glyph mono">Σ</span>aggregated</div><div class="row"><span class="glyph mono">⚙︎</span>set by config rules</div><div class="row"><span class="glyph mono">⌖</span>positioned in Excel</div><div class="row"><span class="glyph mono">#</span>constant / parameter</div></div>
+  </nav>
+
+  <main class="stage open">
+    <div id="cy" class=" __________cytoscape_container" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><div style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); position: relative; z-index: 0; overflow: hidden; width: 1900px; height: 1247px;"><canvas data-id="layer0-selectbox" width="2850" height="1870" style="user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); outline-style: none; position: absolute; z-index: 3; width: 1900px; height: 1247px;"></canvas><canvas data-id="layer1-drag" width="2850" height="1870" style="user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); outline-style: none; position: absolute; z-index: 2; width: 1900px; height: 1247px;"></canvas><canvas data-id="layer2-node" width="2850" height="1870" style="user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); outline-style: none; position: absolute; z-index: 1; width: 1900px; height: 1247px;"></canvas></div></div>
+    <div class="hud" id="hud"><button class="chip" id="t-notes" aria-pressed="true">Callouts on canvas</button></div>
+    <div class="hint" id="hint">Click a table, step or callout · double-click a table to open its columns</div>
+    <div class="tip" id="tip" style="left: 1320px; top: 326px;" hidden=""><b>Currency variants differ</b><span>_SEK sheets sum the FC amount of SEK rows, _EUR sheets the base amount of EUR rows, and the base sheet all rows in base currency.</span></div>
+    <aside class="panel" id="drawer"><button class="close" id="close" title="Close (Esc)">×</button><div class="pin" id="panel">
+    <div class="kicker"><span class="dot" style="background:var(--sys-excel)"></span>Excel · workbook · output</div>
+    <h2 class="mono" style="font-size:15.5px">LCR report workbookLCR_&lt;tp&gt;_&lt;dt&gt;_&lt;id&gt;.xlsx</h2>
+    <div class="sub mono">LCR_&lt;stp_rep_tp[:4]&gt;_&lt;yyyymmdd&gt;_&lt;results_id&gt;.xlsx</div>
+    <p class="lead" style="margin-top:10px">The LCR template with every mapped cell filled in. This is the regulatory deliverable.</p>
+    <div class="callout gap"><div class="sev gap">?</div><div><b>Cell address comes from the template</b><span>The target cell is located through codes printed in the template (Setup sheet plus row/column code cells). Cell-level lineage needs the template file at runtime.</span></div></div>
+    <h4>Written by</h4><div class="chips"><span class="pill" data-go="step:s10"><span class="num" style="width:16px;height:16px;font-size:9.5px">10</span>Fill LCR template</span></div>
+    <h4>Read by</h4><div class="chips"><span class="empty">— final output</span></div>
+    <h4>Columns (4)</h4>
+    <table class="cols"><tbody><tr data-go="column:x_tpl::sheet"><td class="g mono">⌖</td><td class="mono">sheet</td><td class="src">sheet, Setup sheet map</td></tr><tr data-go="column:x_tpl::row code"><td class="g mono">⌖</td><td class="mono">row code</td><td class="src">row, row codes</td></tr><tr data-go="column:x_tpl::column code"><td class="g mono">⌖</td><td class="mono">column code</td><td class="src">col, column codes</td></tr><tr data-go="column:x_tpl::cell value"><td class="g mono">⌖</td><td class="mono">cell value</td><td class="src">value</td></tr></tbody></table>
+    <p style="margin-top:12px"><button class="btn" data-go="mode:columns">Trace columns →</button></p></div></aside>
+  </main>
+</div>
+
+<script src="./LCR report lineage_files/cytoscape.min.js"></script>
+<script src="./LCR report lineage_files/highlight.min.js"></script>
+<script>
+const M = {"format": "lineage/v1", "generated_at": "2026-10-19T09:35:03", "generator": {"extractor": "extract.py", "sqlglot": "30.23.0", "sidecar": "lcr.lineage.yaml"}, "job": {"id": "lcr", "name": "LCR report", "description": "Builds the Liquidity Coverage Ratio report: aggregates balance-sheet and repayment data in Snowflake, classifies every row into LCR template rows with configurable rules, and writes three Excel workbooks.", "repo": "/opt/projects/int-paramsys-portal", "file": "reports/lcr/lcr.py", "git_web": "https://github.com/valdasintentolt/int-paramsys-portal", "git": {"commit": "6e9d76a8dc8fd252ecb439c77bcce49d8c439476", "branch": "demo", "dirty": false}}, "lanes": ["Sources", "Staging", "Aggregate", "Classify", "Result sets", "Excel outputs"], "datasets": [{"id": "src_view", "label": "V_LB_REPORTING_DATA_\nGL_BS_INCL_REPAYMENTS", "name": "REPORTING.DM.V_LB_REPORTING_DATA_GL_BS_INCL_REPAYMENTS", "system": "snowflake", "kind": "view", "role": "source", "description": "Balance sheet per GL account with repayment cash flows, one row per contract and attribute set. Default source of the report.", "columns": [{"name": "Source"}, {"name": "IC flag"}, {"name": "Subsidiary"}, {"name": "GL account id"}, {"name": "GL account name"}, {"name": "Account Level 1"}, {"name": "Account Level 2"}, {"name": "Account Level 3"}, {"name": "DoD"}, {"name": "Is Retail"}, {"name": "Category"}, {"name": "Product category"}, {"name": "Past due flag"}, {"name": "Report Date"}, {"name": "Contract signing date"}, {"name": "Days to cashflow"}, {"name": "Unit"}, {"name": "Deposit Prolongation enabled"}, {"name": "Contract re-negotiation date"}, {"name": "Reporting Currency"}, {"name": "Original Currency"}, {"name": "Amount BC"}, {"name": "Amount FC"}, {"name": "source"}, {"name": "subsidiary"}, {"name": "dod"}, {"name": "unit"}], "lane": 0}, {"id": "src_snapshot", "label": "SNAPSHOTS.V_LB_…\n…REPAYMENTS_<date>*", "name": "REPORTING.SNAPSHOTS.V_LB_REPORTING_DATA_GL_BS_INCL_REPAYMENTS_<yyyymmdd>*", "system": "snowflake", "kind": "snapshot table", "role": "source", "description": "Frozen copy of the view for a reporting date. Used instead of the view when \"Use snapshot\" is ticked; the newest matching table wins.", "columns": [], "lane": 0}, {"id": "me_main", "label": "LCR_MANUAL_ENTRIES", "name": "reports.LCR_MANUAL_ENTRIES", "system": "maindb", "kind": "table", "role": "source", "description": "Manually maintained LCR adjustment rows, in the same shape as the aggregated source.", "columns": [{"name": "source"}, {"name": "ic_flag"}, {"name": "subsidiary"}, {"name": "gl"}, {"name": "gl_nm"}, {"name": "gl_level_1"}, {"name": "gl_level_2"}, {"name": "gl_level_3"}, {"name": "dod"}, {"name": "is_retail"}, {"name": "cust_cat"}, {"name": "prod_cat"}, {"name": "past_due_f"}, {"name": "ar_days_since_sign"}, {"name": "cf_days"}, {"name": "unit"}, {"name": "prolong_enabled_f"}, {"name": "prolonged_f"}, {"name": "curr_rep"}, {"name": "curr_orig"}, {"name": "amount"}, {"name": "amount_fc"}, {"name": "count_in_source"}], "lane": 0}, {"id": "cs_main", "label": "LCR_COLS_SETUP", "name": "reports.LCR_COLS_SETUP", "system": "maindb", "kind": "table", "role": "reference", "description": "For each LCR table, which template column holds the amount and which holds the weight.", "columns": [{"name": "lcr_amount_column"}, {"name": "lcr_weight_column"}, {"name": "lcr_table"}], "lane": 2}, {"id": "cfg_params", "label": "pr_report* rules\nLCR_ROWS, TERM_BUCKETS,\nCONS_INDV", "name": "pr_report / pr_report_item / pr_report_item_line / pr_report_classif(_val)", "system": "maindb", "kind": "config", "role": "reference", "description": "Parameter-system rules turned into SQL CASE expressions by params_to_case(). They decide table, row, term bucket, weight, sign and scope.", "columns": [{"name": "LCR_CONS_INDV rules"}, {"name": "LCR_TERM_BUCKETS rules"}, {"name": "LCR_ROWS → table-row"}, {"name": "LCR_ROWS → weight"}, {"name": "LCR_ROWS → sign"}], "lane": 2}, {"id": "tpl", "label": "LCR template .xlsx\nSetup sheet + cell codes", "name": "Template file from pr_report_item (LCR_CONS_INDV, lb_id1 = stp_rep_tp).lb_id3", "system": "excel", "kind": "template", "role": "reference", "description": "Regulatory template workbook. Its Setup sheet maps sheets to the row-code column and column-code row used to address cells.", "columns": [{"name": "Setup sheet map"}, {"name": "row codes"}, {"name": "column codes"}], "lane": 4}, {"id": "me_tmp", "label": "lcr_manual_entries_tmp", "name": "lcr_manual_entries_tmp", "system": "snowflake", "kind": "temp table", "role": "intermediate", "description": "Snowflake copy of the manual entries for this run.", "columns": [{"name": "source"}, {"name": "ic_flag"}, {"name": "subsidiary"}, {"name": "gl"}, {"name": "gl_nm"}, {"name": "gl_level_1"}, {"name": "gl_level_2"}, {"name": "gl_level_3"}, {"name": "dod"}, {"name": "is_retail"}, {"name": "cust_cat"}, {"name": "prod_cat"}, {"name": "past_due_f"}, {"name": "ar_days_since_sign"}, {"name": "cf_days"}, {"name": "unit"}, {"name": "prolong_enabled_f"}, {"name": "prolonged_f"}, {"name": "curr_rep"}, {"name": "curr_orig"}, {"name": "amount"}, {"name": "amount_fc"}, {"name": "count_in_source"}], "lane": 1}, {"id": "cs_tmp", "label": "lcr_cols_setup_tmp", "name": "lcr_cols_setup_tmp", "system": "snowflake", "kind": "temp table", "role": "reference", "description": "Snowflake copy of the column setup for this run.", "columns": [{"name": "lcr_amount_column"}, {"name": "lcr_weight_column"}, {"name": "lcr_table"}], "lane": 3}, {"id": "lcr_data1", "label": "lcr_data1", "name": "lcr_data1", "system": "snowflake", "kind": "temp table", "role": "intermediate", "description": "Source data aggregated to classification grain for the reporting date, plus manual entries.", "columns": [{"name": "source"}, {"name": "ic_flag"}, {"name": "subsidiary"}, {"name": "gl"}, {"name": "gl_nm"}, {"name": "gl_level_1"}, {"name": "gl_level_2"}, {"name": "gl_level_3"}, {"name": "dod"}, {"name": "is_retail"}, {"name": "cust_cat"}, {"name": "prod_cat"}, {"name": "past_due_f"}, {"name": "ar_days_since_sign"}, {"name": "cf_days"}, {"name": "unit"}, {"name": "prolong_enabled_f"}, {"name": "prolonged_f"}, {"name": "curr_rep"}, {"name": "curr_orig"}, {"name": "amount"}, {"name": "amount_fc"}, {"name": "count_in_source"}], "lane": 2}, {"id": "lcr_det", "label": "lcr_det", "name": "lcr_det", "system": "snowflake", "kind": "table", "role": "intermediate", "description": "Every aggregated row with its LCR classification (table, row, term, weight, sign) and signed amounts.", "columns": [{"name": "report_data_source"}, {"name": "rep_dt"}, {"name": "cons"}, {"name": "indv"}, {"name": "lcr_term"}, {"name": "lcr_table_row"}, {"name": "lcr_table"}, {"name": "lcr_row"}, {"name": "lcr_weight"}, {"name": "lcr_sign"}, {"name": "included_in_report"}, {"name": "lcr_amount"}, {"name": "lcr_amount_fc"}, {"name": "ar_days_since_sign_for_xlsx"}, {"name": "cf_days_for_xlsx"}, {"name": "source"}, {"name": "ic_flag"}, {"name": "subsidiary"}, {"name": "gl"}, {"name": "gl_nm"}, {"name": "gl_level_1"}, {"name": "gl_level_2"}, {"name": "gl_level_3"}, {"name": "dod"}, {"name": "is_retail"}, {"name": "cust_cat"}, {"name": "prod_cat"}, {"name": "past_due_f"}, {"name": "ar_days_since_sign"}, {"name": "cf_days"}, {"name": "unit"}, {"name": "prolong_enabled_f"}, {"name": "prolonged_f"}, {"name": "curr_rep"}, {"name": "curr_orig"}, {"name": "amount"}, {"name": "amount_fc"}, {"name": "count_in_source"}], "lane": 3}, {"id": "lcr_data", "label": "lcr_data", "name": "lcr_data (Python list of dicts)", "system": "python", "kind": "result set", "role": "intermediate", "description": "One row per template cell — sheet, row code, column code and value.", "columns": [{"name": "sheet"}, {"name": "row"}, {"name": "col"}, {"name": "value_type"}, {"name": "value"}, {"name": "cnt"}], "lane": 4}, {"id": "lcr_xlsx_det", "label": "lcr_xlsx_det", "name": "lcr_xlsx_det (Python list of dicts)", "system": "python", "kind": "result set", "role": "intermediate", "description": "lcr_det re-aggregated at classification level for the detail workbook.", "columns": [{"name": "rep_dt"}, {"name": "lcr_term"}, {"name": "lcr_table"}, {"name": "lcr_row"}, {"name": "lcr_weight"}, {"name": "lcr_sign"}, {"name": "lcr_amount"}, {"name": "lcr_amount_fc"}, {"name": "source"}, {"name": "ic_flag"}, {"name": "subsidiary"}, {"name": "gl"}, {"name": "gl_nm"}, {"name": "gl_level_1"}, {"name": "gl_level_2"}, {"name": "gl_level_3"}, {"name": "dod"}, {"name": "is_retail"}, {"name": "cust_cat"}, {"name": "prod_cat"}, {"name": "past_due_f"}, {"name": "ar_days_since_sign_for_xlsx"}, {"name": "cf_days_for_xlsx"}, {"name": "unit"}, {"name": "prolong_enabled_f"}, {"name": "prolonged_f"}, {"name": "curr_rep"}, {"name": "curr_orig"}, {"name": "amount"}, {"name": "amount_fc"}, {"name": "count_in_source"}], "lane": 4}, {"id": "x_tpl", "label": "LCR report workbook\nLCR_<tp>_<dt>_<id>.xlsx", "name": "LCR_<stp_rep_tp[:4]>_<yyyymmdd>_<results_id>.xlsx", "system": "excel", "kind": "workbook", "role": "output", "description": "The LCR template with every mapped cell filled in. This is the regulatory deliverable.", "columns": [{"name": "sheet"}, {"name": "row code"}, {"name": "column code"}, {"name": "cell value"}], "lane": 5}, {"id": "x_raw", "label": "Raw cells workbook\nLCR_<tp>_raw_<dt>.xlsx", "name": "LCR_<stp_rep_tp[:4]>_raw_<yyyymmdd>_<results_id>.xlsx", "system": "excel", "kind": "workbook", "role": "output", "description": "Audit copy of exactly the values written into the template, one row per cell.", "columns": [{"name": "sheet"}, {"name": "row"}, {"name": "col"}, {"name": "value_type"}, {"name": "value"}, {"name": "cnt"}], "lane": 5}, {"id": "x_det", "label": "Detail workbook\nLCR_det_<dt>_<id>.xlsx", "name": "LCR_det_<yyyymmdd>_<results_id>.xlsx", "system": "excel", "kind": "workbook", "role": "output", "description": "Optional drill-down for reconciling template figures to GL accounts and attributes.", "columns": [{"name": "rep_dt"}, {"name": "lcr_term"}, {"name": "lcr_table"}, {"name": "lcr_row"}, {"name": "lcr_weight"}, {"name": "lcr_sign"}, {"name": "lcr_amount"}, {"name": "lcr_amount_fc"}, {"name": "source"}, {"name": "ic_flag"}, {"name": "subsidiary"}, {"name": "gl"}, {"name": "gl_nm"}, {"name": "gl_level_1"}, {"name": "gl_level_2"}, {"name": "gl_level_3"}, {"name": "dod"}, {"name": "is_retail"}, {"name": "cust_cat"}, {"name": "prod_cat"}, {"name": "past_due_f"}, {"name": "ar_days_since_sign_for_xlsx"}, {"name": "cf_days_for_xlsx"}, {"name": "unit"}, {"name": "prolong_enabled_f"}, {"name": "prolonged_f"}, {"name": "curr_rep"}, {"name": "curr_orig"}, {"name": "amount"}, {"name": "amount_fc"}, {"name": "count_in_source"}], "lane": 5}], "steps": [{"id": "s1", "title": "Copy manual entries", "kind": "python", "inputs": ["me_main"], "outputs": ["me_tmp"], "code": [{"start": 166, "end": 172, "file": "reports/lcr/lcr.py", "lines": ["self.logger.info('Copy LCR Manual Entries to Snowflake')", "sql=f''' ", "        select *", "        from reports.LCR_MANUAL_ENTRIES", "    '''", "lcr_manual_entries = db_main.execute_sql(sql, return_type='dict')    ", "db_snow.dict_to_table(data = lcr_manual_entries, dst= 'lcr_manual_entries_tmp', mode='drop_create_and_append', temporary=True)        "]}], "columns": "copy", "summary": "Reads all manual LCR entries from the main DB and loads them into a Snowflake temp table. The rows travel through Python, so the column list is only known at runtime.", "n": 1}, {"id": "s2", "title": "Copy column setup", "kind": "python", "inputs": ["cs_main"], "outputs": ["cs_tmp"], "code": [{"start": 158, "end": 164, "file": "reports/lcr/lcr.py", "lines": ["self.logger.info('Copy LCR Columns Setup to Snowflake')", "sql=f''' ", "        select *", "        from reports.LCR_COLS_SETUP", "    '''", "lcr_cols_setup = db_main.execute_sql(sql, return_type='dict')    ", "db_snow.dict_to_table(data = lcr_cols_setup, dst= 'lcr_cols_setup_tmp', mode='drop_create_and_append', temporary=True)     "]}], "columns": "copy", "summary": "Copies the LCR column setup from the main DB into a Snowflake temp table so it can be joined in SQL. It is a straight SELECT * moved through Python.", "n": 2}, {"id": "s3", "title": "Aggregate source", "kind": "sql", "inputs": ["src_view", "src_snapshot"], "input_conditions": {"src_view": "Use snapshot = N", "src_snapshot": "Use snapshot = Y"}, "outputs": ["lcr_data1"], "code": [{"start": 133, "end": 156, "label": "choose source", "file": "reports/lcr/lcr.py", "lines": ["#set report data source", "", "if lp.stp_use_snapshot=='Y':", "    #get all repayments snapshots for selected reporting date", "    sql=f''' ", "            SHOW TABLES LIKE '%V_LB_REPORTING_DATA_GL_BS_INCL_REPAYMENTS_{lp.stp_rep_dt.replace('-','')}%' IN SCHEMA REPORTING.SNAPSHOTS ", "            ->> select \"name\", \"created_on\" FROM $1 order by \"created_on\" desc;", "        '''", "    repayment_snapshots = db_snow.execute_sql(sql, return_type='dict_lower')             ", "    self.logger.info(f'repayment_snapshots: {repayment_snapshots}')", "", "    if len(repayment_snapshots) == 0:", "        msg = f'Repayments snapshot for {lp.stp_rep_dt} not found, please try running the report without Use snapshot checkbox selected.'", "        raise ValueError(msg)", "    else:", "        if len(repayment_snapshots) > 1:", "            self.status_comment = 'Multiple snapshots for selected reporting date found, the latest one was selected.'", "", "        report_data_source=f'REPORTING.SNAPSHOTS.{repayment_snapshots[0][\"name\"]}'", "", "else: ", "    report_data_source='REPORTING.DM.V_LB_REPORTING_DATA_GL_BS_INCL_REPAYMENTS'", "", "self.logger.info(f'Report data source: {report_data_source}')        "]}, {"start": 175, "end": 210, "label": "aggregate", "file": "reports/lcr/lcr.py", "lines": ["sql=f'''", "        create temporary table lcr_data1 as ", "        select", "            \"Source\"                                            as source,", "            --\"IC flag\",", "            \"IC flag\"                                           as ic_flag,", "            \"Subsidiary\"                                        as subsidiary,", "            \"GL account id\"                                     as gl,", "            \"GL account name\"                                   as gl_nm,", "            \"Account Level 1\"                                   AS gl_level_1,", "            \"Account Level 2\"                                   AS gl_level_2,", "            \"Account Level 3\"                                   AS gl_level_3,", "            \"DoD\"                                               AS dod,", "            \"Is Retail\"                                         AS is_retail,", "            \"Category\"                                          AS cust_cat, ", "            \"Product category\"                                  as prod_cat,", "            \"Past due flag\"                                     AS past_due_f,", "            \"Report Date\" - \"Contract signing date\"             as ar_days_since_sign,", "            \"Days to cashflow\"                                  as cf_days,", "            \"Unit\"                                              as unit,", "            coalesce(\"Deposit Prolongation enabled\",0)          as prolong_enabled_f,", "            case ", "               when \"Contract re-negotiation date\" is not null ", "               then 1 ", "             else 0 end                                         as prolonged_f,", "            \"Reporting Currency\"                                as curr_rep,", "            \"Original Currency\"                                 as curr_orig, ", "", "            cast(sum(\"Amount BC\") as number(24,2))              as amount,", "            cast(sum(\"Amount FC\") as number(24,2))              as amount_fc,", "            count(*)                                            as count_in_source", "", "        from {report_data_source}", "        where \"Report Date\" = '{lp.stp_rep_dt}'", "        group by source, ic_flag, subsidiary, gl, gl_nm, gl_level_1, gl_level_2, gl_level_3, dod, is_retail, cust_cat, prod_cat, past_due_f, cf_days, ar_days_since_sign, cf_days, prolong_enabled_f, prolonged_f, curr_rep, curr_orig, unit", "        order by gl desc;"]}], "summary": "Sums base and foreign-currency amounts for the reporting date per GL account and classification attributes. It also derives contract age in days and a prolonged flag.", "n": 3}, {"id": "s4", "title": "Append manual entries", "kind": "sql", "inputs": ["me_tmp"], "outputs": ["lcr_data1"], "code": [{"start": 212, "end": 238, "file": "reports/lcr/lcr.py", "lines": ["insert into lcr_data1", "select ", "    source", "    --,ic_flag as \"IC flag\"", "    ,ic_flag", "    ,subsidiary", "    ,gl", "    ,gl_nm", "    ,gl_level_1", "    ,gl_level_2", "    ,gl_level_3", "    ,dod", "    ,is_retail", "    ,cust_cat", "    ,prod_cat", "    ,past_due_f", "    ,ar_days_since_sign", "    ,cf_days", "    ,unit", "    ,prolong_enabled_f", "    ,prolonged_f", "    ,curr_rep", "    ,curr_orig", "    ,amount", "    ,amount_fc", "    ,count_in_source                    ", "from lcr_manual_entries_tmp;"]}], "summary": "Appends the manual entries to lcr_data1 with a one-to-one column mapping. From here on, manual and source rows are processed identically.", "n": 4}, {"id": "s5", "title": "Classify & sign", "kind": "sql + config", "inputs": ["lcr_data1", "cfg_params"], "outputs": ["lcr_det"], "code": [{"start": 240, "end": 261, "file": "reports/lcr/lcr.py", "lines": ["        drop table if exists lcr_det;", "", "        create table lcr_det as ", "        select", "            '{report_data_source}' as report_data_source,", "            '{lp.stp_rep_dt}' as rep_dt,", "            {params_to_case('LCR_CONS_INDV','lb_id2',multi_column=True)},", "            {params_to_case('LCR_TERM_BUCKETS','lb_id1')} as lcr_term,", "            {params_to_case('LCR_ROWS','lb_id1')} as lcr_table_row,", "            split_part(lcr_table_row, '-', 1) as lcr_table,", "            split_part(lcr_table_row, '-', 2) as lcr_row,", "            {params_to_case('LCR_ROWS','lb_id2')} as lcr_weight,", "            {params_to_case('LCR_ROWS','sign')} as lcr_sign,", "            case when {lp.stp_rep_tp} is not null and lcr_table is not null then 'Y' else null end as included_in_report,", "            case when lcr_sign=-1 then -1*amount else amount end as lcr_amount,", "            case when lcr_sign=-1 then -1*amount_fc else amount_fc end as lcr_amount_fc,", "            case when included_in_report='Y' then ar_days_since_sign else null end as ar_days_since_sign_for_xlsx,", "            case when included_in_report='Y' then cf_days else null end as cf_days_for_xlsx,", "            a.* ", "        from lcr_data1 a", "    '''", "db_snow.execute_sql_multiple(sql, commit=True)"]}, {"file": "common/params.py", "start": 17, "end": 76, "label": "params_to_case()", "lines": ["def params_to_case(param_cd:str, target_column:str, multi_column:bool=False, formatted:bool=False, debug:bool=False):", "", "    if multi_column:", "        MULTI_COLUMN_ALLOWED_VALUES= ['lb_id2', 'lb_id3', 'lb_id4', 'description']", "        if target_column.strip().lower() not in MULTI_COLUMN_ALLOWED_VALUES:", "            raise ValueError(f'With multi_column the value ({target_column.strip().lower()}) of target_column is not in list of allowed values [{\",\".join(MULTI_COLUMN_ALLOWED_VALUES)}].')", "    else:    ", "        TARGET_COLUMN_ALLOWED_VALUES= ['lb_id1', 'lb_id2', 'lb_id3', 'lb_id4', 'description','lb_id1_w_sign', 'sign', 'all', 'lb_id1_list', 'lb_id2_list', 'lb_id3_list', 'lb_id4_list', 'description_list', 'lb_id1_w_sign_list']", "        if target_column.strip().lower() not in TARGET_COLUMN_ALLOWED_VALUES:", "            raise ValueError(f'target_column ({target_column.strip().lower()}) not in list of allowed values [{\",\".join(TARGET_COLUMN_ALLOWED_VALUES)}]. ')", "", "", "", "", "    #target_column allowed values: lb_id1, lb_id2, lb_id3, lb_id4, description, sign, lb_id1_w_sign, all (pipe separated ), ", "    #                              lb_id1_list, lb_id2_list, lb_id3_list, lb_id4_list, description_list, lb_id1_w_sign_list (all values pipe separated)", "    case_full=\"\"", "    if debug:", "        logger.debug(f'Starting {param_cd} params_to_case')", "", "    sql=\"\"\"", "    select r.report_id, r.seb_report_id as param_cd,", "    \t\t\t\tcase when upper(i.description) like '%[DEFAULT]%' then 1 else 0 end as default_item_flag,", "    \t\t\t\ti.lb_id1 || case when l.sign=-1 then '-' else '+' end as lb_id1_w_sign,", "    \t\t\t\ti.lb_id1, i.lb_id2, i.lb_id3, i.lb_id4, i.description, ", "                    i.display_order as item_order,", "    \t\t\t\tcase when l.sign=-1 then -1 else 1 end as sign, ", "    \t\t\t\tl.item_line_id,", "                    coalesce(c.type, 'CHAR') as classif_tp_type, ", "                    v.classif_tp, ", "\t\t    v.logic_op as logic_op_orig,", "                    case ", "                        when v.classif_id like '%*%' and v.logic_op='IN' then 'LIKE'", "                        when v.classif_id like '%*%' and v.logic_op='NOT_IN' then 'NOT_LIKE'", "                     else v.logic_op end as logic_op, ", "                    replace(coalesce(cg.child_classif_id, v.classif_id),'*','%') as classif_id,", "                    rc.display_order as classif_order,", "                    rc.column1, ", "                    rc.column2", "    \t\t\tfrom pr_report r", "    \t\t\tjoin pr_report_item i", "    \t\t\ton r.report_id=i.report_id", "    \t\t\tleft join pr_report_item_line l", "    \t\t\ton i.item_id=l.item_id", "    \t\t\tleft join pr_report_classif_val v", "    \t\t\ton l.item_line_id=v.report_item_id", "    \t\t\tleft join pr_classif_tp c", "    \t\t\ton v.classif_tp=c.classif_tp", "    \t\t\tleft join pr_report_classif rc", "    \t\t\ton r.report_id=rc.report_id", "    \t\t\t and v.classif_tp=rc.classif_tp", "                \tleft join pr_classif_grp cg", "                \ton v.classif_tp=cg.classif_tp ", "                 \t and v.classif_id=cg.parent_classif_id", "    \t\t\twhere upper(r.seb_report_id) = upper(%s)", "                  and (case when upper(i.description) like '%[DEFAULT]%' then 1 else 0 end = 1 ", "                       or (v.report_item_id is not null and coalesce(c.type, 'CHAR') in ('CHAR','AMOUNT','TIME_INTERVAL') and rc.column1 is not null))", "                order by default_item_flag, item_order, lb_id1_w_sign, item_line_id, classif_order, classif_tp, logic_op_orig, logic_op, classif_id", "    \"\"\"", ""]}], "summary": "Assigns every row its LCR table, row, term bucket, weight, sign and CONS/INDV scope using CASE expressions generated from the parameter rules. Amounts are then signed and rows outside the selected scope are excluded from the report.", "n": 5}, {"id": "s6", "title": "Pivot to template cells", "kind": "sql", "inputs": ["lcr_det", "cs_tmp"], "outputs": ["lcr_data"], "code": [{"start": 263, "end": 335, "file": "reports/lcr/lcr.py", "lines": ["#prepare data for template", "", "sql=f''' ", "        select ", "            lcr_table as sheet, ", "            lcr_row as \"row\",  ", "            lcr_col as col, ", "            value_type,", "            value,", "            cnt", "        from (", "        select a.lcr_table, a.lcr_row,  b.lcr_amount_column as lcr_col, 'amount' as value_type,", "        cast(round(sum(lcr_amount),2) as varchar(20)) as value, count(*) as cnt", "        from lcr_det a", "        join lcr_cols_setup_tmp b", "         on a.lcr_table=b.lcr_table", "        where a.included_in_report is not null", "        group by a.lcr_table, a.lcr_row, b.lcr_amount_column", "", "        union all", "", "        select a.lcr_table, a.lcr_row,  b.lcr_weight_column as lcr_col, 'weight' as value_type,", "        max(lcr_weight) as value, count(*) as cnt", "        from lcr_det a", "        join lcr_cols_setup_tmp b", "         on a.lcr_table=b.lcr_table", "        where a.included_in_report is not null", "        group by a.lcr_table, a.lcr_row, b.lcr_weight_column", "", "        union all", "", "        select a.lcr_table||'_SEK' as lcr_table, a.lcr_row,  b.lcr_amount_column as lcr_col, 'amount' as value_type,", "        cast(round(sum(lcr_amount_fc),2) as varchar(20)) as value, count(*) as cnt", "        from lcr_det a", "        join lcr_cols_setup_tmp b", "         on a.lcr_table=b.lcr_table", "        where a.included_in_report is not null and a.curr_rep='SEK'", "        group by a.lcr_table, a.lcr_row, b.lcr_amount_column", "", "        union all", "", "        select a.lcr_table||'_SEK' as lcr_table, a.lcr_row,  b.lcr_weight_column as lcr_col, 'weight' as value_type,", "        max(lcr_weight) as value, count(*) as cnt", "        from lcr_det a", "        join lcr_cols_setup_tmp b", "         on a.lcr_table=b.lcr_table", "        where a.included_in_report is not null and a.curr_rep='SEK'", "        group by a.lcr_table, a.lcr_row, b.lcr_weight_column", "", "        union all", "", "        select a.lcr_table||'_EUR' as lcr_table, a.lcr_row,  b.lcr_amount_column as lcr_col, 'amount' as value_type,", "        cast(round(sum(lcr_amount),2) as varchar(20)) as value, count(*) as cnt", "        from lcr_det a", "        join lcr_cols_setup_tmp b", "         on a.lcr_table=b.lcr_table", "        where a.included_in_report is not null and a.curr_rep='EUR'", "        group by a.lcr_table, a.lcr_row, b.lcr_amount_column", "", "        union all", "", "        select a.lcr_table||'_EUR' as lcr_table, a.lcr_row,  b.lcr_weight_column as lcr_col, 'weight' as value_type,", "        max(lcr_weight) as value, count(*) as cnt", "        from lcr_det a", "        join lcr_cols_setup_tmp b", "         on a.lcr_table=b.lcr_table", "        where a.included_in_report is not null and a.curr_rep='EUR'", "        group by a.lcr_table, a.lcr_row, b.lcr_weight_column", "        ) aa", "        order by lcr_table, cast(lcr_row as int), cast(lcr_col as int)                ", "    '''", "", "lcr_data = db_snow.execute_sql(sql, return_type='dict_lower')"]}], "summary": "Turns included rows into one value per template cell — summed signed amount or max weight — with the column code looked up in the column setup. It produces the base sheets plus _SEK and _EUR currency variants.", "n": 6}, {"id": "s7", "title": "Detail drill-down", "kind": "sql", "optional": "Only when \"Detail xlsx\" = Y", "inputs": ["lcr_det"], "outputs": ["lcr_xlsx_det"], "code": [{"start": 339, "end": 402, "file": "reports/lcr/lcr.py", "lines": ["if lp.stp_xlsx_det=='Y':", "    sql=f''' ", "            select ", "                rep_dt", "                ,lcr_term", "                ,lcr_table", "                ,lcr_row", "                ,lcr_weight", "                ,lcr_sign", "                ,sum(lcr_amount) as lcr_amount", "                ,sum(lcr_amount_fc) as lcr_amount_fc                 ", "                ,source", "                ,ic_flag", "                ,subsidiary", "                ,gl", "                ,gl_nm", "                ,gl_level_1", "                ,gl_level_2", "                ,gl_level_3", "                ,dod", "                ,is_retail", "                ,cust_cat", "                ,prod_cat", "                ,past_due_f", "                ,ar_days_since_sign_for_xlsx", "                ,cf_days_for_xlsx", "                ,unit", "                ,prolong_enabled_f", "                ,prolonged_f", "                ,curr_rep", "                ,curr_orig", "                ,sum(amount) as amount", "                ,sum(amount_fc) as amount_fc", "                ,sum(count_in_source) as count_in_source", "            from lcr_det a", "            group by rep_dt", "                ,lcr_term", "                ,lcr_table", "                ,lcr_row", "                ,lcr_weight", "                ,lcr_sign                ", "                ,source", "                ,ic_flag", "                ,subsidiary", "                ,gl", "                ,gl_nm", "                ,gl_level_1", "                ,gl_level_2", "                ,gl_level_3", "                ,dod", "                ,is_retail", "                ,cust_cat", "                ,prod_cat", "                ,past_due_f", "                ,ar_days_since_sign_for_xlsx", "                ,cf_days_for_xlsx", "                ,unit", "                ,prolong_enabled_f", "                ,prolonged_f", "                ,curr_rep", "                ,curr_orig", "        '''", "", "    lcr_xlsx_det = db_snow.execute_sql(sql, return_type='dict_lower')    "]}], "summary": "Re-aggregates lcr_det at classification level with summed amounts and source counts. It is the bridge for reconciling template totals back to GL accounts.", "n": 7}, {"id": "s8", "title": "Export detail workbook", "kind": "excel", "optional": "Only when \"Detail xlsx\" = Y", "inputs": ["lcr_xlsx_det"], "outputs": ["x_det"], "code": [{"start": 404, "end": 408, "file": "reports/lcr/lcr.py", "lines": ["with timer('Export to excel'):", "    self.logger.debug('Exporting report to excel')", "    xlsx_export_csv_dump(lcr_xlsx_det, file_out=f\"LCR_det_{lp.stp_rep_dt.replace('-','')}_{lr.results_id}.xlsx\", sheet_name='LCR_details', logger=self.logger)", "", "self.package_files.append(f\"LCR_det_{lp.stp_rep_dt.replace('-','')}_{lr.results_id}.xlsx\")"]}], "columns": "copy", "summary": "Dumps the drill-down result set one-to-one into a new workbook. Column headers equal the SQL aliases.", "n": 8}, {"id": "s9", "title": "Export raw cells", "kind": "excel", "inputs": ["lcr_data"], "outputs": ["x_raw"], "code": [{"start": 410, "end": 414, "file": "reports/lcr/lcr.py", "lines": ["with timer('Export to excel'):", "    self.logger.debug('Exporting report to excel')", "    xlsx_export_csv_dump(lcr_data, file_out=f\"LCR_{lp.stp_rep_tp[:4]}_raw_{lp.stp_rep_dt.replace('-','')}_{lr.results_id}.xlsx\", sheet_name='LCR_raw', logger=self.logger)", "", "self.package_files.append(f\"LCR_{lp.stp_rep_tp[:4]}_raw_{lp.stp_rep_dt.replace('-','')}_{lr.results_id}.xlsx\")"]}], "columns": "copy", "summary": "Dumps the cell-level values one-to-one into the raw workbook. It is the audit trail of exactly what goes into the template.", "n": 9}, {"id": "s10", "title": "Fill LCR template", "kind": "excel", "inputs": ["lcr_data", "tpl"], "outputs": ["x_tpl"], "code": [{"start": 416, "end": 457, "file": "reports/lcr/lcr.py", "lines": ["#get Consolidated/Individual template", "sql=f''' ", "        select *", "        from pr_report_item", "        where report_id = (select report_id from pr_report where seb_report_id = 'LCR_CONS_INDV')", "        and lb_id1 = '{lp.stp_rep_tp}'", "      '''", "lcr_template_arr = db_main.execute_sql(sql, return_type='dict')  ", "lcr_template = self.get_template(lcr_template_arr[0][\"lb_id3\"])      ", "", "#lcr_template = self.get_template('LCR_template.xlsx')", "wb=openpyxl.load_workbook(lcr_template)", "", "# Part 1.A - Setup sheet map", "self.logger.info('Reading setup_sheet_map from LCR_template Setup sheet')", "setup_sheet_map = read_setup_sheet_map(wb, sheet_name='Setup', logger=self.logger)", "", "# Part 1.B - workbook sheets joined with setup_sheet_map", "self.logger.info(f'LCR template sheets: {wb.sheetnames}')", "sheet_setup = build_sheet_setup(wb.sheetnames, setup_sheet_map, logger=self.logger)", "", "# Part 2 - fill in template sheet by sheet", "with timer('Populate LCR template'):", "    for sheet_name, setup in sheet_setup.items():", "        sheet_data = [d for d in lcr_data if _norm(d.get('sheet')).upper() == sheet_name]", "        if not sheet_data:", "            self.logger.info(f'{sheet_name}: no data')", "            continue", "", "        row_codes_in_col = setup['row_index'].upper()", "        try:", "            column_codes_in_row = int(float(setup['col_index']))", "        except ValueError:", "            raise ReportError(f'{sheet_name}: col_index \"{setup[\"col_index\"]}\" is not a row number')", "", "        wb = xlsx_populate_by_col_row(sheet_data, wb_in=wb, ", "                                 row_codes_in_col=row_codes_in_col,", "                                 column_codes_in_row=column_codes_in_row,", "                                 sheet_name=sheet_name, logger=self.logger)", "", "wb.save(f\"LCR_{lp.stp_rep_tp[:4]}_{lp.stp_rep_dt.replace('-','')}_{lr.results_id}.xlsx\")", "self.package_files.append(f\"LCR_{lp.stp_rep_tp[:4]}_{lp.stp_rep_dt.replace('-','')}_{lr.results_id}.xlsx\")"]}, {"start": 35, "end": 98, "label": "Setup sheet helpers", "file": "reports/lcr/lcr.py", "lines": ["def read_setup_sheet_map(wb, sheet_name='Setup', logger=logger):", "    '''Part 1.A - read xbrl_table -> xlsx_sheet/row_index/col_index map from Setup sheet'''", "    ws = wb[sheet_name]", "", "    SETUP_COLUMNS = ['xbrl_table', 'xlsx_sheet', 'row_index', 'col_index']", "", "    # A.1 - header row: first row with column A like \"xbrl_table\"", "    header_row = None", "    for (cell,) in ws.iter_rows(min_col=1, max_col=1):", "        if _like(cell.value, 'xbrl_table'):", "            header_row = cell.row", "            break", "    if header_row is None:", "        raise ReportError(f'Header row (column A like \"xbrl_table\") not found in sheet {sheet_name}')", "", "    # A.2 - locate setup columns in header row", "    col_pos = {}", "    for cell in ws[header_row]:", "        for name in SETUP_COLUMNS:", "            if name not in col_pos and _like(cell.value, name):", "                col_pos[name] = cell.column", "    missing = [name for name in SETUP_COLUMNS if name not in col_pos]", "    if missing:", "        raise ReportError(f'Columns {missing} not found in header row {header_row} of sheet {sheet_name}')", "    logger.info(f'{sheet_name}: header row {header_row}, columns {col_pos}')", "", "    # A.3 - read rows below header till first empty xbrl_table", "    setup_rows = []", "    for row in ws.iter_rows(min_row=header_row + 1, values_only=True):", "        rec = {name: _norm(row[pos - 1]) if pos <= len(row) else '' for name, pos in col_pos.items()}", "        if rec['xbrl_table'] == '':", "            break", "        setup_rows.append(rec)", "    logger.info(f'{sheet_name}: {len(setup_rows)} setup rows read')", "    for rec in setup_rows:", "        logger.info(f'  {rec}')", "", "    # A.4 - drop rows without xlsx_sheet", "    setup_sheet_map = [rec for rec in setup_rows if rec['xlsx_sheet'] != '']", "    logger.info(f'{sheet_name}: {len(setup_sheet_map)} setup rows with xlsx_sheet')", "    for rec in setup_sheet_map:", "        logger.info(f'  {rec}')", "", "    return setup_sheet_map", "", "", "def build_sheet_setup(sheet_names, setup_sheet_map, logger=logger):", "    '''Part 1.B - join workbook sheet names with setup_sheet_map on sheet name like xlsx_sheet'''", "    sheet_setup = {}", "    for sheet_name in sheet_names:", "        matches = [rec for rec in setup_sheet_map if _sheet_match(sheet_name, rec['xlsx_sheet'])]", "        if not matches:", "            continue", "        # exact sheet name wins over a \"*\" mask", "        exact = [rec for rec in matches if '*' not in rec['xlsx_sheet']]", "        chosen = (exact or matches)[0]", "        if len(matches) > 1:", "            logger.warning(f'Sheet {sheet_name} matches {len(matches)} setup rows, using {chosen}')", "        sheet_setup[sheet_name] = dict(chosen)", "", "    logger.info(f'sheet_setup: {len(sheet_setup)} sheets mapped')", "    for sheet_name, rec in sheet_setup.items():", "        logger.info(f'  {sheet_name}: {rec}')", "    return sheet_setup"]}], "summary": "Loads the template chosen for the report type, reads its Setup sheet to learn where row and column codes sit, and writes each value where its row code meets its column code. Sheets without data stay untouched.", "n": 10}], "column_lineage": [{"step": "s3", "target": {"dataset": "lcr_data1", "column": "source"}, "sources": [{"dataset": "src_view", "column": "Source"}], "transform": "rename", "expression": "\"Source\" AS source", "method": "parsed", "explanation": "Copied from src_view.Source under a new name.", "explanation_source": "generated", "id": "e1"}, {"step": "s3", "target": {"dataset": "lcr_data1", "column": "ic_flag"}, "sources": [{"dataset": "src_view", "column": "IC flag"}], "transform": "rename", "expression": "\"IC flag\" AS ic_flag", "method": "parsed", "explanation": "Copied from src_view.IC flag under a new name.", "explanation_source": "generated", "id": "e2"}, {"step": "s3", "target": {"dataset": "lcr_data1", "column": "subsidiary"}, "sources": [{"dataset": "src_view", "column": "Subsidiary"}], "transform": "rename", "expression": "\"Subsidiary\" AS subsidiary", "method": "parsed", "explanation": "Copied from src_view.Subsidiary under a new name.", "explanation_source": "generated", "id": "e3"}, {"step": "s3", "target": {"dataset": "lcr_data1", "column": "gl"}, "sources": [{"dataset": "src_view", "column": "GL account id"}], "transform": "rename", "expression": "\"GL account id\" AS gl", "method": "parsed", "explanation": "Copied from src_view.GL account id under a new name.", "explanation_source": "generated", "id": "e4"}, {"step": "s3", "target": {"dataset": "lcr_data1", "column": "gl_nm"}, "sources": [{"dataset": "src_view", "column": "GL account name"}], "transform": "rename", "expression": "\"GL account name\" AS gl_nm", "method": "parsed", "explanation": "Copied from src_view.GL account name under a new name.", "explanation_source": "generated", "id": "e5"}, {"step": "s3", "target": {"dataset": "lcr_data1", "column": "gl_level_1"}, "sources": [{"dataset": "src_view", "column": "Account Level 1"}], "transform": "rename", "expression": "\"Account Level 1\" AS gl_level_1", "method": "parsed", "explanation": "Copied from src_view.Account Level 1 under a new name.", "explanation_source": "generated", "id": "e6"}, {"step": "s3", "target": {"dataset": "lcr_data1", "column": "gl_level_2"}, "sources": [{"dataset": "src_view", "column": "Account Level 2"}], "transform": "rename", "expression": "\"Account Level 2\" AS gl_level_2", "method": "parsed", "explanation": "Copied from src_view.Account Level 2 under a new name.", "explanation_source": "generated", "id": "e7"}, {"step": "s3", "target": {"dataset": "lcr_data1", "column": "gl_level_3"}, "sources": [{"dataset": "src_view", "column": "Account Level 3"}], "transform": "rename", "expression": "\"Account Level 3\" AS gl_level_3", "method": "parsed", "explanation": "Copied from src_view.Account Level 3 under a new name.", "explanation_source": "generated", "id": "e8"}, {"step": "s3", "target": {"dataset": "lcr_data1", "column": "dod"}, "sources": [{"dataset": "src_view", "column": "DoD"}], "transform": "rename", "expression": "\"DoD\" AS dod", "method": "parsed", "explanation": "Copied from src_view.DoD under a new name.", "explanation_source": "generated", "id": "e9"}, {"step": "s3", "target": {"dataset": "lcr_data1", "column": "is_retail"}, "sources": [{"dataset": "src_view", "column": "Is Retail"}], "transform": "rename", "expression": "\"Is Retail\" AS is_retail", "method": "parsed", "explanation": "Copied from src_view.Is Retail under a new name.", "explanation_source": "generated", "id": "e10"}, {"step": "s3", "target": {"dataset": "lcr_data1", "column": "cust_cat"}, "sources": [{"dataset": "src_view", "column": "Category"}], "transform": "rename", "expression": "\"Category\" AS cust_cat", "method": "parsed", "explanation": "Copied from src_view.Category under a new name.", "explanation_source": "generated", "id": "e11"}, {"step": "s3", "target": {"dataset": "lcr_data1", "column": "prod_cat"}, "sources": [{"dataset": "src_view", "column": "Product category"}], "transform": "rename", "expression": "\"Product category\" AS prod_cat", "method": "parsed", "explanation": "Copied from src_view.Product category under a new name.", "explanation_source": "generated", "id": "e12"}, {"step": "s3", "target": {"dataset": "lcr_data1", "column": "past_due_f"}, "sources": [{"dataset": "src_view", "column": "Past due flag"}], "transform": "rename", "expression": "\"Past due flag\" AS past_due_f", "method": "parsed", "explanation": "Copied from src_view.Past due flag under a new name.", "explanation_source": "generated", "id": "e13"}, {"step": "s3", "target": {"dataset": "lcr_data1", "column": "ar_days_since_sign"}, "sources": [{"dataset": "src_view", "column": "Report Date"}, {"dataset": "src_view", "column": "Contract signing date"}], "transform": "calculation", "expression": "\"Report Date\" - \"Contract signing date\" AS ar_days_since_sign", "method": "parsed", "explanation": "Days between the reporting date and the contract signing date, computed per source row. It is part of the GROUP BY, so contracts of different age stay on separate rows.", "explanation_source": "authored", "id": "e14"}, {"step": "s3", "target": {"dataset": "lcr_data1", "column": "cf_days"}, "sources": [{"dataset": "src_view", "column": "Days to cashflow"}], "transform": "rename", "expression": "\"Days to cashflow\" AS cf_days", "method": "parsed", "explanation": "Copied from src_view.Days to cashflow under a new name.", "explanation_source": "generated", "id": "e15"}, {"step": "s3", "target": {"dataset": "lcr_data1", "column": "unit"}, "sources": [{"dataset": "src_view", "column": "Unit"}], "transform": "rename", "expression": "\"Unit\" AS unit", "method": "parsed", "explanation": "Copied from src_view.Unit under a new name.", "explanation_source": "generated", "id": "e16"}, {"step": "s3", "target": {"dataset": "lcr_data1", "column": "prolong_enabled_f"}, "sources": [{"dataset": "src_view", "column": "Deposit Prolongation enabled"}], "transform": "conditional", "expression": "COALESCE(\"Deposit Prolongation enabled\", 0) AS prolong_enabled_f", "method": "parsed", "explanation": "Deposit-prolongation flag with NULL treated as 0.", "explanation_source": "authored", "id": "e17"}, {"step": "s3", "target": {"dataset": "lcr_data1", "column": "prolonged_f"}, "sources": [{"dataset": "src_view", "column": "Contract re-negotiation date"}], "transform": "conditional", "expression": "CASE WHEN NOT \"Contract re-negotiation date\" IS NULL THEN 1 ELSE 0 END AS prolonged_f", "method": "parsed", "explanation": "1 when the contract has a re-negotiation date, otherwise 0. Available to the classification rules.", "explanation_source": "authored", "id": "e18"}, {"step": "s3", "target": {"dataset": "lcr_data1", "column": "curr_rep"}, "sources": [{"dataset": "src_view", "column": "Reporting Currency"}], "transform": "rename", "expression": "\"Reporting Currency\" AS curr_rep", "method": "parsed", "explanation": "Copied from src_view.Reporting Currency under a new name.", "explanation_source": "generated", "id": "e19"}, {"step": "s3", "target": {"dataset": "lcr_data1", "column": "curr_orig"}, "sources": [{"dataset": "src_view", "column": "Original Currency"}], "transform": "rename", "expression": "\"Original Currency\" AS curr_orig", "method": "parsed", "explanation": "Copied from src_view.Original Currency under a new name.", "explanation_source": "generated", "id": "e20"}, {"step": "s3", "target": {"dataset": "lcr_data1", "column": "amount"}, "sources": [{"dataset": "src_view", "column": "Amount BC"}], "transform": "aggregation", "expression": "CAST(SUM(\"Amount BC\") AS DECIMAL(24, 2)) AS amount", "method": "parsed", "explanation": "Sum of the source \"Amount BC\" (base currency) per unique combination of classification attributes, stored as NUMBER(24,2). One lcr_data1 row stands for many contracts — see count_in_source.", "explanation_source": "authored", "id": "e21"}, {"step": "s3", "target": {"dataset": "lcr_data1", "column": "amount_fc"}, "sources": [{"dataset": "src_view", "column": "Amount FC"}], "transform": "aggregation", "expression": "CAST(SUM(\"Amount FC\") AS DECIMAL(24, 2)) AS amount_fc", "method": "parsed", "explanation": "Sum of the source \"Amount FC\" (original currency) per classification combination, stored as NUMBER(24,2).", "explanation_source": "authored", "id": "e22"}, {"step": "s3", "target": {"dataset": "lcr_data1", "column": "count_in_source"}, "sources": [], "transform": "aggregation", "expression": "COUNT(*) AS count_in_source", "method": "parsed", "explanation": "Number of source rows aggregated into this row. For manual entries it is whatever the entry states.", "explanation_source": "authored", "id": "e23"}, {"step": "s4", "target": {"dataset": "lcr_data1", "column": "source"}, "sources": [{"dataset": "me_tmp", "column": "source"}], "transform": "identity", "expression": "source", "method": "parsed", "explanation": "Passed through unchanged from me_tmp.source.", "explanation_source": "generated", "id": "e24"}, {"step": "s4", "target": {"dataset": "lcr_data1", "column": "ic_flag"}, "sources": [{"dataset": "me_tmp", "column": "ic_flag"}], "transform": "identity", "expression": "ic_flag", "method": "parsed", "explanation": "Passed through unchanged from me_tmp.ic_flag.", "explanation_source": "generated", "id": "e25"}, {"step": "s4", "target": {"dataset": "lcr_data1", "column": "subsidiary"}, "sources": [{"dataset": "me_tmp", "column": "subsidiary"}], "transform": "identity", "expression": "subsidiary", "method": "parsed", "explanation": "Passed through unchanged from me_tmp.subsidiary.", "explanation_source": "generated", "id": "e26"}, {"step": "s4", "target": {"dataset": "lcr_data1", "column": "gl"}, "sources": [{"dataset": "me_tmp", "column": "gl"}], "transform": "identity", "expression": "gl", "method": "parsed", "explanation": "Passed through unchanged from me_tmp.gl.", "explanation_source": "generated", "id": "e27"}, {"step": "s4", "target": {"dataset": "lcr_data1", "column": "gl_nm"}, "sources": [{"dataset": "me_tmp", "column": "gl_nm"}], "transform": "identity", "expression": "gl_nm", "method": "parsed", "explanation": "Passed through unchanged from me_tmp.gl_nm.", "explanation_source": "generated", "id": "e28"}, {"step": "s4", "target": {"dataset": "lcr_data1", "column": "gl_level_1"}, "sources": [{"dataset": "me_tmp", "column": "gl_level_1"}], "transform": "identity", "expression": "gl_level_1", "method": "parsed", "explanation": "Passed through unchanged from me_tmp.gl_level_1.", "explanation_source": "generated", "id": "e29"}, {"step": "s4", "target": {"dataset": "lcr_data1", "column": "gl_level_2"}, "sources": [{"dataset": "me_tmp", "column": "gl_level_2"}], "transform": "identity", "expression": "gl_level_2", "method": "parsed", "explanation": "Passed through unchanged from me_tmp.gl_level_2.", "explanation_source": "generated", "id": "e30"}, {"step": "s4", "target": {"dataset": "lcr_data1", "column": "gl_level_3"}, "sources": [{"dataset": "me_tmp", "column": "gl_level_3"}], "transform": "identity", "expression": "gl_level_3", "method": "parsed", "explanation": "Passed through unchanged from me_tmp.gl_level_3.", "explanation_source": "generated", "id": "e31"}, {"step": "s4", "target": {"dataset": "lcr_data1", "column": "dod"}, "sources": [{"dataset": "me_tmp", "column": "dod"}], "transform": "identity", "expression": "dod", "method": "parsed", "explanation": "Passed through unchanged from me_tmp.dod.", "explanation_source": "generated", "id": "e32"}, {"step": "s4", "target": {"dataset": "lcr_data1", "column": "is_retail"}, "sources": [{"dataset": "me_tmp", "column": "is_retail"}], "transform": "identity", "expression": "is_retail", "method": "parsed", "explanation": "Passed through unchanged from me_tmp.is_retail.", "explanation_source": "generated", "id": "e33"}, {"step": "s4", "target": {"dataset": "lcr_data1", "column": "cust_cat"}, "sources": [{"dataset": "me_tmp", "column": "cust_cat"}], "transform": "identity", "expression": "cust_cat", "method": "parsed", "explanation": "Passed through unchanged from me_tmp.cust_cat.", "explanation_source": "generated", "id": "e34"}, {"step": "s4", "target": {"dataset": "lcr_data1", "column": "prod_cat"}, "sources": [{"dataset": "me_tmp", "column": "prod_cat"}], "transform": "identity", "expression": "prod_cat", "method": "parsed", "explanation": "Passed through unchanged from me_tmp.prod_cat.", "explanation_source": "generated", "id": "e35"}, {"step": "s4", "target": {"dataset": "lcr_data1", "column": "past_due_f"}, "sources": [{"dataset": "me_tmp", "column": "past_due_f"}], "transform": "identity", "expression": "past_due_f", "method": "parsed", "explanation": "Passed through unchanged from me_tmp.past_due_f.", "explanation_source": "generated", "id": "e36"}, {"step": "s4", "target": {"dataset": "lcr_data1", "column": "ar_days_since_sign"}, "sources": [{"dataset": "me_tmp", "column": "ar_days_since_sign"}], "transform": "identity", "expression": "ar_days_since_sign", "method": "parsed", "explanation": "Days between the reporting date and the contract signing date, computed per source row. It is part of the GROUP BY, so contracts of different age stay on separate rows.", "explanation_source": "authored", "id": "e37"}, {"step": "s4", "target": {"dataset": "lcr_data1", "column": "cf_days"}, "sources": [{"dataset": "me_tmp", "column": "cf_days"}], "transform": "identity", "expression": "cf_days", "method": "parsed", "explanation": "Passed through unchanged from me_tmp.cf_days.", "explanation_source": "generated", "id": "e38"}, {"step": "s4", "target": {"dataset": "lcr_data1", "column": "unit"}, "sources": [{"dataset": "me_tmp", "column": "unit"}], "transform": "identity", "expression": "unit", "method": "parsed", "explanation": "Passed through unchanged from me_tmp.unit.", "explanation_source": "generated", "id": "e39"}, {"step": "s4", "target": {"dataset": "lcr_data1", "column": "prolong_enabled_f"}, "sources": [{"dataset": "me_tmp", "column": "prolong_enabled_f"}], "transform": "identity", "expression": "prolong_enabled_f", "method": "parsed", "explanation": "Deposit-prolongation flag with NULL treated as 0.", "explanation_source": "authored", "id": "e40"}, {"step": "s4", "target": {"dataset": "lcr_data1", "column": "prolonged_f"}, "sources": [{"dataset": "me_tmp", "column": "prolonged_f"}], "transform": "identity", "expression": "prolonged_f", "method": "parsed", "explanation": "1 when the contract has a re-negotiation date, otherwise 0. Available to the classification rules.", "explanation_source": "authored", "id": "e41"}, {"step": "s4", "target": {"dataset": "lcr_data1", "column": "curr_rep"}, "sources": [{"dataset": "me_tmp", "column": "curr_rep"}], "transform": "identity", "expression": "curr_rep", "method": "parsed", "explanation": "Passed through unchanged from me_tmp.curr_rep.", "explanation_source": "generated", "id": "e42"}, {"step": "s4", "target": {"dataset": "lcr_data1", "column": "curr_orig"}, "sources": [{"dataset": "me_tmp", "column": "curr_orig"}], "transform": "identity", "expression": "curr_orig", "method": "parsed", "explanation": "Passed through unchanged from me_tmp.curr_orig.", "explanation_source": "generated", "id": "e43"}, {"step": "s4", "target": {"dataset": "lcr_data1", "column": "amount"}, "sources": [{"dataset": "me_tmp", "column": "amount"}], "transform": "identity", "expression": "amount", "method": "parsed", "explanation": "Sum of the source \"Amount BC\" (base currency) per unique combination of classification attributes, stored as NUMBER(24,2). One lcr_data1 row stands for many contracts — see count_in_source.", "explanation_source": "authored", "id": "e44"}, {"step": "s4", "target": {"dataset": "lcr_data1", "column": "amount_fc"}, "sources": [{"dataset": "me_tmp", "column": "amount_fc"}], "transform": "identity", "expression": "amount_fc", "method": "parsed", "explanation": "Sum of the source \"Amount FC\" (original currency) per classification combination, stored as NUMBER(24,2).", "explanation_source": "authored", "id": "e45"}, {"step": "s4", "target": {"dataset": "lcr_data1", "column": "count_in_source"}, "sources": [{"dataset": "me_tmp", "column": "count_in_source"}], "transform": "identity", "expression": "count_in_source", "method": "parsed", "explanation": "Number of source rows aggregated into this row. For manual entries it is whatever the entry states.", "explanation_source": "authored", "id": "e46"}, {"step": "s5", "target": {"dataset": "lcr_det", "column": "report_data_source"}, "sources": [], "transform": "constant", "expression": "'REPORTING.DM.V_LB_REPORTING_DATA_GL_BS_INCL_REPAYMENTS' AS report_data_source", "method": "parsed", "explanation": "Name of the source table used in this run (view or snapshot), kept for audit.", "explanation_source": "authored", "id": "e47"}, {"step": "s5", "target": {"dataset": "lcr_det", "column": "rep_dt"}, "sources": [], "transform": "constant", "expression": "'<stp_rep_dt>' AS rep_dt", "method": "parsed", "explanation": "Reporting date launch parameter, kept for audit.", "explanation_source": "authored", "id": "e48"}, {"step": "s5", "target": {"dataset": "lcr_det", "column": "cons"}, "sources": [{"dataset": "cfg_params", "column": "LCR_CONS_INDV rules"}], "transform": "config", "expression": "{params_to_case('LCR_CONS_INDV', 'lb_id2', multi_column=True)} AS CONS", "method": "parsed", "explanation": "Consolidated-scope flag from the LCR_CONS_INDV rules (one column per rule).", "explanation_source": "authored", "id": "e49"}, {"step": "s5", "target": {"dataset": "lcr_det", "column": "indv"}, "sources": [{"dataset": "cfg_params", "column": "LCR_CONS_INDV rules"}], "transform": "config", "expression": "{params_to_case('LCR_CONS_INDV', 'lb_id2', multi_column=True)} AS INDV", "method": "parsed", "explanation": "Individual-scope flag from the LCR_CONS_INDV rules (one column per rule).", "explanation_source": "authored", "id": "e50"}, {"step": "s5", "target": {"dataset": "lcr_det", "column": "lcr_term"}, "sources": [{"dataset": "cfg_params", "column": "LCR_TERM_BUCKETS rules"}], "transform": "config", "expression": "{params_to_case('LCR_TERM_BUCKETS', 'lb_id1')} AS lcr_term", "method": "parsed", "explanation": "Term bucket assigned by the LCR_TERM_BUCKETS rules. Which input columns the rules test is defined in pr_report_classif, not in code.", "explanation_source": "authored", "id": "e51"}, {"step": "s5", "target": {"dataset": "lcr_det", "column": "lcr_table_row"}, "sources": [{"dataset": "cfg_params", "column": "LCR_ROWS → table-row"}], "transform": "config", "expression": "{params_to_case('LCR_ROWS', 'lb_id1')} AS lcr_table_row", "method": "parsed", "explanation": "'<table>-<row>' code assigned by the LCR_ROWS rules. It decides where the amount lands in the template.", "explanation_source": "authored", "id": "e52"}, {"step": "s5", "target": {"dataset": "lcr_det", "column": "lcr_table"}, "sources": [{"dataset": "cfg_params", "column": "LCR_ROWS → table-row"}], "transform": "config", "expression": "SPLIT_PART(lcr_table_row, '-', 1) AS lcr_table", "method": "parsed", "explanation": "First part of lcr_table_row — the template table (sheet) code.", "explanation_source": "authored", "id": "e53"}, {"step": "s5", "target": {"dataset": "lcr_det", "column": "lcr_row"}, "sources": [{"dataset": "cfg_params", "column": "LCR_ROWS → table-row"}], "transform": "config", "expression": "SPLIT_PART(lcr_table_row, '-', 2) AS lcr_row", "method": "parsed", "explanation": "Second part of lcr_table_row — the row code inside the template sheet.", "explanation_source": "authored", "id": "e54"}, {"step": "s5", "target": {"dataset": "lcr_det", "column": "lcr_weight"}, "sources": [{"dataset": "cfg_params", "column": "LCR_ROWS → weight"}], "transform": "config", "expression": "{params_to_case('LCR_ROWS', 'lb_id2')} AS lcr_weight", "method": "parsed", "explanation": "Weight (lb_id2) of the matched LCR_ROWS rule. Written to the weight column of the template.", "explanation_source": "authored", "id": "e55"}, {"step": "s5", "target": {"dataset": "lcr_det", "column": "lcr_sign"}, "sources": [{"dataset": "cfg_params", "column": "LCR_ROWS → sign"}], "transform": "config", "expression": "{params_to_case('LCR_ROWS', 'sign')} AS lcr_sign", "method": "parsed", "explanation": "+1 or -1 from the matched LCR_ROWS rule line. Flips amounts that reduce a template line.", "explanation_source": "authored", "id": "e56"}, {"step": "s5", "target": {"dataset": "lcr_det", "column": "included_in_report"}, "sources": [{"dataset": "cfg_params", "column": "LCR_CONS_INDV rules"}, {"dataset": "cfg_params", "column": "LCR_ROWS → table-row"}], "transform": "config", "expression": "CASE WHEN NOT CONS IS NULL AND NOT lcr_table IS NULL THEN 'Y' ELSE NULL END AS included_in_report", "method": "parsed", "explanation": "'Y' when the scope column picked by the launch parameter (CONS or INDV) is set and the row has an LCR table. Only these rows reach the template.", "explanation_source": "authored", "id": "e57"}, {"step": "s5", "target": {"dataset": "lcr_det", "column": "lcr_amount"}, "sources": [{"dataset": "lcr_data1", "column": "amount"}, {"dataset": "cfg_params", "column": "LCR_ROWS → sign"}], "transform": "config", "expression": "CASE WHEN lcr_sign = -1 THEN -1 * amount ELSE amount END AS lcr_amount", "method": "parsed", "explanation": "Signed base-currency amount (amount × lcr_sign). This is the figure summed into the template's amount cells.", "explanation_source": "authored", "id": "e58"}, {"step": "s5", "target": {"dataset": "lcr_det", "column": "lcr_amount_fc"}, "sources": [{"dataset": "lcr_data1", "column": "amount_fc"}, {"dataset": "cfg_params", "column": "LCR_ROWS → sign"}], "transform": "config", "expression": "CASE WHEN lcr_sign = -1 THEN -1 * amount_fc ELSE amount_fc END AS lcr_amount_fc", "method": "parsed", "explanation": "Signed original-currency amount (amount_fc × lcr_sign). Used for the _SEK sheets.", "explanation_source": "authored", "id": "e59"}, {"step": "s5", "target": {"dataset": "lcr_det", "column": "ar_days_since_sign_for_xlsx"}, "sources": [{"dataset": "cfg_params", "column": "LCR_CONS_INDV rules"}, {"dataset": "lcr_data1", "column": "ar_days_since_sign"}, {"dataset": "cfg_params", "column": "LCR_ROWS → table-row"}], "transform": "config", "expression": "CASE WHEN included_in_report = 'Y' THEN ar_days_since_sign ELSE NULL END AS ar_days_since_sign_for_xlsx", "method": "parsed", "explanation": "Contract age kept only for rows included in the report, so the detail workbook shows it only where it matters.", "explanation_source": "authored", "id": "e60"}, {"step": "s5", "target": {"dataset": "lcr_det", "column": "cf_days_for_xlsx"}, "sources": [{"dataset": "cfg_params", "column": "LCR_CONS_INDV rules"}, {"dataset": "lcr_data1", "column": "cf_days"}, {"dataset": "cfg_params", "column": "LCR_ROWS → table-row"}], "transform": "config", "expression": "CASE WHEN included_in_report = 'Y' THEN cf_days ELSE NULL END AS cf_days_for_xlsx", "method": "parsed", "explanation": "Days to cash flow kept only for rows included in the report.", "explanation_source": "authored", "id": "e61"}, {"step": "s5", "target": {"dataset": "lcr_det", "column": "source"}, "sources": [{"dataset": "lcr_data1", "column": "source"}], "transform": "identity", "expression": "A.SOURCE AS SOURCE", "method": "parsed", "explanation": "Passed through unchanged from lcr_data1.source.", "explanation_source": "generated", "id": "e62"}, {"step": "s5", "target": {"dataset": "lcr_det", "column": "ic_flag"}, "sources": [{"dataset": "lcr_data1", "column": "ic_flag"}], "transform": "identity", "expression": "A.IC_FLAG AS IC_FLAG", "method": "parsed", "explanation": "Passed through unchanged from lcr_data1.ic_flag.", "explanation_source": "generated", "id": "e63"}, {"step": "s5", "target": {"dataset": "lcr_det", "column": "subsidiary"}, "sources": [{"dataset": "lcr_data1", "column": "subsidiary"}], "transform": "identity", "expression": "A.SUBSIDIARY AS SUBSIDIARY", "method": "parsed", "explanation": "Passed through unchanged from lcr_data1.subsidiary.", "explanation_source": "generated", "id": "e64"}, {"step": "s5", "target": {"dataset": "lcr_det", "column": "gl"}, "sources": [{"dataset": "lcr_data1", "column": "gl"}], "transform": "identity", "expression": "A.GL AS GL", "method": "parsed", "explanation": "Passed through unchanged from lcr_data1.gl.", "explanation_source": "generated", "id": "e65"}, {"step": "s5", "target": {"dataset": "lcr_det", "column": "gl_nm"}, "sources": [{"dataset": "lcr_data1", "column": "gl_nm"}], "transform": "identity", "expression": "A.GL_NM AS GL_NM", "method": "parsed", "explanation": "Passed through unchanged from lcr_data1.gl_nm.", "explanation_source": "generated", "id": "e66"}, {"step": "s5", "target": {"dataset": "lcr_det", "column": "gl_level_1"}, "sources": [{"dataset": "lcr_data1", "column": "gl_level_1"}], "transform": "identity", "expression": "A.GL_LEVEL_1 AS GL_LEVEL_1", "method": "parsed", "explanation": "Passed through unchanged from lcr_data1.gl_level_1.", "explanation_source": "generated", "id": "e67"}, {"step": "s5", "target": {"dataset": "lcr_det", "column": "gl_level_2"}, "sources": [{"dataset": "lcr_data1", "column": "gl_level_2"}], "transform": "identity", "expression": "A.GL_LEVEL_2 AS GL_LEVEL_2", "method": "parsed", "explanation": "Passed through unchanged from lcr_data1.gl_level_2.", "explanation_source": "generated", "id": "e68"}, {"step": "s5", "target": {"dataset": "lcr_det", "column": "gl_level_3"}, "sources": [{"dataset": "lcr_data1", "column": "gl_level_3"}], "transform": "identity", "expression": "A.GL_LEVEL_3 AS GL_LEVEL_3", "method": "parsed", "explanation": "Passed through unchanged from lcr_data1.gl_level_3.", "explanation_source": "generated", "id": "e69"}, {"step": "s5", "target": {"dataset": "lcr_det", "column": "dod"}, "sources": [{"dataset": "lcr_data1", "column": "dod"}], "transform": "identity", "expression": "A.DOD AS DOD", "method": "parsed", "explanation": "Passed through unchanged from lcr_data1.dod.", "explanation_source": "generated", "id": "e70"}, {"step": "s5", "target": {"dataset": "lcr_det", "column": "is_retail"}, "sources": [{"dataset": "lcr_data1", "column": "is_retail"}], "transform": "identity", "expression": "A.IS_RETAIL AS IS_RETAIL", "method": "parsed", "explanation": "Passed through unchanged from lcr_data1.is_retail.", "explanation_source": "generated", "id": "e71"}, {"step": "s5", "target": {"dataset": "lcr_det", "column": "cust_cat"}, "sources": [{"dataset": "lcr_data1", "column": "cust_cat"}], "transform": "identity", "expression": "A.CUST_CAT AS CUST_CAT", "method": "parsed", "explanation": "Passed through unchanged from lcr_data1.cust_cat.", "explanation_source": "generated", "id": "e72"}, {"step": "s5", "target": {"dataset": "lcr_det", "column": "prod_cat"}, "sources": [{"dataset": "lcr_data1", "column": "prod_cat"}], "transform": "identity", "expression": "A.PROD_CAT AS PROD_CAT", "method": "parsed", "explanation": "Passed through unchanged from lcr_data1.prod_cat.", "explanation_source": "generated", "id": "e73"}, {"step": "s5", "target": {"dataset": "lcr_det", "column": "past_due_f"}, "sources": [{"dataset": "lcr_data1", "column": "past_due_f"}], "transform": "identity", "expression": "A.PAST_DUE_F AS PAST_DUE_F", "method": "parsed", "explanation": "Passed through unchanged from lcr_data1.past_due_f.", "explanation_source": "generated", "id": "e74"}, {"step": "s5", "target": {"dataset": "lcr_det", "column": "ar_days_since_sign"}, "sources": [{"dataset": "lcr_data1", "column": "ar_days_since_sign"}], "transform": "identity", "expression": "A.AR_DAYS_SINCE_SIGN AS AR_DAYS_SINCE_SIGN", "method": "parsed", "explanation": "Passed through unchanged from lcr_data1.ar_days_since_sign.", "explanation_source": "generated", "id": "e75"}, {"step": "s5", "target": {"dataset": "lcr_det", "column": "cf_days"}, "sources": [{"dataset": "lcr_data1", "column": "cf_days"}], "transform": "identity", "expression": "A.CF_DAYS AS CF_DAYS", "method": "parsed", "explanation": "Passed through unchanged from lcr_data1.cf_days.", "explanation_source": "generated", "id": "e76"}, {"step": "s5", "target": {"dataset": "lcr_det", "column": "unit"}, "sources": [{"dataset": "lcr_data1", "column": "unit"}], "transform": "identity", "expression": "A.UNIT AS UNIT", "method": "parsed", "explanation": "Passed through unchanged from lcr_data1.unit.", "explanation_source": "generated", "id": "e77"}, {"step": "s5", "target": {"dataset": "lcr_det", "column": "prolong_enabled_f"}, "sources": [{"dataset": "lcr_data1", "column": "prolong_enabled_f"}], "transform": "identity", "expression": "A.PROLONG_ENABLED_F AS PROLONG_ENABLED_F", "method": "parsed", "explanation": "Passed through unchanged from lcr_data1.prolong_enabled_f.", "explanation_source": "generated", "id": "e78"}, {"step": "s5", "target": {"dataset": "lcr_det", "column": "prolonged_f"}, "sources": [{"dataset": "lcr_data1", "column": "prolonged_f"}], "transform": "identity", "expression": "A.PROLONGED_F AS PROLONGED_F", "method": "parsed", "explanation": "Passed through unchanged from lcr_data1.prolonged_f.", "explanation_source": "generated", "id": "e79"}, {"step": "s5", "target": {"dataset": "lcr_det", "column": "curr_rep"}, "sources": [{"dataset": "lcr_data1", "column": "curr_rep"}], "transform": "identity", "expression": "A.CURR_REP AS CURR_REP", "method": "parsed", "explanation": "Passed through unchanged from lcr_data1.curr_rep.", "explanation_source": "generated", "id": "e80"}, {"step": "s5", "target": {"dataset": "lcr_det", "column": "curr_orig"}, "sources": [{"dataset": "lcr_data1", "column": "curr_orig"}], "transform": "identity", "expression": "A.CURR_ORIG AS CURR_ORIG", "method": "parsed", "explanation": "Passed through unchanged from lcr_data1.curr_orig.", "explanation_source": "generated", "id": "e81"}, {"step": "s5", "target": {"dataset": "lcr_det", "column": "amount"}, "sources": [{"dataset": "lcr_data1", "column": "amount"}], "transform": "identity", "expression": "A.AMOUNT AS AMOUNT", "method": "parsed", "explanation": "Passed through unchanged from lcr_data1.amount.", "explanation_source": "generated", "id": "e82"}, {"step": "s5", "target": {"dataset": "lcr_det", "column": "amount_fc"}, "sources": [{"dataset": "lcr_data1", "column": "amount_fc"}], "transform": "identity", "expression": "A.AMOUNT_FC AS AMOUNT_FC", "method": "parsed", "explanation": "Passed through unchanged from lcr_data1.amount_fc.", "explanation_source": "generated", "id": "e83"}, {"step": "s5", "target": {"dataset": "lcr_det", "column": "count_in_source"}, "sources": [{"dataset": "lcr_data1", "column": "count_in_source"}], "transform": "identity", "expression": "A.COUNT_IN_SOURCE AS COUNT_IN_SOURCE", "method": "parsed", "explanation": "Passed through unchanged from lcr_data1.count_in_source.", "explanation_source": "generated", "id": "e84"}, {"step": "s6", "target": {"dataset": "lcr_data", "column": "sheet"}, "sources": [{"dataset": "lcr_det", "column": "lcr_table"}], "transform": "calculation", "expression": "a.lcr_table || '_EUR' AS lcr_table\na.lcr_table || '_SEK' AS lcr_table", "method": "parsed", "explanation": "Template sheet code — lcr_table, with an _SEK or _EUR suffix for the currency variants.", "explanation_source": "authored", "id": "e85"}, {"step": "s6", "target": {"dataset": "lcr_data", "column": "row"}, "sources": [{"dataset": "lcr_det", "column": "lcr_row"}], "transform": "rename", "expression": "lcr_row AS \"row\"", "method": "parsed", "explanation": "Template row code (lcr_row).", "explanation_source": "authored", "id": "e86"}, {"step": "s6", "target": {"dataset": "lcr_data", "column": "col"}, "sources": [{"dataset": "cs_tmp", "column": "lcr_amount_column"}, {"dataset": "cs_tmp", "column": "lcr_weight_column"}], "transform": "rename", "expression": "lcr_col AS col", "method": "parsed", "explanation": "Template column code from the column setup — the amount column or the weight column of that LCR table.", "explanation_source": "authored", "id": "e87"}, {"step": "s6", "target": {"dataset": "lcr_data", "column": "value_type"}, "sources": [], "transform": "constant", "expression": "'weight' AS value_type\n'amount' AS value_type", "method": "parsed", "explanation": "'amount' or 'weight' — which union branch produced the row.", "explanation_source": "authored", "id": "e88"}, {"step": "s6", "target": {"dataset": "lcr_data", "column": "value"}, "sources": [{"dataset": "lcr_det", "column": "lcr_amount"}, {"dataset": "lcr_det", "column": "lcr_weight"}, {"dataset": "lcr_det", "column": "lcr_amount_fc"}], "transform": "aggregation", "expression": "MAX(lcr_weight) AS value\nCAST(ROUND(SUM(lcr_amount), 2) AS VARCHAR(20)) AS value\nCAST(ROUND(SUM(lcr_amount_fc), 2) AS VARCHAR(20)) AS value", "method": "parsed", "explanation": "Cell value — sum of signed amounts (rounded, as text) for amount cells, or max weight for weight cells. _SEK sheets use the FC amount of SEK rows; _EUR sheets the base amount of EUR rows.", "explanation_source": "authored", "id": "e89"}, {"step": "s6", "target": {"dataset": "lcr_data", "column": "cnt"}, "sources": [], "transform": "aggregation", "expression": "COUNT(*) AS cnt", "method": "parsed", "explanation": "Number of lcr_det rows behind the cell, for reconciliation.", "explanation_source": "authored", "id": "e90"}, {"step": "s7", "target": {"dataset": "lcr_xlsx_det", "column": "rep_dt"}, "sources": [{"dataset": "lcr_det", "column": "rep_dt"}], "transform": "identity", "expression": "rep_dt", "method": "parsed", "explanation": "Passed through unchanged from lcr_det.rep_dt.", "explanation_source": "generated", "id": "e91"}, {"step": "s7", "target": {"dataset": "lcr_xlsx_det", "column": "lcr_term"}, "sources": [{"dataset": "lcr_det", "column": "lcr_term"}], "transform": "identity", "expression": "lcr_term", "method": "parsed", "explanation": "Passed through unchanged from lcr_det.lcr_term.", "explanation_source": "generated", "id": "e92"}, {"step": "s7", "target": {"dataset": "lcr_xlsx_det", "column": "lcr_table"}, "sources": [{"dataset": "lcr_det", "column": "lcr_table"}], "transform": "identity", "expression": "lcr_table", "method": "parsed", "explanation": "Passed through unchanged from lcr_det.lcr_table.", "explanation_source": "generated", "id": "e93"}, {"step": "s7", "target": {"dataset": "lcr_xlsx_det", "column": "lcr_row"}, "sources": [{"dataset": "lcr_det", "column": "lcr_row"}], "transform": "identity", "expression": "lcr_row", "method": "parsed", "explanation": "Passed through unchanged from lcr_det.lcr_row.", "explanation_source": "generated", "id": "e94"}, {"step": "s7", "target": {"dataset": "lcr_xlsx_det", "column": "lcr_weight"}, "sources": [{"dataset": "lcr_det", "column": "lcr_weight"}], "transform": "identity", "expression": "lcr_weight", "method": "parsed", "explanation": "Passed through unchanged from lcr_det.lcr_weight.", "explanation_source": "generated", "id": "e95"}, {"step": "s7", "target": {"dataset": "lcr_xlsx_det", "column": "lcr_sign"}, "sources": [{"dataset": "lcr_det", "column": "lcr_sign"}], "transform": "identity", "expression": "lcr_sign", "method": "parsed", "explanation": "Passed through unchanged from lcr_det.lcr_sign.", "explanation_source": "generated", "id": "e96"}, {"step": "s7", "target": {"dataset": "lcr_xlsx_det", "column": "lcr_amount"}, "sources": [{"dataset": "lcr_det", "column": "lcr_amount"}], "transform": "aggregation", "expression": "SUM(lcr_amount) AS lcr_amount", "method": "parsed", "explanation": "Aggregated from lcr_det.lcr_amount over the step's grouping.", "explanation_source": "generated", "id": "e97"}, {"step": "s7", "target": {"dataset": "lcr_xlsx_det", "column": "lcr_amount_fc"}, "sources": [{"dataset": "lcr_det", "column": "lcr_amount_fc"}], "transform": "aggregation", "expression": "SUM(lcr_amount_fc) AS lcr_amount_fc", "method": "parsed", "explanation": "Aggregated from lcr_det.lcr_amount_fc over the step's grouping.", "explanation_source": "generated", "id": "e98"}, {"step": "s7", "target": {"dataset": "lcr_xlsx_det", "column": "source"}, "sources": [{"dataset": "lcr_det", "column": "source"}], "transform": "identity", "expression": "source", "method": "parsed", "explanation": "Passed through unchanged from lcr_det.source.", "explanation_source": "generated", "id": "e99"}, {"step": "s7", "target": {"dataset": "lcr_xlsx_det", "column": "ic_flag"}, "sources": [{"dataset": "lcr_det", "column": "ic_flag"}], "transform": "identity", "expression": "ic_flag", "method": "parsed", "explanation": "Passed through unchanged from lcr_det.ic_flag.", "explanation_source": "generated", "id": "e100"}, {"step": "s7", "target": {"dataset": "lcr_xlsx_det", "column": "subsidiary"}, "sources": [{"dataset": "lcr_det", "column": "subsidiary"}], "transform": "identity", "expression": "subsidiary", "method": "parsed", "explanation": "Passed through unchanged from lcr_det.subsidiary.", "explanation_source": "generated", "id": "e101"}, {"step": "s7", "target": {"dataset": "lcr_xlsx_det", "column": "gl"}, "sources": [{"dataset": "lcr_det", "column": "gl"}], "transform": "identity", "expression": "gl", "method": "parsed", "explanation": "Passed through unchanged from lcr_det.gl.", "explanation_source": "generated", "id": "e102"}, {"step": "s7", "target": {"dataset": "lcr_xlsx_det", "column": "gl_nm"}, "sources": [{"dataset": "lcr_det", "column": "gl_nm"}], "transform": "identity", "expression": "gl_nm", "method": "parsed", "explanation": "Passed through unchanged from lcr_det.gl_nm.", "explanation_source": "generated", "id": "e103"}, {"step": "s7", "target": {"dataset": "lcr_xlsx_det", "column": "gl_level_1"}, "sources": [{"dataset": "lcr_det", "column": "gl_level_1"}], "transform": "identity", "expression": "gl_level_1", "method": "parsed", "explanation": "Passed through unchanged from lcr_det.gl_level_1.", "explanation_source": "generated", "id": "e104"}, {"step": "s7", "target": {"dataset": "lcr_xlsx_det", "column": "gl_level_2"}, "sources": [{"dataset": "lcr_det", "column": "gl_level_2"}], "transform": "identity", "expression": "gl_level_2", "method": "parsed", "explanation": "Passed through unchanged from lcr_det.gl_level_2.", "explanation_source": "generated", "id": "e105"}, {"step": "s7", "target": {"dataset": "lcr_xlsx_det", "column": "gl_level_3"}, "sources": [{"dataset": "lcr_det", "column": "gl_level_3"}], "transform": "identity", "expression": "gl_level_3", "method": "parsed", "explanation": "Passed through unchanged from lcr_det.gl_level_3.", "explanation_source": "generated", "id": "e106"}, {"step": "s7", "target": {"dataset": "lcr_xlsx_det", "column": "dod"}, "sources": [{"dataset": "lcr_det", "column": "dod"}], "transform": "identity", "expression": "dod", "method": "parsed", "explanation": "Passed through unchanged from lcr_det.dod.", "explanation_source": "generated", "id": "e107"}, {"step": "s7", "target": {"dataset": "lcr_xlsx_det", "column": "is_retail"}, "sources": [{"dataset": "lcr_det", "column": "is_retail"}], "transform": "identity", "expression": "is_retail", "method": "parsed", "explanation": "Passed through unchanged from lcr_det.is_retail.", "explanation_source": "generated", "id": "e108"}, {"step": "s7", "target": {"dataset": "lcr_xlsx_det", "column": "cust_cat"}, "sources": [{"dataset": "lcr_det", "column": "cust_cat"}], "transform": "identity", "expression": "cust_cat", "method": "parsed", "explanation": "Passed through unchanged from lcr_det.cust_cat.", "explanation_source": "generated", "id": "e109"}, {"step": "s7", "target": {"dataset": "lcr_xlsx_det", "column": "prod_cat"}, "sources": [{"dataset": "lcr_det", "column": "prod_cat"}], "transform": "identity", "expression": "prod_cat", "method": "parsed", "explanation": "Passed through unchanged from lcr_det.prod_cat.", "explanation_source": "generated", "id": "e110"}, {"step": "s7", "target": {"dataset": "lcr_xlsx_det", "column": "past_due_f"}, "sources": [{"dataset": "lcr_det", "column": "past_due_f"}], "transform": "identity", "expression": "past_due_f", "method": "parsed", "explanation": "Passed through unchanged from lcr_det.past_due_f.", "explanation_source": "generated", "id": "e111"}, {"step": "s7", "target": {"dataset": "lcr_xlsx_det", "column": "ar_days_since_sign_for_xlsx"}, "sources": [{"dataset": "lcr_det", "column": "ar_days_since_sign_for_xlsx"}], "transform": "identity", "expression": "ar_days_since_sign_for_xlsx", "method": "parsed", "explanation": "Passed through unchanged from lcr_det.ar_days_since_sign_for_xlsx.", "explanation_source": "generated", "id": "e112"}, {"step": "s7", "target": {"dataset": "lcr_xlsx_det", "column": "cf_days_for_xlsx"}, "sources": [{"dataset": "lcr_det", "column": "cf_days_for_xlsx"}], "transform": "identity", "expression": "cf_days_for_xlsx", "method": "parsed", "explanation": "Passed through unchanged from lcr_det.cf_days_for_xlsx.", "explanation_source": "generated", "id": "e113"}, {"step": "s7", "target": {"dataset": "lcr_xlsx_det", "column": "unit"}, "sources": [{"dataset": "lcr_det", "column": "unit"}], "transform": "identity", "expression": "unit", "method": "parsed", "explanation": "Passed through unchanged from lcr_det.unit.", "explanation_source": "generated", "id": "e114"}, {"step": "s7", "target": {"dataset": "lcr_xlsx_det", "column": "prolong_enabled_f"}, "sources": [{"dataset": "lcr_det", "column": "prolong_enabled_f"}], "transform": "identity", "expression": "prolong_enabled_f", "method": "parsed", "explanation": "Passed through unchanged from lcr_det.prolong_enabled_f.", "explanation_source": "generated", "id": "e115"}, {"step": "s7", "target": {"dataset": "lcr_xlsx_det", "column": "prolonged_f"}, "sources": [{"dataset": "lcr_det", "column": "prolonged_f"}], "transform": "identity", "expression": "prolonged_f", "method": "parsed", "explanation": "Passed through unchanged from lcr_det.prolonged_f.", "explanation_source": "generated", "id": "e116"}, {"step": "s7", "target": {"dataset": "lcr_xlsx_det", "column": "curr_rep"}, "sources": [{"dataset": "lcr_det", "column": "curr_rep"}], "transform": "identity", "expression": "curr_rep", "method": "parsed", "explanation": "Passed through unchanged from lcr_det.curr_rep.", "explanation_source": "generated", "id": "e117"}, {"step": "s7", "target": {"dataset": "lcr_xlsx_det", "column": "curr_orig"}, "sources": [{"dataset": "lcr_det", "column": "curr_orig"}], "transform": "identity", "expression": "curr_orig", "method": "parsed", "explanation": "Passed through unchanged from lcr_det.curr_orig.", "explanation_source": "generated", "id": "e118"}, {"step": "s7", "target": {"dataset": "lcr_xlsx_det", "column": "amount"}, "sources": [{"dataset": "lcr_det", "column": "amount"}], "transform": "aggregation", "expression": "SUM(amount) AS amount", "method": "parsed", "explanation": "Aggregated from lcr_det.amount over the step's grouping.", "explanation_source": "generated", "id": "e119"}, {"step": "s7", "target": {"dataset": "lcr_xlsx_det", "column": "amount_fc"}, "sources": [{"dataset": "lcr_det", "column": "amount_fc"}], "transform": "aggregation", "expression": "SUM(amount_fc) AS amount_fc", "method": "parsed", "explanation": "Aggregated from lcr_det.amount_fc over the step's grouping.", "explanation_source": "generated", "id": "e120"}, {"step": "s7", "target": {"dataset": "lcr_xlsx_det", "column": "count_in_source"}, "sources": [{"dataset": "lcr_det", "column": "count_in_source"}], "transform": "aggregation", "expression": "SUM(count_in_source) AS count_in_source", "method": "parsed", "explanation": "Aggregated from lcr_det.count_in_source over the step's grouping.", "explanation_source": "generated", "id": "e121"}, {"step": "s9", "target": {"dataset": "x_raw", "column": "sheet"}, "sources": [{"dataset": "lcr_data", "column": "sheet"}], "transform": "copy", "expression": "lcr_data.sheet (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from lcr_data.sheet by Python.", "explanation_source": "generated", "id": "e122"}, {"step": "s9", "target": {"dataset": "x_raw", "column": "row"}, "sources": [{"dataset": "lcr_data", "column": "row"}], "transform": "copy", "expression": "lcr_data.row (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from lcr_data.row by Python.", "explanation_source": "generated", "id": "e123"}, {"step": "s9", "target": {"dataset": "x_raw", "column": "col"}, "sources": [{"dataset": "lcr_data", "column": "col"}], "transform": "copy", "expression": "lcr_data.col (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from lcr_data.col by Python.", "explanation_source": "generated", "id": "e124"}, {"step": "s9", "target": {"dataset": "x_raw", "column": "value_type"}, "sources": [{"dataset": "lcr_data", "column": "value_type"}], "transform": "copy", "expression": "lcr_data.value_type (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from lcr_data.value_type by Python.", "explanation_source": "generated", "id": "e125"}, {"step": "s9", "target": {"dataset": "x_raw", "column": "value"}, "sources": [{"dataset": "lcr_data", "column": "value"}], "transform": "copy", "expression": "lcr_data.value (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from lcr_data.value by Python.", "explanation_source": "generated", "id": "e126"}, {"step": "s9", "target": {"dataset": "x_raw", "column": "cnt"}, "sources": [{"dataset": "lcr_data", "column": "cnt"}], "transform": "copy", "expression": "lcr_data.cnt (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from lcr_data.cnt by Python.", "explanation_source": "generated", "id": "e127"}, {"step": "s8", "target": {"dataset": "x_det", "column": "rep_dt"}, "sources": [{"dataset": "lcr_xlsx_det", "column": "rep_dt"}], "transform": "copy", "expression": "lcr_xlsx_det.rep_dt (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from lcr_xlsx_det.rep_dt by Python.", "explanation_source": "generated", "id": "e128"}, {"step": "s8", "target": {"dataset": "x_det", "column": "lcr_term"}, "sources": [{"dataset": "lcr_xlsx_det", "column": "lcr_term"}], "transform": "copy", "expression": "lcr_xlsx_det.lcr_term (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from lcr_xlsx_det.lcr_term by Python.", "explanation_source": "generated", "id": "e129"}, {"step": "s8", "target": {"dataset": "x_det", "column": "lcr_table"}, "sources": [{"dataset": "lcr_xlsx_det", "column": "lcr_table"}], "transform": "copy", "expression": "lcr_xlsx_det.lcr_table (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from lcr_xlsx_det.lcr_table by Python.", "explanation_source": "generated", "id": "e130"}, {"step": "s8", "target": {"dataset": "x_det", "column": "lcr_row"}, "sources": [{"dataset": "lcr_xlsx_det", "column": "lcr_row"}], "transform": "copy", "expression": "lcr_xlsx_det.lcr_row (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from lcr_xlsx_det.lcr_row by Python.", "explanation_source": "generated", "id": "e131"}, {"step": "s8", "target": {"dataset": "x_det", "column": "lcr_weight"}, "sources": [{"dataset": "lcr_xlsx_det", "column": "lcr_weight"}], "transform": "copy", "expression": "lcr_xlsx_det.lcr_weight (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from lcr_xlsx_det.lcr_weight by Python.", "explanation_source": "generated", "id": "e132"}, {"step": "s8", "target": {"dataset": "x_det", "column": "lcr_sign"}, "sources": [{"dataset": "lcr_xlsx_det", "column": "lcr_sign"}], "transform": "copy", "expression": "lcr_xlsx_det.lcr_sign (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from lcr_xlsx_det.lcr_sign by Python.", "explanation_source": "generated", "id": "e133"}, {"step": "s8", "target": {"dataset": "x_det", "column": "lcr_amount"}, "sources": [{"dataset": "lcr_xlsx_det", "column": "lcr_amount"}], "transform": "copy", "expression": "lcr_xlsx_det.lcr_amount (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from lcr_xlsx_det.lcr_amount by Python.", "explanation_source": "generated", "id": "e134"}, {"step": "s8", "target": {"dataset": "x_det", "column": "lcr_amount_fc"}, "sources": [{"dataset": "lcr_xlsx_det", "column": "lcr_amount_fc"}], "transform": "copy", "expression": "lcr_xlsx_det.lcr_amount_fc (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from lcr_xlsx_det.lcr_amount_fc by Python.", "explanation_source": "generated", "id": "e135"}, {"step": "s8", "target": {"dataset": "x_det", "column": "source"}, "sources": [{"dataset": "lcr_xlsx_det", "column": "source"}], "transform": "copy", "expression": "lcr_xlsx_det.source (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from lcr_xlsx_det.source by Python.", "explanation_source": "generated", "id": "e136"}, {"step": "s8", "target": {"dataset": "x_det", "column": "ic_flag"}, "sources": [{"dataset": "lcr_xlsx_det", "column": "ic_flag"}], "transform": "copy", "expression": "lcr_xlsx_det.ic_flag (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from lcr_xlsx_det.ic_flag by Python.", "explanation_source": "generated", "id": "e137"}, {"step": "s8", "target": {"dataset": "x_det", "column": "subsidiary"}, "sources": [{"dataset": "lcr_xlsx_det", "column": "subsidiary"}], "transform": "copy", "expression": "lcr_xlsx_det.subsidiary (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from lcr_xlsx_det.subsidiary by Python.", "explanation_source": "generated", "id": "e138"}, {"step": "s8", "target": {"dataset": "x_det", "column": "gl"}, "sources": [{"dataset": "lcr_xlsx_det", "column": "gl"}], "transform": "copy", "expression": "lcr_xlsx_det.gl (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from lcr_xlsx_det.gl by Python.", "explanation_source": "generated", "id": "e139"}, {"step": "s8", "target": {"dataset": "x_det", "column": "gl_nm"}, "sources": [{"dataset": "lcr_xlsx_det", "column": "gl_nm"}], "transform": "copy", "expression": "lcr_xlsx_det.gl_nm (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from lcr_xlsx_det.gl_nm by Python.", "explanation_source": "generated", "id": "e140"}, {"step": "s8", "target": {"dataset": "x_det", "column": "gl_level_1"}, "sources": [{"dataset": "lcr_xlsx_det", "column": "gl_level_1"}], "transform": "copy", "expression": "lcr_xlsx_det.gl_level_1 (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from lcr_xlsx_det.gl_level_1 by Python.", "explanation_source": "generated", "id": "e141"}, {"step": "s8", "target": {"dataset": "x_det", "column": "gl_level_2"}, "sources": [{"dataset": "lcr_xlsx_det", "column": "gl_level_2"}], "transform": "copy", "expression": "lcr_xlsx_det.gl_level_2 (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from lcr_xlsx_det.gl_level_2 by Python.", "explanation_source": "generated", "id": "e142"}, {"step": "s8", "target": {"dataset": "x_det", "column": "gl_level_3"}, "sources": [{"dataset": "lcr_xlsx_det", "column": "gl_level_3"}], "transform": "copy", "expression": "lcr_xlsx_det.gl_level_3 (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from lcr_xlsx_det.gl_level_3 by Python.", "explanation_source": "generated", "id": "e143"}, {"step": "s8", "target": {"dataset": "x_det", "column": "dod"}, "sources": [{"dataset": "lcr_xlsx_det", "column": "dod"}], "transform": "copy", "expression": "lcr_xlsx_det.dod (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from lcr_xlsx_det.dod by Python.", "explanation_source": "generated", "id": "e144"}, {"step": "s8", "target": {"dataset": "x_det", "column": "is_retail"}, "sources": [{"dataset": "lcr_xlsx_det", "column": "is_retail"}], "transform": "copy", "expression": "lcr_xlsx_det.is_retail (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from lcr_xlsx_det.is_retail by Python.", "explanation_source": "generated", "id": "e145"}, {"step": "s8", "target": {"dataset": "x_det", "column": "cust_cat"}, "sources": [{"dataset": "lcr_xlsx_det", "column": "cust_cat"}], "transform": "copy", "expression": "lcr_xlsx_det.cust_cat (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from lcr_xlsx_det.cust_cat by Python.", "explanation_source": "generated", "id": "e146"}, {"step": "s8", "target": {"dataset": "x_det", "column": "prod_cat"}, "sources": [{"dataset": "lcr_xlsx_det", "column": "prod_cat"}], "transform": "copy", "expression": "lcr_xlsx_det.prod_cat (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from lcr_xlsx_det.prod_cat by Python.", "explanation_source": "generated", "id": "e147"}, {"step": "s8", "target": {"dataset": "x_det", "column": "past_due_f"}, "sources": [{"dataset": "lcr_xlsx_det", "column": "past_due_f"}], "transform": "copy", "expression": "lcr_xlsx_det.past_due_f (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from lcr_xlsx_det.past_due_f by Python.", "explanation_source": "generated", "id": "e148"}, {"step": "s8", "target": {"dataset": "x_det", "column": "ar_days_since_sign_for_xlsx"}, "sources": [{"dataset": "lcr_xlsx_det", "column": "ar_days_since_sign_for_xlsx"}], "transform": "copy", "expression": "lcr_xlsx_det.ar_days_since_sign_for_xlsx (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from lcr_xlsx_det.ar_days_since_sign_for_xlsx by Python.", "explanation_source": "generated", "id": "e149"}, {"step": "s8", "target": {"dataset": "x_det", "column": "cf_days_for_xlsx"}, "sources": [{"dataset": "lcr_xlsx_det", "column": "cf_days_for_xlsx"}], "transform": "copy", "expression": "lcr_xlsx_det.cf_days_for_xlsx (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from lcr_xlsx_det.cf_days_for_xlsx by Python.", "explanation_source": "generated", "id": "e150"}, {"step": "s8", "target": {"dataset": "x_det", "column": "unit"}, "sources": [{"dataset": "lcr_xlsx_det", "column": "unit"}], "transform": "copy", "expression": "lcr_xlsx_det.unit (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from lcr_xlsx_det.unit by Python.", "explanation_source": "generated", "id": "e151"}, {"step": "s8", "target": {"dataset": "x_det", "column": "prolong_enabled_f"}, "sources": [{"dataset": "lcr_xlsx_det", "column": "prolong_enabled_f"}], "transform": "copy", "expression": "lcr_xlsx_det.prolong_enabled_f (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from lcr_xlsx_det.prolong_enabled_f by Python.", "explanation_source": "generated", "id": "e152"}, {"step": "s8", "target": {"dataset": "x_det", "column": "prolonged_f"}, "sources": [{"dataset": "lcr_xlsx_det", "column": "prolonged_f"}], "transform": "copy", "expression": "lcr_xlsx_det.prolonged_f (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from lcr_xlsx_det.prolonged_f by Python.", "explanation_source": "generated", "id": "e153"}, {"step": "s8", "target": {"dataset": "x_det", "column": "curr_rep"}, "sources": [{"dataset": "lcr_xlsx_det", "column": "curr_rep"}], "transform": "copy", "expression": "lcr_xlsx_det.curr_rep (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from lcr_xlsx_det.curr_rep by Python.", "explanation_source": "generated", "id": "e154"}, {"step": "s8", "target": {"dataset": "x_det", "column": "curr_orig"}, "sources": [{"dataset": "lcr_xlsx_det", "column": "curr_orig"}], "transform": "copy", "expression": "lcr_xlsx_det.curr_orig (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from lcr_xlsx_det.curr_orig by Python.", "explanation_source": "generated", "id": "e155"}, {"step": "s8", "target": {"dataset": "x_det", "column": "amount"}, "sources": [{"dataset": "lcr_xlsx_det", "column": "amount"}], "transform": "copy", "expression": "lcr_xlsx_det.amount (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from lcr_xlsx_det.amount by Python.", "explanation_source": "generated", "id": "e156"}, {"step": "s8", "target": {"dataset": "x_det", "column": "amount_fc"}, "sources": [{"dataset": "lcr_xlsx_det", "column": "amount_fc"}], "transform": "copy", "expression": "lcr_xlsx_det.amount_fc (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from lcr_xlsx_det.amount_fc by Python.", "explanation_source": "generated", "id": "e157"}, {"step": "s8", "target": {"dataset": "x_det", "column": "count_in_source"}, "sources": [{"dataset": "lcr_xlsx_det", "column": "count_in_source"}], "transform": "copy", "expression": "lcr_xlsx_det.count_in_source (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from lcr_xlsx_det.count_in_source by Python.", "explanation_source": "generated", "id": "e158"}, {"step": "s2", "target": {"dataset": "cs_tmp", "column": "lcr_amount_column"}, "sources": [{"dataset": "cs_main", "column": "lcr_amount_column"}], "transform": "copy", "expression": "cs_main.lcr_amount_column (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from cs_main.lcr_amount_column by Python.", "explanation_source": "generated", "id": "e159"}, {"step": "s2", "target": {"dataset": "cs_tmp", "column": "lcr_weight_column"}, "sources": [{"dataset": "cs_main", "column": "lcr_weight_column"}], "transform": "copy", "expression": "cs_main.lcr_weight_column (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from cs_main.lcr_weight_column by Python.", "explanation_source": "generated", "id": "e160"}, {"step": "s2", "target": {"dataset": "cs_tmp", "column": "lcr_table"}, "sources": [{"dataset": "cs_main", "column": "lcr_table"}], "transform": "copy", "expression": "cs_main.lcr_table (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from cs_main.lcr_table by Python.", "explanation_source": "generated", "id": "e161"}, {"step": "s1", "target": {"dataset": "me_tmp", "column": "source"}, "sources": [{"dataset": "me_main", "column": "source"}], "transform": "copy", "expression": "me_main.source (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from me_main.source by Python.", "explanation_source": "generated", "id": "e162"}, {"step": "s1", "target": {"dataset": "me_tmp", "column": "ic_flag"}, "sources": [{"dataset": "me_main", "column": "ic_flag"}], "transform": "copy", "expression": "me_main.ic_flag (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from me_main.ic_flag by Python.", "explanation_source": "generated", "id": "e163"}, {"step": "s1", "target": {"dataset": "me_tmp", "column": "subsidiary"}, "sources": [{"dataset": "me_main", "column": "subsidiary"}], "transform": "copy", "expression": "me_main.subsidiary (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from me_main.subsidiary by Python.", "explanation_source": "generated", "id": "e164"}, {"step": "s1", "target": {"dataset": "me_tmp", "column": "gl"}, "sources": [{"dataset": "me_main", "column": "gl"}], "transform": "copy", "expression": "me_main.gl (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from me_main.gl by Python.", "explanation_source": "generated", "id": "e165"}, {"step": "s1", "target": {"dataset": "me_tmp", "column": "gl_nm"}, "sources": [{"dataset": "me_main", "column": "gl_nm"}], "transform": "copy", "expression": "me_main.gl_nm (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from me_main.gl_nm by Python.", "explanation_source": "generated", "id": "e166"}, {"step": "s1", "target": {"dataset": "me_tmp", "column": "gl_level_1"}, "sources": [{"dataset": "me_main", "column": "gl_level_1"}], "transform": "copy", "expression": "me_main.gl_level_1 (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from me_main.gl_level_1 by Python.", "explanation_source": "generated", "id": "e167"}, {"step": "s1", "target": {"dataset": "me_tmp", "column": "gl_level_2"}, "sources": [{"dataset": "me_main", "column": "gl_level_2"}], "transform": "copy", "expression": "me_main.gl_level_2 (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from me_main.gl_level_2 by Python.", "explanation_source": "generated", "id": "e168"}, {"step": "s1", "target": {"dataset": "me_tmp", "column": "gl_level_3"}, "sources": [{"dataset": "me_main", "column": "gl_level_3"}], "transform": "copy", "expression": "me_main.gl_level_3 (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from me_main.gl_level_3 by Python.", "explanation_source": "generated", "id": "e169"}, {"step": "s1", "target": {"dataset": "me_tmp", "column": "dod"}, "sources": [{"dataset": "me_main", "column": "dod"}], "transform": "copy", "expression": "me_main.dod (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from me_main.dod by Python.", "explanation_source": "generated", "id": "e170"}, {"step": "s1", "target": {"dataset": "me_tmp", "column": "is_retail"}, "sources": [{"dataset": "me_main", "column": "is_retail"}], "transform": "copy", "expression": "me_main.is_retail (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from me_main.is_retail by Python.", "explanation_source": "generated", "id": "e171"}, {"step": "s1", "target": {"dataset": "me_tmp", "column": "cust_cat"}, "sources": [{"dataset": "me_main", "column": "cust_cat"}], "transform": "copy", "expression": "me_main.cust_cat (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from me_main.cust_cat by Python.", "explanation_source": "generated", "id": "e172"}, {"step": "s1", "target": {"dataset": "me_tmp", "column": "prod_cat"}, "sources": [{"dataset": "me_main", "column": "prod_cat"}], "transform": "copy", "expression": "me_main.prod_cat (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from me_main.prod_cat by Python.", "explanation_source": "generated", "id": "e173"}, {"step": "s1", "target": {"dataset": "me_tmp", "column": "past_due_f"}, "sources": [{"dataset": "me_main", "column": "past_due_f"}], "transform": "copy", "expression": "me_main.past_due_f (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from me_main.past_due_f by Python.", "explanation_source": "generated", "id": "e174"}, {"step": "s1", "target": {"dataset": "me_tmp", "column": "ar_days_since_sign"}, "sources": [{"dataset": "me_main", "column": "ar_days_since_sign"}], "transform": "copy", "expression": "me_main.ar_days_since_sign (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from me_main.ar_days_since_sign by Python.", "explanation_source": "generated", "id": "e175"}, {"step": "s1", "target": {"dataset": "me_tmp", "column": "cf_days"}, "sources": [{"dataset": "me_main", "column": "cf_days"}], "transform": "copy", "expression": "me_main.cf_days (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from me_main.cf_days by Python.", "explanation_source": "generated", "id": "e176"}, {"step": "s1", "target": {"dataset": "me_tmp", "column": "unit"}, "sources": [{"dataset": "me_main", "column": "unit"}], "transform": "copy", "expression": "me_main.unit (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from me_main.unit by Python.", "explanation_source": "generated", "id": "e177"}, {"step": "s1", "target": {"dataset": "me_tmp", "column": "prolong_enabled_f"}, "sources": [{"dataset": "me_main", "column": "prolong_enabled_f"}], "transform": "copy", "expression": "me_main.prolong_enabled_f (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from me_main.prolong_enabled_f by Python.", "explanation_source": "generated", "id": "e178"}, {"step": "s1", "target": {"dataset": "me_tmp", "column": "prolonged_f"}, "sources": [{"dataset": "me_main", "column": "prolonged_f"}], "transform": "copy", "expression": "me_main.prolonged_f (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from me_main.prolonged_f by Python.", "explanation_source": "generated", "id": "e179"}, {"step": "s1", "target": {"dataset": "me_tmp", "column": "curr_rep"}, "sources": [{"dataset": "me_main", "column": "curr_rep"}], "transform": "copy", "expression": "me_main.curr_rep (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from me_main.curr_rep by Python.", "explanation_source": "generated", "id": "e180"}, {"step": "s1", "target": {"dataset": "me_tmp", "column": "curr_orig"}, "sources": [{"dataset": "me_main", "column": "curr_orig"}], "transform": "copy", "expression": "me_main.curr_orig (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from me_main.curr_orig by Python.", "explanation_source": "generated", "id": "e181"}, {"step": "s1", "target": {"dataset": "me_tmp", "column": "amount"}, "sources": [{"dataset": "me_main", "column": "amount"}], "transform": "copy", "expression": "me_main.amount (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from me_main.amount by Python.", "explanation_source": "generated", "id": "e182"}, {"step": "s1", "target": {"dataset": "me_tmp", "column": "amount_fc"}, "sources": [{"dataset": "me_main", "column": "amount_fc"}], "transform": "copy", "expression": "me_main.amount_fc (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from me_main.amount_fc by Python.", "explanation_source": "generated", "id": "e183"}, {"step": "s1", "target": {"dataset": "me_tmp", "column": "count_in_source"}, "sources": [{"dataset": "me_main", "column": "count_in_source"}], "transform": "copy", "expression": "me_main.count_in_source (1:1 copy)", "method": "declared", "explanation": "Copied one-to-one from me_main.count_in_source by Python.", "explanation_source": "generated", "id": "e184"}, {"step": "s10", "target": {"dataset": "x_tpl", "column": "sheet"}, "sources": [{"dataset": "lcr_data", "column": "sheet"}, {"dataset": "tpl", "column": "Setup sheet map"}], "transform": "lookup", "expression": "template sheet where sheet_name == upper(sheet) and Setup.xlsx_sheet matches", "method": "declared", "explanation": "Rows are routed to the template sheet whose name equals the upper-cased sheet code; the Setup sheet decides which sheets can be filled.", "explanation_source": "authored", "id": "e185"}, {"step": "s10", "target": {"dataset": "x_tpl", "column": "row code"}, "sources": [{"dataset": "lcr_data", "column": "row"}, {"dataset": "tpl", "column": "row codes"}], "transform": "lookup", "expression": "row whose code in Setup.row_index column == row", "method": "declared", "explanation": "The template row is found by looking up the row code in the sheet's row-code column (Setup.row_index).", "explanation_source": "authored", "id": "e186"}, {"step": "s10", "target": {"dataset": "x_tpl", "column": "column code"}, "sources": [{"dataset": "lcr_data", "column": "col"}, {"dataset": "tpl", "column": "column codes"}], "transform": "lookup", "expression": "column whose code in Setup.col_index row == col", "method": "declared", "explanation": "The template column is found by looking up the column code in the sheet's column-code row (Setup.col_index).", "explanation_source": "authored", "id": "e187"}, {"step": "s10", "target": {"dataset": "x_tpl", "column": "cell value"}, "sources": [{"dataset": "lcr_data", "column": "value"}], "transform": "lookup", "expression": "ws.cell(row code × column code).value = value", "method": "declared", "explanation": "Written into the cell where the row code meets the column code. This is the number the regulator sees.", "explanation_source": "authored", "id": "e188"}], "indirect": [{"role": "filter", "columns": [{"dataset": "src_view", "column": "Report Date"}], "expression": "\"Report Date\" = '<stp_rep_dt>'", "step": "s3"}, {"role": "group_by", "columns": [{"dataset": "src_view", "column": "source"}, {"dataset": "src_view", "column": "IC flag"}, {"dataset": "src_view", "column": "subsidiary"}, {"dataset": "src_view", "column": "GL account id"}, {"dataset": "src_view", "column": "GL account name"}, {"dataset": "src_view", "column": "Account Level 1"}, {"dataset": "src_view", "column": "Account Level 2"}, {"dataset": "src_view", "column": "Account Level 3"}, {"dataset": "src_view", "column": "dod"}, {"dataset": "src_view", "column": "Is Retail"}, {"dataset": "src_view", "column": "Category"}, {"dataset": "src_view", "column": "Product category"}, {"dataset": "src_view", "column": "Past due flag"}, {"dataset": "src_view", "column": "Days to cashflow"}, {"dataset": "src_view", "column": "Reporting Currency"}, {"dataset": "src_view", "column": "Original Currency"}, {"dataset": "src_view", "column": "unit"}, {"dataset": "src_view", "column": "Report Date"}, {"dataset": "src_view", "column": "Contract signing date"}, {"dataset": "src_view", "column": "Deposit Prolongation enabled"}, {"dataset": "src_view", "column": "Contract re-negotiation date"}], "expression": "GROUP BY source, ic_flag, subsidiary, gl, gl_nm, gl_level_1, gl_level_2, gl_level_3, dod, is_retail, cust_cat, prod_cat, past_due_f, cf_days, ar_days_since_sign, cf_days, prolong_enabled_f, prolonged_f, curr_rep, curr_orig, unit", "step": "s3"}, {"role": "filter", "columns": [{"dataset": "lcr_det", "column": "curr_rep"}, {"dataset": "lcr_det", "column": "included_in_report"}], "expression": "NOT a.included_in_report IS NULL AND a.curr_rep = 'EUR'", "step": "s6"}, {"role": "join", "columns": [{"dataset": "lcr_det", "column": "lcr_table"}, {"dataset": "cs_tmp", "column": "lcr_table"}], "expression": "a.lcr_table = b.lcr_table", "step": "s6"}, {"role": "group_by", "columns": [{"dataset": "lcr_det", "column": "lcr_table"}, {"dataset": "lcr_det", "column": "lcr_row"}, {"dataset": "cs_tmp", "column": "lcr_weight_column"}], "expression": "GROUP BY a.lcr_table, a.lcr_row, b.lcr_weight_column", "step": "s6"}, {"role": "group_by", "columns": [{"dataset": "lcr_det", "column": "lcr_table"}, {"dataset": "lcr_det", "column": "lcr_row"}, {"dataset": "cs_tmp", "column": "lcr_amount_column"}], "expression": "GROUP BY a.lcr_table, a.lcr_row, b.lcr_amount_column", "step": "s6"}, {"role": "filter", "columns": [{"dataset": "lcr_det", "column": "curr_rep"}, {"dataset": "lcr_det", "column": "included_in_report"}], "expression": "NOT a.included_in_report IS NULL AND a.curr_rep = 'SEK'", "step": "s6"}, {"role": "filter", "columns": [{"dataset": "lcr_det", "column": "included_in_report"}], "expression": "NOT a.included_in_report IS NULL", "step": "s6"}, {"role": "group_by", "columns": [{"dataset": "lcr_det", "column": "rep_dt"}, {"dataset": "lcr_det", "column": "lcr_term"}, {"dataset": "lcr_det", "column": "lcr_table"}, {"dataset": "lcr_det", "column": "lcr_row"}, {"dataset": "lcr_det", "column": "lcr_weight"}, {"dataset": "lcr_det", "column": "lcr_sign"}, {"dataset": "lcr_det", "column": "source"}, {"dataset": "lcr_det", "column": "ic_flag"}, {"dataset": "lcr_det", "column": "subsidiary"}, {"dataset": "lcr_det", "column": "gl"}, {"dataset": "lcr_det", "column": "gl_nm"}, {"dataset": "lcr_det", "column": "gl_level_1"}, {"dataset": "lcr_det", "column": "gl_level_2"}, {"dataset": "lcr_det", "column": "gl_level_3"}, {"dataset": "lcr_det", "column": "dod"}, {"dataset": "lcr_det", "column": "is_retail"}, {"dataset": "lcr_det", "column": "cust_cat"}, {"dataset": "lcr_det", "column": "prod_cat"}, {"dataset": "lcr_det", "column": "past_due_f"}, {"dataset": "lcr_det", "column": "ar_days_since_sign_for_xlsx"}, {"dataset": "lcr_det", "column": "cf_days_for_xlsx"}, {"dataset": "lcr_det", "column": "unit"}, {"dataset": "lcr_det", "column": "prolong_enabled_f"}, {"dataset": "lcr_det", "column": "prolonged_f"}, {"dataset": "lcr_det", "column": "curr_rep"}, {"dataset": "lcr_det", "column": "curr_orig"}], "expression": "GROUP BY rep_dt, lcr_term, lcr_table, lcr_row, lcr_weight, lcr_sign, source, ic_flag, subsidiary, gl, gl_nm, gl_level_1, gl_level_2, gl_level_3, dod, is_retail, cust_cat, prod_cat, past_due_f, ar_days_since_sign_for_xlsx, cf_days_for_xlsx, unit, prolong_enabled_f, prolonged_f, curr_rep, curr_orig", "step": "s7"}], "callouts": [{"id": "c1", "target": {"step": "s3"}, "severity": "gap", "title": "Source table chosen at runtime", "text": "With \"Use snapshot\" the source is the newest REPORTING.SNAPSHOTS table for the date, found with SHOW TABLES ->>. Static parsing sees only the f-string, so log the executed SQL to know the real source of a run."}, {"id": "c2", "target": {"dataset": "lcr_data1"}, "severity": "note", "title": "Manual rows merged in", "text": "Manual entries are appended with the same columns, so after this step their origin is visible only through the \"source\" value."}, {"id": "c3", "target": {"step": "s5"}, "severity": "gap", "title": "Rules live in DB config, not code", "text": "Table/row, term, weight, sign and CONS/INDV are CASE expressions generated by params_to_case() from pr_report_* tables. Which lcr_data1 columns they test is configuration — render the SQL at runtime to resolve it."}, {"id": "c4", "target": {"step": "s5"}, "severity": "warning", "title": "Launch parameter pasted into SQL", "text": "lcr.py:253 inserts {lp.stp_rep_tp} unquoted, so the value (expected CONS or INDV) becomes a column reference. Any other value breaks the SQL or silently changes its meaning."}, {"id": "c5", "target": {"dataset": "lcr_det"}, "severity": "warning", "title": "Shared permanent table", "text": "lcr_det is dropped and re-created as a regular (not temporary) table on every run, so two concurrent runs — e.g. CONS and INDV — overwrite each other."}, {"id": "c6", "target": {"step": "s6"}, "severity": "note", "title": "Currency variants differ", "text": "_SEK sheets sum the FC amount of SEK rows, _EUR sheets the base amount of EUR rows, and the base sheet all rows in base currency."}, {"id": "c7", "target": {"step": "s10"}, "severity": "warning", "title": "Sheet match is case-sensitive", "text": "lcr.py:440 compares the upper-cased sheet code with the sheet name exactly as written in the template, so a sheet name containing lowercase letters silently receives no data."}, {"id": "c8", "target": {"dataset": "x_tpl"}, "severity": "gap", "title": "Cell address comes from the template", "text": "The target cell is located through codes printed in the template (Setup sheet plus row/column code cells). Cell-level lineage needs the template file at runtime."}, {"id": "c9", "target": {"step": "s1"}, "severity": "note", "title": "SELECT * moved through Python", "text": "Rows go from the main DB to Snowflake via dict_to_table. Columns here are inferred from how they are used downstream and declared one-to-one."}], "coverage": {"column_edges": 188, "parsed": 121, "declared": 67, "problems": []}};
+
+// ------------------------------------------------------------------ model
+const DS = Object.fromEntries(M.datasets.map(d => [d.id, d]));
+const ST = Object.fromEntries(M.steps.map(s => [s.id, s]));
+const CO = Object.fromEntries(M.callouts.map(c => [c.id, c]));
+const SYS = { snowflake: 'Snowflake', maindb: 'Main DB', excel: 'Excel', python: 'Python (in memory)' };
+const SYS_SHORT = { snowflake: 'Snowflake', maindb: 'Main DB', excel: 'Excel', python: 'Python' };
+const GLYPH = { identity: '=', rename: '=', copy: '=', cast: 'ƒ', calculation: 'ƒ', conditional: '◇', aggregation: 'Σ', config: '⚙\uFE0E', constant: '#', lookup: '⌖' };
+const TNAME = { identity: 'passed through', rename: 'renamed', copy: 'copied 1:1', cast: 'type cast', calculation: 'calculated', conditional: 'conditional (CASE)', aggregation: 'aggregated', config: 'config rule', constant: 'constant / parameter', lookup: 'positioned by lookup' };
+const RANK = ['identity', 'rename', 'copy', 'constant', 'cast', 'lookup', 'calculation', 'conditional', 'aggregation', 'config'];
+const PASS = new Set(['identity', 'rename', 'copy']);
+const CIRC = n => String.fromCodePoint(0x2460 + n - 1);
+const key = (d, c) => d + '::' + c;
+const esc = s => String(s ?? '').replace(/[&<>"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
+
+const incoming = new Map(), outgoing = new Map();
+for (const e of M.column_lineage) {
+  e.tkey = key(e.target.dataset, e.target.column);
+  (incoming.get(e.tkey) || incoming.set(e.tkey, []).get(e.tkey)).push(e);
+  for (const s of e.sources) {
+    const k = key(s.dataset, s.column);
+    (outgoing.get(k) || outgoing.set(k, []).get(k)).push(e);
+  }
+}
+const colTransform = k => (incoming.get(k) || []).reduce((b, e) => RANK.indexOf(e.transform) > RANK.indexOf(b) ? e.transform : b, null);
+const producers = id => M.steps.filter(s => s.outputs.includes(id));
+const consumers = id => M.steps.filter(s => s.inputs.includes(id));
+const calloutsFor = t => M.callouts.filter(c => (t.step && c.target.step === t.step) || (t.dataset && c.target.dataset === t.dataset));
+const sysColor = s => css('--sys-' + s);
+function css(v) { return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+// ------------------------------------------------------------------ state
+const state = { mode: 'tables', sel: null, pathOnly: true, indirect: true, notes: true, overview: false };
+
+// ------------------------------------------------------------------ geometry
+const G = { LANE_W: 340, LANE_W_COL: 290, CARD_W: 212, STEP_D: 30, STEP_H: 66, STEP_TW: 116, ROW_H: 24, GAP: 24, LINE: 16 };
+G.NOTE_W = G.LANE_W / 2 - 10 + G.CARD_W / 2;
+const laneX = l => l * (state.mode === 'columns' ? G.LANE_W_COL : G.LANE_W);
+const nameLines = d => d.label.split('\n').length;
+const headH = d => 24 + nameLines(d) * G.LINE + 16;
+const stepX = s => laneX(Math.min(...s.outputs.map(o => DS[o].lane))) - G.LANE_W / 2;
+const nLanes = Math.max(...M.datasets.map(d => d.lane)) + 1;
+
+// ------------------------------------------------------------------ cytoscape elements (built once, toggled by mode)
+function buildElements() {
+  const els = [];
+  for (let l = 0; l < nLanes; l++) {
+    els.push({ data: { id: 'lane:' + l }, classes: 'lane' });
+    els.push({ data: { id: 'lt:' + l, label: String(l + 1).padStart(2, '0') + '   ' + (M.lanes[l] || 'Stage ' + (l + 1)).toUpperCase() }, classes: 'lanetitle' });
+  }
+  els.push({ data: { id: 'band' }, classes: 'band' }, { data: { id: 'bandt', label: 'REFERENCE DATA & CONFIGURATION' }, classes: 'bandtitle' });
+  for (const d of M.datasets) {
+    const meta = [SYS_SHORT[d.system], d.kind.replace(' table', ''), d.columns.length ? d.columns.length + ' cols' : null].filter(Boolean).join(' · ').toUpperCase();
+    els.push({ data: { id: 'd:' + d.id, ds: d.id, h: headH(d) }, classes: 'head ' + d.role + ' sys-' + d.system });
+    els.push({ data: { id: 'dn:' + d.id, label: d.label }, classes: 'txt name' });
+    els.push({ data: { id: 'dm:' + d.id, label: meta }, classes: 'txt meta' });
+    for (const c of d.columns) {
+      const t = colTransform(key(d.id, c.name));
+      els.push({ data: { id: 'c:' + key(d.id, c.name), ds: d.id, col: c.name, label: (t ? GLYPH[t] : '·') + '  ' + c.name }, classes: 'col' + (t && !PASS.has(t) ? ' changed' : '') });
+    }
+  }
+  for (const s of M.steps) {
+    els.push({ data: { id: 's:' + s.id, step: s.id, label: String(s.n) }, classes: 'step' + (s.optional ? ' optional' : '') });
+    els.push({ data: { id: 'st:' + s.id, label: s.title + (s.optional ? '\n(optional)' : '') }, classes: 'steptitle' });
+    for (const i of s.inputs) els.push({ data: { id: `te:${s.id}:in:${i}`, source: 'd:' + i, target: 's:' + s.id, label: (s.input_conditions || {})[i] || '' }, classes: 'tedge' + (DS[i].role === 'reference' ? ' ref' : '') });
+    for (const o of s.outputs) els.push({ data: { id: `te:${s.id}:out:${o}`, source: 's:' + s.id, target: 'd:' + o, label: '' }, classes: 'tedge' });
+  }
+  for (const e of M.column_lineage) e.sources.forEach((s, i) => {
+    els.push({ data: { id: `ce:${e.id}:${i}`, source: 'c:' + key(s.dataset, s.column), target: 'c:' + e.tkey, edge: e.id, label: CIRC(ST[e.step].n) },
+               classes: 'cedge ' + (e.method === 'declared' ? 'declared ' : '') + (PASS.has(e.transform) ? 'pass' : 'changed') });
+  });
+  for (const c of M.callouts) {
+    const icon = { warning: '⚠', gap: '?', note: 'i' }[c.severity];
+    const sz = notesSize(c);
+    els.push({ data: { id: 'n:' + c.id, co: c.id, label: icon + '  ' + c.title, w: sz.w, h: sz.h, tw: sz.tw }, classes: 'note ' + c.severity });
+    els.push({ data: { id: 'nc:' + c.id, source: 'n:' + c.id, target: c.target.step ? 's:' + c.target.step : 'd:' + c.target.dataset }, classes: 'nedge' });
+  }
+  return els;
+}
+
+function style() {
+  const v = n => css(n);
+  return [
+    { selector: 'node', style: { 'font-family': 'system-ui, -apple-system, Segoe UI, sans-serif', 'font-size': 12, color: v('--ink'), 'border-width': 0, 'background-opacity': 1, 'overlay-opacity': 0, 'min-zoomed-font-size': 5 } },
+    { selector: '.lane', style: { shape: 'round-rectangle', 'background-color': v('--lane'), events: 'no', 'z-index': 0, 'corner-radius': 14 } },
+    { selector: '.lanetitle', style: { 'background-opacity': 0, width: 1, height: 1, label: 'data(label)', 'font-size': 11, 'font-weight': 600, color: v('--muted'), 'text-halign': 'right', 'text-valign': 'center', events: 'no', 'z-index': 1 } },
+    { selector: '.band', style: { shape: 'round-rectangle', 'background-color': v('--lane-ref'), 'background-opacity': .9, 'border-width': 1, 'border-style': 'dashed', 'border-color': v('--base'), events: 'no', 'z-index': 1, 'corner-radius': 12 } },
+    { selector: '.bandtitle', style: { 'background-opacity': 0, width: 1, height: 1, label: 'data(label)', 'font-size': 10.5, 'font-weight': 600, color: v('--muted'), 'text-halign': 'right', events: 'no', 'z-index': 2 } },
+    { selector: '.head', style: { shape: 'round-rectangle', width: G.CARD_W, height: 'data(h)', 'background-fill': 'linear-gradient', 'background-gradient-direction': 'to-right',
+        'background-gradient-stop-positions': '0 2.6 2.6 100', 'border-width': 1, 'border-color': v('--base'), 'corner-radius': 8, 'z-index': 10 } },
+    ...Object.keys(SYS).map(sys => ({ selector: '.head.sys-' + sys, style: { 'background-gradient-stop-colors': `${v('--sys-' + sys)} ${v('--sys-' + sys)} ${v('--raised')} ${v('--raised')}` } })),
+    { selector: '.head.reference', style: { 'border-style': 'dashed' } },
+    { selector: '.head.output', style: { 'border-width': 1.5, 'border-color': v('--ink-2') } },
+    { selector: '.txt', style: { 'background-opacity': 0, width: 1, height: 1, label: 'data(label)', 'text-halign': 'right', 'text-valign': 'center', 'text-wrap': 'wrap', events: 'no', 'z-index': 12 } },
+    { selector: '.name', style: { 'text-max-width': G.CARD_W - 24, 'font-size': 12.5, 'font-weight': 600, 'line-height': 1.2 } },
+    { selector: '.meta', style: { 'text-wrap': 'ellipsis', 'text-max-width': G.CARD_W - 30, 'font-size': 10, 'font-weight': 600, color: v('--muted') } },
+    { selector: '.col', style: { shape: 'rectangle', width: G.CARD_W, height: G.ROW_H, 'background-color': v('--surface'), 'border-width': 1, 'border-color': v('--hair'),
+        label: 'data(label)', 'font-size': 11.5, 'text-wrap': 'ellipsis', 'text-max-width': G.CARD_W - 18, 'text-halign': 'right', 'text-valign': 'center', 'text-margin-x': -(G.CARD_W - 12), color: v('--ink-2'), 'z-index': 10, 'font-family': 'ui-monospace, Menlo, monospace' } },
+    { selector: '.col.changed', style: { color: v('--ink'), 'font-weight': 600 } },
+    { selector: '.col.focus', style: { 'background-color': v('--ink'), color: v('--surface'), 'border-color': v('--ink') } },
+    { selector: '.step', style: { shape: 'ellipse', width: G.STEP_D, height: G.STEP_D, 'background-color': v('--step'), color: v('--step-ink'), label: 'data(label)',
+        'font-size': 13.5, 'font-weight': 'bold', 'text-valign': 'center', 'text-halign': 'center', 'z-index': 14, 'border-width': 3, 'border-color': v('--page') } },
+    { selector: '.step.optional', style: { 'background-color': v('--raised'), color: v('--ink'), 'border-width': 1.5, 'border-style': 'dashed', 'border-color': v('--step-opt') } },
+    { selector: '.steptitle', style: { 'background-opacity': 0, width: 1, height: 1, label: 'data(label)', 'text-valign': 'bottom', 'text-halign': 'center', 'text-wrap': 'wrap',
+        'text-max-width': G.STEP_TW, 'font-size': 11, 'font-weight': 600, color: v('--ink'), 'line-height': 1.25, events: 'no', 'z-index': 14,
+        'text-background-color': v('--page'), 'text-background-opacity': .85, 'text-background-padding': 2, 'text-background-shape': 'round-rectangle' } },
+    { selector: '.note', style: { shape: 'round-rectangle', width: 'data(w)', height: 'data(h)', label: 'data(label)', 'text-wrap': 'wrap', 'text-max-width': 'data(tw)', 'font-size': 11, 'font-weight': 600,
+        'text-valign': 'center', 'text-halign': 'center', 'border-width': 1, 'corner-radius': 7, 'z-index': 16, 'line-height': 1.3 } },
+    { selector: '.note.warning', style: { 'background-color': v('--warn-bg'), 'border-color': v('--warn') } },
+    { selector: '.note.gap', style: { 'background-color': v('--gap-bg'), 'border-color': v('--gap') } },
+    { selector: '.note.note', style: { 'background-color': v('--note-bg'), 'border-color': v('--base') } },
+    { selector: 'edge', style: { width: 1.6, 'line-color': v('--base'), 'target-arrow-color': v('--base'), 'target-arrow-shape': 'triangle', 'arrow-scale': .8,
+        'curve-style': 'round-taxi', 'taxi-direction': 'rightward', 'taxi-turn': 'data(turn)', 'taxi-turn-min-distance': 4, 'taxi-radius': 8, 'source-endpoint': '50% 0%', 'target-endpoint': '-50% 0%', 'z-index': 5, 'overlay-opacity': 0 } },
+    { selector: '.tedge', style: { width: 2 } },
+    { selector: '.tedge.ref', style: { 'line-style': 'dashed', 'line-dash-pattern': [6, 4] } },
+    { selector: '.cedge', style: { width: 1.3 } },
+    { selector: '.cedge.changed', style: { 'line-color': v('--ink-2'), 'target-arrow-color': v('--ink-2'), width: 1.6 } },
+    { selector: '.cedge.declared', style: { 'line-style': 'dashed', 'line-dash-pattern': [5, 4] } },
+    { selector: '.iedge', style: { 'line-style': 'dotted', 'line-color': v('--muted'), 'target-arrow-shape': 'tee', 'target-arrow-color': v('--muted'), width: 1.5, label: 'data(label)', 'font-size': 9.5, color: v('--muted'),
+        'text-background-color': v('--page'), 'text-background-opacity': 1, 'text-background-padding': 2 } },
+    { selector: 'edge[!turn]', style: { 'taxi-turn': '50%' } },
+    { selector: '.nedge', style: { 'curve-style': 'straight', 'line-style': 'dotted', width: 1.6, 'line-color': v('--ink-2'), 'line-opacity': .7, 'target-arrow-shape': 'circle', 'target-arrow-color': v('--muted'), 'arrow-scale': .5,
+        'source-endpoint': 'outside-to-node', 'target-endpoint': 'outside-to-node', 'z-index': 4 } },
+    { selector: '.labeled', style: { label: 'data(label)', 'font-size': 10.5, color: v('--ink'), 'text-background-color': v('--page'), 'text-background-opacity': 1, 'text-background-padding': 2, 'text-background-shape': 'round-rectangle' } },
+    { selector: '.hl', style: { 'line-color': v('--path'), 'target-arrow-color': v('--path'), width: 2.6, 'z-index': 30 } },
+    { selector: 'node.hl.head', style: { 'border-width': 2.2, 'border-color': v('--path') } },
+    { selector: 'node.hl.step', style: { 'border-width': 3, 'border-color': v('--warn') } },
+    { selector: '.steptitle.hl', style: { color: v('--ink') } },
+    { selector: '.sel.head', style: { 'border-width': 2.6, 'border-color': v('--path') } },
+    { selector: '.sel.step', style: { 'border-width': 3, 'border-color': v('--warn') } },
+    { selector: '.sel.note', style: { 'border-width': 2.2 } },
+    { selector: '.faded', style: { opacity: .16 } },
+    { selector: '.gone', style: { display: 'none' } },
+  ];
+}
+
+const cy = cytoscape({ container: document.getElementById('cy'), elements: buildElements(), style: style(), layout: { name: 'preset' },
+  minZoom: 0.12, maxZoom: 2.5, boxSelectionEnabled: false, autoungrabify: true });
+
+// round-taxi needs cytoscape >= 3.28; fall back to taxi if unsupported
+if (cy.edges().length && cy.edges()[0].style('curve-style') !== 'round-taxi') cy.style().selector('edge').style('curve-style', 'taxi').update();
+
+// ------------------------------------------------------------------ layout
+function notesSize(c) {
+  const w = G.NOTE_W, chars = (w - 24) / 6.3;
+  const lines = Math.ceil((c.title.length + 3) / chars);
+  return { w, h: 14 + lines * 14.5, tw: w - 20 };
+}
+const noteLane = c => c.target.step ? Math.min(...ST[c.target.step].outputs.map(o => DS[o].lane)) : DS[c.target.dataset].lane;
+
+function layout() {
+  const cols = state.mode === 'columns';
+  const vis = cols ? visibleColumns() : null;
+  const shown = M.datasets.filter(d => !cols || vis.has(d.id));
+  const H = d => headH(d) + (cols ? vis.get(d.id).length * G.ROW_H : 0);
+  const pos = {};
+
+  // callout band (tables mode only)
+  const notes = (!cols && state.notes) ? M.callouts : [];
+  const noteSlots = new Map();
+  for (const c of notes) {
+    const x = laneX(noteLane(c)) - G.LANE_W / 2 + 6 + G.NOTE_W / 2;
+    const sz = notesSize(c);
+    const slot = noteSlots.get(x) || [];
+    slot.push({ c, sz });
+    noteSlots.set(x, slot);
+  }
+  const NOTE_TOP = 64;
+  let notesBottom = NOTE_TOP;
+  for (const [x, slot] of noteSlots) {
+    let y = NOTE_TOP;
+    for (const { c, sz } of slot) {
+      pos['n:' + c.id] = { x, y: y + sz.h / 2, ...sz };
+      y += sz.h + 10;
+    }
+    notesBottom = Math.max(notesBottom, y);
+  }
+  const TOP = notes.length ? notesBottom + 34 : 70;
+
+  // order cards inside each lane band by barycenter of neighbours, pack top-down
+  const lanes = [...Array(nLanes)].map(() => ({ main: [], ref: [] }));
+  shown.forEach(d => lanes[d.lane][d.role === 'reference' ? 'ref' : 'main'].push(d));
+  const cy0 = {};
+  const neighbours = (d, dir) => {
+    const st = dir === 'up' ? producers(d.id) : consumers(d.id);
+    return st.flatMap(s => dir === 'up' ? s.inputs : s.outputs).filter(id => id in cy0 && DS[id].role !== 'reference');
+  };
+  const pack = (list, top, desired) => {
+    const wants = new Map(list.map(d => [d.id, desired(d)]));
+    list.sort((a, b) => (wants.get(a.id) ?? 1e9) - (wants.get(b.id) ?? 1e9));
+    let cursor = top;
+    const placed = list.map(d => {
+      const want = wants.get(d.id);
+      const y = Math.max(cursor, want != null ? want - H(d) / 2 : cursor);
+      cursor = y + H(d) + G.GAP;
+      return [d, y];
+    });
+    // centre the stack on what it wants instead of letting it slide down
+    const disp = placed.filter(([d]) => wants.get(d.id) != null).map(([d, y]) => y + H(d) / 2 - wants.get(d.id));
+    const shift = placed.length && disp.length ? Math.min(Math.max(0, disp.reduce((a, b) => a + b, 0) / disp.length), placed[0][1] - top) : 0;
+    for (const [d, y] of placed) cy0[d.id] = y - shift + H(d) / 2;
+  };
+  const bary = dir => d => { const n = neighbours(d, dir); return n.length ? n.reduce((a, id) => a + cy0[id], 0) / n.length : null; };
+  lanes.forEach(L => pack(L.main, TOP, () => null));
+  for (let it = 0; it < 3; it++) {
+    for (let l = 1; l < nLanes; l++) pack(lanes[l].main, TOP, bary('up'));
+    for (let l = nLanes - 2; l >= 0; l--) pack(lanes[l].main, TOP, d => bary('down')(d) ?? cy0[d.id]);
+  }
+  for (let l = 1; l < nLanes; l++) pack(lanes[l].main, TOP, bary('up'));
+  const mainList = shown.filter(d => d.role !== 'reference');
+  const lift = Math.min(...mainList.map(d => cy0[d.id] - H(d) / 2)) - TOP;
+  mainList.forEach(d => { cy0[d.id] -= lift; });
+  const mainBottom = Math.max(...shown.filter(d => d.role !== 'reference').map(d => cy0[d.id] + H(d) / 2));
+  const REF_TOP = mainBottom + 90;
+  lanes.forEach(L => pack(L.ref, REF_TOP, () => null));
+  const hasRef = shown.some(d => d.role === 'reference');
+  const bottom = Math.max(mainBottom, ...shown.map(d => cy0[d.id] + H(d) / 2));
+
+  // cards: header + text + rows
+  for (const d of shown) {
+    const x = laneX(d.lane), top = cy0[d.id] - H(d) / 2, hh = headH(d), left = x - G.CARD_W / 2;
+    pos['d:' + d.id] = { x, y: top + hh / 2 };
+    pos['dn:' + d.id] = { x: left + 16, y: top + 12 + nameLines(d) * G.LINE / 2 };
+    pos['dm:' + d.id] = { x: left + 16, y: top + hh - 14 };
+    if (cols) vis.get(d.id).forEach((c, i) => { pos['c:' + key(d.id, c)] = { x, y: top + hh + i * G.ROW_H + G.ROW_H / 2 }; });
+  }
+  // column order inside cards: barycenter of linked rows, two sweeps
+  if (cols) {
+    for (let sweep = 0; sweep < 2; sweep++) for (const d of shown) {
+      const list = vis.get(d.id), hh = headH(d), top = cy0[d.id] - H(d) / 2;
+      const score = c => {
+        const k = key(d.id, c);
+        const ys = [...(incoming.get(k) || []).flatMap(e => e.sources.map(s => pos['c:' + key(s.dataset, s.column)])),
+                    ...(outgoing.get(k) || []).map(e => pos['c:' + e.tkey])].filter(Boolean).map(p => p.y);
+        return ys.length ? ys.reduce((a, b) => a + b, 0) / ys.length : pos['c:' + k].y;
+      };
+      const scored = list.map(c => [c, score(c)]).sort((a, b) => a[1] - b[1]);
+      scored.forEach(([c], i) => { pos['c:' + key(d.id, c)] = { x: laneX(d.lane), y: top + hh + i * G.ROW_H + G.ROW_H / 2 }; });
+    }
+  }
+  // steps between lanes, packed per gutter
+  if (!cols) {
+    const gutters = new Map();
+    for (const s of M.steps) {
+      const x = stepX(s);
+      const ids = [...s.outputs, ...s.inputs.filter(i => DS[i].role !== 'reference')];
+      const want = ids.reduce((a, id) => a + pos['d:' + id].y, 0) / ids.length;
+      (gutters.get(x) || gutters.set(x, []).get(x)).push({ s, want });
+    }
+    for (const [x, list] of gutters) {
+      list.sort((a, b) => a.want - b.want);
+      let cursor = -1e9;
+      for (const { s, want } of list) {
+        const y = Math.max(cursor, want);
+        pos['s:' + s.id] = { x, y };
+        pos['st:' + s.id] = { x, y: y + G.STEP_D / 2 + 2 };
+        cursor = y + G.STEP_H + 10;
+      }
+    }
+  }
+  // lanes, titles and reference band
+  const laneTop = 20, laneBottom = bottom + 36, lw = G.CARD_W + 28;
+  for (let l = 0; l < nLanes; l++) {
+    pos['lane:' + l] = { x: laneX(l), y: (laneTop + laneBottom) / 2, w: lw, h: laneBottom - laneTop };
+    pos['lt:' + l] = { x: laneX(l) - lw / 2 + 14, y: laneTop + 20 };
+  }
+  if (hasRef) {
+    const x0 = laneX(0) - lw / 2 - 18, x1 = laneX(nLanes - 1) + lw / 2 + 18;
+    pos.band = { x: (x0 + x1) / 2, y: (REF_TOP - 40 + laneBottom + 8) / 2, w: x1 - x0, h: laneBottom + 8 - (REF_TOP - 40) };
+    pos.bandt = { x: x0 + 16, y: REF_TOP - 24 };
+  }
+
+  // apply
+  cy.batch(() => {
+    cy.elements().addClass('gone');
+    for (const [id, p] of Object.entries(pos)) {
+      const n = cy.getElementById(id);
+      if (!n.length) continue;
+      n.removeClass('gone').position({ x: p.x, y: p.y });
+      if (p.w) n.style({ width: p.w, height: p.h });
+      if (p.tw) n.data({ w: p.w, h: p.h, tw: p.tw });
+    }
+    if (!hasRef) cy.$('#band, #bandt').addClass('gone');
+    const visible = id => !cy.getElementById(id).hasClass('gone');
+    cy.edges().forEach(e => {
+      const ok = visible(e.data('source')) && visible(e.data('target')) &&
+        (cols ? e.hasClass('cedge') || e.hasClass('iedge') : e.hasClass('tedge') || e.hasClass('nedge'));
+      e.toggleClass('gone', !ok);
+    });
+    assignTracks();
+  });
+}
+
+// spread the vertical segments of right-angle edges over the gap, one track per edge, ordered by target height
+function assignTracks() {
+  const groups = new Map();
+  cy.edges().not('.gone').not('.nedge').forEach(e => {
+    const s = e.source(), t = e.target();
+    const right = Math.round(s.position('x') + s.width() / 2);
+    (groups.get(right) || groups.set(right, []).get(right)).push(e);
+  });
+  for (const [right, list] of groups) {
+    const gap = Math.min(...list.map(e => e.target().position('x') - e.target().width() / 2 - right));
+    list.sort((a, b) => a.target().position('y') - b.target().position('y') || a.source().position('y') - b.source().position('y'));
+    // edges into the same target share a track
+    const targets = [...new Set(list.map(e => e.target().id()))];
+    const step = Math.min(9, (gap - 24) / Math.max(1, targets.length - 1));
+    list.forEach(e => e.data('turn', Math.max(8, Math.round(12 + targets.indexOf(e.target().id()) * step))));
+  }
+}
+
+// ------------------------------------------------------------------ column focus / path
+function closure(start) {
+  const up = new Set([start]), down = new Set([start]), edges = new Set();
+  const walk = (k, dir, seen) => {
+    const list = dir === 'up' ? incoming.get(k) || [] : outgoing.get(k) || [];
+    for (const e of list) {
+      edges.add(e);
+      for (const n of dir === 'up' ? e.sources.map(s => key(s.dataset, s.column)) : [e.tkey]) if (!seen.has(n)) { seen.add(n); walk(n, dir, seen); }
+    }
+  };
+  walk(start, 'up', up); walk(start, 'down', down);
+  return { cols: new Set([...up, ...down]), up, down, edges };
+}
+
+function indirectFor(path) {
+  // filters / joins of the steps on the path, attached to the path target of that step
+  if (!state.indirect) return [];
+  const out = [];
+  const byStep = new Map();
+  for (const e of path.edges) if (path.cols.has(e.tkey)) (byStep.get(e.step) || byStep.set(e.step, []).get(e.step)).push(e);
+  for (const [step, es] of byStep) {
+    const target = (es.find(e => path.up.has(e.tkey)) || es[0]).tkey;
+    for (const f of M.indirect.filter(f => f.step === step && f.role !== 'group_by'))
+      for (const c of f.columns) {
+        const k = key(c.dataset, c.column);
+        if (k !== target && !out.some(o => o.k === k && o.target === target)) out.push({ k, target, role: f.role, step });
+      }
+  }
+  return out;
+}
+
+function visibleColumns() {
+  const vis = new Map();
+  const add = k => { const [d, c] = k.split('::'); (vis.get(d) || vis.set(d, []).get(d)).includes(c) || vis.get(d).push(c); };
+  const focusCol = state.sel && state.sel.type === 'column' ? state.sel.id : null;
+  if (focusCol && state.pathOnly) {
+    const p = closure(focusCol);
+    p.cols.forEach(add);
+    indirectFor(p).forEach(i => add(i.k));
+  } else {
+    for (const d of M.datasets) for (const c of d.columns) add(key(d.id, c.name));
+  }
+  // keep manifest column order
+  for (const [d, list] of vis) { const order = DS[d].columns.map(c => c.name); list.sort((a, b) => order.indexOf(a) - order.indexOf(b)); }
+  return vis;
+}
+
+// ------------------------------------------------------------------ highlight
+function highlight() {
+  cy.batch(() => {
+    cy.elements().removeClass('faded hl sel focus labeled');
+    cy.remove('.iedge');
+    const s = state.sel;
+    if (!s) return;
+    if (state.mode === 'tables') {
+      let keep = cy.collection();
+      if (s.type === 'dataset') {
+        const node = cy.getElementById('d:' + s.id);
+        keep = node.union(node.predecessors('.tedge, .step, .head')).union(node.successors('.tedge, .step, .head'));
+        node.addClass('sel');
+      } else if (s.type === 'step') {
+        const n = cy.getElementById('s:' + s.id);
+        keep = n.union(n.connectedEdges('.tedge')).union(n.connectedEdges('.tedge').connectedNodes());
+        n.addClass('sel');
+      } else if (s.type === 'callout') {
+        const n = cy.getElementById('n:' + s.id);
+        keep = n.union(n.connectedEdges()).union(n.connectedEdges().connectedNodes());
+        n.addClass('sel');
+      } else if (s.type === 'column') {
+        const ds = s.id.split('::')[0];
+        keep = cy.getElementById('d:' + ds);
+        keep.addClass('sel');
+      }
+      keep = keep.union(keep.filter('.head').map(h => cy.getElementById('dn:' + h.data('ds')).union(cy.getElementById('dm:' + h.data('ds')))).reduce((a, b) => a.union(b), cy.collection()));
+      const notesE = keep.filter('.head, .step').connectedEdges('.nedge');
+      keep = keep.union(notesE).union(notesE.sources());
+      keep = keep.union(keep.filter('.step').map(n => cy.getElementById('st:' + n.data('step'))).reduce((a, b) => a.union(b), cy.collection()));
+      cy.elements('.head, .step, .steptitle, .tedge, .note, .nedge, .txt').difference(keep).addClass('faded');
+      keep.filter('.tedge').addClass('hl');
+    } else if (s.type === 'column') {
+      const p = closure(s.id);
+      const pathEdges = cy.edges('.cedge').filter(e => p.edges.has(edgeById[e.data('edge')]) && p.cols.has(e.data('source').slice(2)) && p.cols.has(e.data('target').slice(2)));
+      for (const i of indirectFor(p))
+        cy.add({ data: { id: `ie:${i.k}>${i.target}`, source: 'c:' + i.k, target: 'c:' + i.target, label: i.role }, classes: 'iedge' });
+      const keepCols = cy.nodes('.col').filter(n => p.cols.has(n.id().slice(2)) || cy.edges('.iedge').sources().contains(n));
+      cy.elements('.col, .cedge').difference(keepCols).difference(pathEdges).addClass('faded');
+      pathEdges.addClass('hl labeled');
+      cy.getElementById('c:' + s.id).addClass('focus');
+    } else if (s.type === 'dataset') {
+      cy.getElementById('d:' + s.id).addClass('sel');
+    }
+  });
+}
+const edgeById = Object.fromEntries(M.column_lineage.map(e => [e.id, e]));
+
+// ------------------------------------------------------------------ actions
+function render(fit = true) {
+  const app = document.querySelector('.app');
+  if (app.classList.contains('wide') !== (state.mode === 'columns')) { app.classList.toggle('wide', state.mode === 'columns'); cy.resize(); }
+  layout();
+  highlight();
+  renderPanel();
+  if (fit) fitView();
+  renderHud();
+  renderRail();
+  writeHash();
+}
+function fitView() {
+  const s = state.sel;
+  const visible = cy.elements().not('.gone').not('.lane, .lanetitle, .band, .bandtitle');
+  cy.fit(cy.elements().not('.gone'), 36);
+  if (state.mode === 'columns' && cy.zoom() < 0.45) {
+    cy.zoom(0.62);
+    const target = s && s.type === 'column' ? cy.getElementById('c:' + s.id) : visible;
+    cy.center(target);
+  }
+}
+function select(sel, opts = {}) {
+  if (sel && sel.type === 'column' && state.mode !== 'columns' && opts.switchMode !== false) state.mode = 'columns';
+  state.sel = sel;
+  const relayout = state.mode === 'columns';
+  if (relayout) render(true); else { highlight(); renderPanel(); renderRail(); writeHash(); if (opts.center || !inView(sel)) centerOn(sel); }
+}
+function inView(sel) {
+  const n = cy.getElementById({ dataset: 'd:', step: 's:', callout: 'n:', column: 'c:' }[sel.type] + sel.id);
+  if (!n.length) return true;
+  const p = n.renderedPosition(), w = cy.width(), h = cy.height();
+  return p.x > 40 && p.x < w - 40 && p.y > 40 && p.y < h - 40;
+}
+function centerOn(sel) {
+  const id = { dataset: 'd:', step: 's:', callout: 'n:', column: 'c:' }[sel.type] + sel.id;
+  const n = cy.getElementById(id);
+  if (n.length && !n.hasClass('gone')) cy.animate({ center: { eles: n }, duration: 250 });
+}
+function setMode(m) {
+  if (state.mode === m) return;
+  state.mode = m;
+  if (m === 'columns' && (!state.sel || state.sel.type !== 'column')) {
+    const ds = state.sel && state.sel.type === 'dataset' ? DS[state.sel.id] : null;
+    // open on the column with the most significant transformation (e.g. an aggregate rather than a pass-through)
+    const strength = c => RANK.indexOf(colTransform(key(ds.id, c.name)) || 'identity');
+    const c = ds && ds.columns.length ? [...ds.columns].sort((x, y) => strength(y) - strength(x))[0] : null;
+    state.sel = { type: 'column', id: c ? key(ds.id, c.name) : DEFAULT_COLUMN };
+  }
+  if (m === 'tables' && state.sel && state.sel.type === 'column') state.sel = { type: 'dataset', id: state.sel.id.split('::')[0] };
+  render(true);
+}
+const DEFAULT_COLUMN = (() => {
+  const out = M.datasets.filter(d => d.role === 'output');
+  for (const d of out) for (const c of [...d.columns].reverse()) if (incoming.has(key(d.id, c.name))) return key(d.id, c.name);
+  return M.column_lineage[0].tkey;
+})();
+
+cy.on('tap', 'node', ev => {
+  const n = ev.target;
+  if (n.hasClass('head')) select({ type: 'dataset', id: n.data('ds') });
+  else if (n.hasClass('step')) select({ type: 'step', id: n.data('step') });
+  else if (n.hasClass('note')) select({ type: 'callout', id: n.data('co') });
+  else if (n.hasClass('col')) select({ type: 'column', id: n.id().slice(2) });
+});
+cy.on('dbltap', 'node.head', ev => { state.sel = { type: 'dataset', id: ev.target.data('ds') }; setMode('columns'); });
+cy.on('tap', ev => { if (ev.target === cy) { state.sel = null; if (state.mode === 'columns') render(false); else { highlight(); renderPanel(); renderRail(); writeHash(); } } });
+
+// hover tooltip
+const tip = document.getElementById('tip');
+cy.on('mouseover', 'node.head, node.step, node.col, node.note', ev => {
+  const n = ev.target; let h = '';
+  if (n.hasClass('head')) { const d = DS[n.data('ds')]; h = `<b>${esc(d.name)}</b><span>${esc(d.description)}</span>`; }
+  else if (n.hasClass('step')) { const s = ST[n.data('step')]; h = `<b>${CIRC(s.n)} ${esc(s.title)}</b><span>${esc(s.summary)}</span>`; }
+  else if (n.hasClass('note')) { const c = CO[n.data('co')]; h = `<b>${esc(c.title)}</b><span>${esc(c.text)}</span>`; }
+  else { const k = n.id().slice(2), es = incoming.get(k) || []; h = `<b>${esc(k.replace('::', '.'))}</b><span>${esc(es[0] ? es[0].explanation : 'Source column — no upstream inside this job.')}</span>`; }
+  tip.innerHTML = h; tip.hidden = false;
+  document.getElementById('cy').style.cursor = 'pointer';
+});
+cy.on('mouseout', 'node', () => { tip.hidden = true; document.getElementById('cy').style.cursor = ''; });
+cy.on('mousemove', ev => {
+  if (tip.hidden) return;
+  const r = ev.renderedPosition, st = document.querySelector('.stage').getBoundingClientRect();
+  tip.style.left = Math.min(r.x + 16, st.width - 340) + 'px';
+  tip.style.top = Math.min(r.y + 16, st.height - tip.offsetHeight - 10) + 'px';
+});
+cy.on('viewport', () => { tip.hidden = true; });
+
+// ------------------------------------------------------------------ HUD + rail
+function renderHud() {
+  const hud = document.getElementById('hud'), hint = document.getElementById('hint');
+  if (state.mode === 'tables') {
+    hud.innerHTML = `<button class="chip" id="t-notes" aria-pressed="${state.notes}">Callouts on canvas</button>`;
+    hint.textContent = 'Click a table, step or callout · double-click a table to open its columns';
+  } else {
+    const s = state.sel && state.sel.type === 'column' ? state.sel.id : null;
+    hud.innerHTML = (s ? `<span class="crumb">Tracing <b>${esc(s.replace('::', '.'))}</b></span>` : '') +
+      `<button class="chip" id="t-path" aria-pressed="${state.pathOnly}">Only this path</button>` +
+      `<button class="chip" id="t-ind" aria-pressed="${state.indirect}">Filters &amp; joins</button>`;
+    hint.textContent = 'Click any column to trace it · thick lines = selected path · Esc clears';
+  }
+  const on = (id, f) => { const b = document.getElementById(id); if (b) b.onclick = f; };
+  on('t-notes', () => { state.notes = !state.notes; render(true); });
+  on('t-path', () => { state.pathOnly = !state.pathOnly; render(true); });
+  on('t-ind', () => { state.indirect = !state.indirect; render(false); });
+  document.querySelectorAll('.seg button').forEach(b => b.setAttribute('aria-pressed', b.dataset.mode === state.mode));
+}
+
+function renderRail() {
+  const s = state.sel;
+  document.getElementById('steps').innerHTML = M.steps.map(st => `
+    <div class="stepitem${s && s.type === 'step' && s.id === st.id ? ' on' : ''}" data-step="${st.id}">
+      <div class="num${st.optional ? ' opt' : ''}">${st.n}</div><div class="nm">${esc(st.title)}</div><span class="tag">${esc(st.kind)}</span></div>`).join('');
+  document.getElementById('findings').innerHTML = M.callouts.map(c => `
+    <div class="finding${s && s.type === 'callout' && s.id === c.id ? ' on' : ''}" data-callout="${c.id}">
+      <div class="sev ${c.severity}">${{ warning: '!', gap: '?', note: 'i' }[c.severity]}</div><div>${esc(c.title)}</div></div>`).join('');
+}
+document.getElementById('steps').addEventListener('click', e => { const el = e.target.closest('[data-step]'); if (el) { if (state.mode !== 'tables') { state.mode = 'tables'; state.sel = { type: 'step', id: el.dataset.step }; render(true); } else select({ type: 'step', id: el.dataset.step }, { center: true }); } });
+document.getElementById('steps').addEventListener('mouseover', e => { const el = e.target.closest('[data-step]'); if (el && state.mode === 'tables') cy.getElementById('s:' + el.dataset.step).addClass('hl'); });
+document.getElementById('steps').addEventListener('mouseout', e => { const el = e.target.closest('[data-step]'); if (el) cy.getElementById('s:' + el.dataset.step).removeClass('hl'); });
+document.getElementById('findings').addEventListener('click', e => { const el = e.target.closest('[data-callout]'); if (el) { if (state.mode !== 'tables') state.mode = 'tables'; state.notes = true; state.sel = { type: 'callout', id: el.dataset.callout }; render(false); centerOn(state.sel); } });
+
+document.getElementById('legend').innerHTML = [
+  ...['snowflake', 'maindb', 'python', 'excel'].map(s => `<div class="row"><span class="sw card" style="--c:var(--sys-${s})"></span>${SYS[s]}</div>`),
+  `<div class="row"><span class="sw" style="background:var(--step);border-radius:6px"></span>Transformation step</div>`,
+  `<div class="row"><span class="sw card" style="--c:var(--base);border:1px dashed var(--base);box-shadow:none"></span>Reference / config</div>`,
+  `<div class="row"><span class="ln"></span>Parsed from SQL</div>`,
+  `<div class="row"><span class="ln dash"></span>Declared (Python / Excel)</div>`,
+  `<div class="row"><span class="ln dot"></span>Filter / join influence</div>`,
+  `<div class="row"><span class="ln path"></span>Selected path</div>`,
+  ...[['=', 'passed through / renamed'], ['ƒ', 'calculated / cast'], ['◇', 'conditional (CASE)'], ['Σ', 'aggregated'], ['⚙\uFE0E', 'set by config rules'], ['⌖', 'positioned in Excel'], ['#', 'constant / parameter']]
+    .map(([g, t]) => `<div class="row"><span class="glyph mono">${g}</span>${t}</div>`),
+].join('');
+
+// ------------------------------------------------------------------ panel
+const P = document.getElementById('panel');
+const dsPill = id => `<span class="pill" data-go="dataset:${id}"><span class="dot" style="background:var(--sys-${DS[id].system})"></span>${esc(DS[id].label.replace(/\n.*/s, '').replace(/_$/, '…'))}</span>`;
+const stepPill = id => `<span class="pill" data-go="step:${id}"><span class="num${ST[id].optional ? ' opt' : ''}" style="width:16px;height:16px;font-size:9.5px">${ST[id].n}</span>${esc(ST[id].title)}</span>`;
+const colLink = (d, c) => `<span class="colref mono" data-go="column:${esc(key(d, c))}">${esc(d)}.${esc(c)}</span>`;
+const calloutHtml = c => `<div class="callout ${c.severity}"><div class="sev ${c.severity}">${{ warning: '!', gap: '?', note: 'i' }[c.severity]}</div><div><b>${esc(c.title)}</b><span>${esc(c.text)}</span></div></div>`;
+const hl = (code, lang) => { try { return hljs.highlight(code, { language: lang }).value; } catch { return esc(code); } };
+const git = M.job.git || {};
+function codeRef(c) {
+  const lines = c.lines || [];
+  const gh = M.job.git_web && git.commit ? `${M.job.git_web}/blob/${git.commit}/${c.file}#L${c.start}-L${c.end}` : null;
+  const vs = `vscode://file/${M.job.repo}/${c.file}:${c.start}`;
+  return `<div class="coderef"><div class="hd"><span class="f">${esc(c.file.split('/').pop())}:${c.start}–${c.end}</span>${c.label ? `<span class="badge">${esc(c.label)}</span>` : ''}
+    <a href="${vs}">VS Code</a>${gh ? `<a href="${gh}" target="_blank" rel="noopener">GitHub</a>` : ''}</div>
+    <div class="code"><div class="g">${lines.map((_, i) => c.start + i).join('\n')}</div><pre>${hl(lines.join('\n'), 'python')}</pre></div></div>`;
+}
+
+const stage = document.querySelector('.stage');
+function setDrawer(open) {
+  if (stage.classList.contains('open') === open) return;
+  stage.classList.toggle('open', open);
+  cy.resize();
+}
+function renderPanel() {
+  const s = state.sel;
+  setDrawer(!!s || state.overview);
+  document.getElementById('overview').setAttribute('aria-pressed', !s && state.overview);
+  if (!s) return panelOverview();
+  ({ dataset: panelDataset, step: panelStep, column: panelColumn, callout: panelCallout })[s.type](s.id);
+  P.parentElement.scrollTop = 0;
+}
+
+function panelOverview() {
+  const c = M.coverage, pct = Math.round(100 * c.parsed / c.column_edges);
+  P.innerHTML = `
+    <div class="kicker">Overview</div>
+    <h2>${esc(M.job.name)}</h2>
+    <p class="lead">${esc(M.job.description)}</p>
+    <div class="stats" style="margin-top:14px">
+      <div class="stat"><div class="v">${M.datasets.length}</div><div class="k">datasets</div></div>
+      <div class="stat"><div class="v">${M.steps.length}</div><div class="k">transformation steps</div></div>
+      <div class="stat"><div class="v">${c.column_edges}</div><div class="k">column mappings</div></div>
+      <div class="stat"><div class="v">${pct}%</div><div class="k">parsed automatically</div>
+        <div class="bar"><i style="width:${pct}%;background:var(--ink-2)"></i><i style="flex:1;background:var(--base)"></i></div></div>
+    </div>
+    <h4>How to read this</h4>
+    <p>Data flows left to right through six stages. Cards are tables or files, coloured by the system they live in; dark pills are the numbered transformation steps. Reference data and configuration sit in the dashed band below the main flow.</p>
+    <p>Click anything for its explanation and source code. Switch to <b>Columns</b> to follow a single field from the Excel cell back to the source view.</p>
+    <h4>Findings</h4>
+    ${M.callouts.filter(c => c.severity !== 'note').map(calloutHtml).join('')}
+    <h4>Provenance</h4>
+    <p class="sub">${esc(M.format)} · generated ${esc(M.generated_at.replace('T', ' '))} · sqlglot ${esc(M.generator.sqlglot)}<br>
+      ${esc(M.job.repo)}/${esc(M.job.file)}<br>commit ${esc((git.commit || '').slice(0, 10))} on ${esc(git.branch || '?')}${git.dirty ? ' · <b>uncommitted changes — line numbers may differ</b>' : ''}</p>
+    ${c.problems.length ? `<h4>Unresolved</h4>${c.problems.map(p => `<p class="sub">${esc(p)}</p>`).join('')}` : ''}`;
+}
+
+function panelDataset(id) {
+  const d = DS[id];
+  const rows = d.columns.map(c => {
+    const k = key(id, c.name), es = incoming.get(k) || [], t = colTransform(k);
+    const src = es.flatMap(e => e.sources.map(s => s.column));
+    return `<tr data-go="column:${esc(k)}"><td class="g mono">${t ? GLYPH[t] : '·'}</td><td class="mono">${esc(c.name)}</td><td class="src">${esc([...new Set(src)].slice(0, 3).join(', ')) || (es.length ? 'constant' : '—')}</td></tr>`;
+  }).join('');
+  P.innerHTML = `
+    <div class="kicker"><span class="dot" style="background:var(--sys-${d.system})"></span>${esc(SYS[d.system])} · ${esc(d.kind)} · ${esc(d.role)}</div>
+    <h2 class="mono" style="font-size:15.5px">${esc(d.label.replace(/\n/g, ''))}</h2>
+    <div class="sub mono">${esc(d.name)}</div>
+    <p class="lead" style="margin-top:10px">${esc(d.description)}</p>
+    ${calloutsFor({ dataset: id }).map(calloutHtml).join('')}
+    <h4>Written by</h4><div class="chips">${producers(id).map(s => stepPill(s.id)).join('') || '<span class="empty">— external source</span>'}</div>
+    <h4>Read by</h4><div class="chips">${consumers(id).map(s => stepPill(s.id)).join('') || '<span class="empty">— final output</span>'}</div>
+    <h4>Columns (${d.columns.length})</h4>
+    ${d.columns.length ? `<table class="cols"><tbody>${rows}</tbody></table>` : '<p class="empty">Columns are not known statically (same shape as the view).</p>'}
+    ${d.columns.length ? `<p style="margin-top:12px"><button class="btn" data-go="mode:columns">Trace columns →</button></p>` : ''}`;
+}
+
+function panelStep(id) {
+  const s = ST[id];
+  const es = M.column_lineage.filter(e => e.step === id);
+  const ind = M.indirect.filter(f => f.step === id);
+  const shown = es.filter(e => !PASS.has(e.transform));
+  const passCount = es.length - shown.length;
+  P.innerHTML = `
+    <div class="kicker"><span class="num${s.optional ? ' opt' : ''}" style="width:18px;height:18px;font-size:10px">${s.n}</span>Step ${s.n} · ${esc(s.kind)}</div>
+    <h2>${esc(s.title)}</h2>
+    ${s.optional ? `<div class="sub">${esc(s.optional)}</div>` : ''}
+    <p class="lead" style="margin-top:8px">${esc(s.summary)}</p>
+    ${calloutsFor({ step: id }).map(calloutHtml).join('')}
+    <h4>Reads</h4><div class="chips">${s.inputs.map(i => dsPill(i) + ((s.input_conditions || {})[i] ? `<span class="sub" style="align-self:center">${esc(s.input_conditions[i])}</span>` : '')).join('')}</div>
+    <h4>Writes</h4><div class="chips">${s.outputs.map(dsPill).join('')}</div>
+    <h4>Source code</h4>${s.code.map(codeRef).join('')}
+    ${ind.filter(f => f.role !== 'group_by').length ? `<h4>Filters &amp; joins</h4>${ind.filter(f => f.role !== 'group_by').map(f => `<div class="expr mono"><span class="badge">${f.role}</span> ${esc(f.expression)}</div>`).join('')}` : ''}
+    ${es.length ? `<h4>Column mappings (${es.length})</h4>
+      <table class="cols"><tbody>${shown.map(e => `<tr data-go="column:${esc(e.tkey)}"><td class="g mono">${GLYPH[e.transform]}</td><td class="mono">${esc(e.target.column)}</td><td class="src">${esc(e.sources.map(x => x.column).join(', ') || TNAME[e.transform])}</td></tr>`).join('')}</tbody></table>
+      ${passCount ? `<p class="sub" style="margin-top:6px">+ ${passCount} column${passCount > 1 ? 's' : ''} passed through unchanged</p>` : ''}` : ''}`;
+}
+
+function panelCallout(id) {
+  const c = CO[id];
+  P.innerHTML = `<div class="kicker">${esc({ warning: 'Warning', gap: 'Lineage gap', note: 'Note' }[c.severity])}</div>
+    <h2>${esc(c.title)}</h2>${calloutHtml(c)}
+    <h4>Attached to</h4><div class="chips">${c.target.step ? stepPill(c.target.step) : dsPill(c.target.dataset)}</div>
+    ${c.target.step ? `<h4>Source code</h4>${ST[c.target.step].code.map(codeRef).join('')}` : ''}`;
+}
+
+function hopTree(k, depth, seen) {
+  const es = incoming.get(k) || [];
+  if (!es.length) return `<div class="why">Source column — enters the job here.</div>`;
+  return es.map(e => {
+    const srcs = e.sources.filter(s => !seen.has(key(s.dataset, s.column)));
+    return `<div class="why">${stepPill(e.step)} <span class="badge">${GLYPH[e.transform]} ${esc(TNAME[e.transform])}</span>${e.method === 'declared' ? ' <span class="badge">declared</span>' : ''}</div>
+      ${PASS.has(e.transform) ? '' : `<div class="expr mono">${hl(e.expression, 'sql')}</div>`}
+      ${srcs.map(s => {
+        const sk = key(s.dataset, s.column); const next = new Set(seen); next.add(sk);
+        return `<details class="hop"${depth < 3 ? ' open' : ''}><summary>${colLink(s.dataset, s.column)}</summary>${hopTree(sk, depth + 1, next)}</details>`;
+      }).join('')}`;
+  }).join('');
+}
+
+function panelColumn(k) {
+  const [d, c] = k.split('::'), es = incoming.get(k) || [], out = outgoing.get(k) || [];
+  const steps = [...new Set(es.map(e => e.step))];
+  const ind = M.indirect.filter(f => steps.includes(f.step) && f.role !== 'group_by');
+  const grp = M.indirect.filter(f => steps.includes(f.step) && f.role === 'group_by');
+  const main = es[0];
+  P.innerHTML = `
+    <div class="kicker"><span class="dot" style="background:var(--sys-${DS[d].system})"></span>Column · ${esc(SYS[DS[d].system])}</div>
+    <h2 class="mono" style="font-size:16px"><span data-go="dataset:${d}" style="cursor:pointer;color:var(--muted)">${esc(d)}.</span>${esc(c)}</h2>
+    ${main ? `<p class="lead" style="margin-top:8px">${esc(main.explanation)}</p>
+      <div class="sub">${main.explanation_source === 'authored' ? 'Explanation reviewed by a person' : 'Explanation generated from the expression'}</div>`
+      : `<p class="lead">${esc(DS[d].role === 'source' || DS[d].role === 'reference' ? 'Enters the job here from ' + DS[d].name + '.' : 'No column-level source recorded.')}</p>`}
+    ${es.length ? `<h4>How it is made</h4>${hopTree(k, 0, new Set([k]))}` : ''}
+    ${ind.length ? `<h4>Also shaped by (filters &amp; joins)</h4>${ind.map(f => `<div class="expr mono"><span class="badge">${f.role}</span> ${esc(f.expression)}</div>`).join('')}` : ''}
+    ${grp.length && es.some(e => e.transform === 'aggregation') ? `<h4>Aggregated per</h4><div class="expr mono">${esc(grp[0].expression)}</div>` : ''}
+    <h4>Used by (${out.length})</h4>
+    ${out.length ? `<table class="cols"><tbody>${out.map(e => `<tr data-go="column:${esc(e.tkey)}"><td class="g mono">${GLYPH[e.transform]}</td><td class="mono">${esc(e.target.dataset)}.${esc(e.target.column)}</td><td class="src">step ${ST[e.step].n}</td></tr>`).join('')}</tbody></table>` : '<p class="empty">Nothing downstream — this is a final output.</p>'}
+    ${steps.length ? `<h4>Source code</h4>${steps.flatMap(id => ST[id].code.slice(0, 1)).map(codeRef).join('')}` : ''}`;
+}
+
+P.addEventListener('click', e => {
+  const el = e.target.closest('[data-go]');
+  if (!el || e.target.closest('summary') && !e.target.closest('.colref')) return;
+  e.preventDefault();
+  const [type, ...rest] = el.dataset.go.split(':'), id = rest.join(':');
+  if (type === 'mode') return setMode(id);
+  if (type === 'column') return select({ type: 'column', id });
+  if (state.mode === 'columns' && type !== 'dataset') { state.mode = 'tables'; state.sel = { type, id }; return render(true); }
+  if (state.mode === 'columns' && type === 'dataset') { state.mode = 'tables'; state.sel = { type, id }; return render(true); }
+  select({ type, id }, { center: true });
+});
+
+// ------------------------------------------------------------------ search
+const idx = [
+  ...M.datasets.map(d => ({ type: 'dataset', id: d.id, text: d.name + ' ' + d.label, label: d.label.replace(/\n/g, ''), hint: SYS[d.system] })),
+  ...M.steps.map(s => ({ type: 'step', id: s.id, text: s.title + ' ' + s.summary, label: CIRC(s.n) + ' ' + s.title, hint: 'step' })),
+  ...M.datasets.flatMap(d => d.columns.map(c => ({ type: 'column', id: key(d.id, c.name), text: d.id + '.' + c.name, label: d.id + '.' + c.name, hint: 'column' }))),
+];
+const q = document.getElementById('q'), res = document.getElementById('results');
+let hits = [], cursor = 0;
+q.addEventListener('input', () => {
+  const t = q.value.trim().toLowerCase();
+  hits = t ? idx.filter(i => i.text.toLowerCase().includes(t)).slice(0, 14) : [];
+  cursor = 0; drawHits();
+});
+function drawHits() {
+  res.hidden = !hits.length;
+  res.innerHTML = hits.map((h, i) => `<div data-i="${i}" aria-selected="${i === cursor}"><span class="${h.type === 'column' ? 'mono' : ''}">${esc(h.label)}</span><small>${esc(h.hint)}</small></div>`).join('');
+}
+function pick(h) {
+  q.value = ''; hits = []; drawHits(); q.blur();
+  if (h.type === 'column') return select({ type: 'column', id: h.id });
+  if (state.mode === 'columns') { state.mode = 'tables'; state.sel = { type: h.type, id: h.id }; return render(true); }
+  select({ type: h.type, id: h.id }, { center: true });
+}
+res.addEventListener('mousedown', e => { const el = e.target.closest('[data-i]'); if (el) pick(hits[+el.dataset.i]); });
+q.addEventListener('keydown', e => {
+  if (e.key === 'ArrowDown') { cursor = Math.min(cursor + 1, hits.length - 1); drawHits(); e.preventDefault(); }
+  if (e.key === 'ArrowUp') { cursor = Math.max(cursor - 1, 0); drawHits(); e.preventDefault(); }
+  if (e.key === 'Enter' && hits[cursor]) pick(hits[cursor]);
+  if (e.key === 'Escape') { q.value = ''; hits = []; drawHits(); q.blur(); }
+});
+q.addEventListener('blur', () => setTimeout(() => { res.hidden = true; }, 120));
+
+// ------------------------------------------------------------------ toolbar, keys, theme, hash
+document.querySelectorAll('.seg button').forEach(b => b.onclick = () => setMode(b.dataset.mode));
+document.getElementById('overview').onclick = () => { state.overview = !(state.overview && !state.sel); state.sel = null; highlight(); renderPanel(); renderRail(); writeHash(); if (state.mode === 'columns') render(false); };
+document.getElementById('close').onclick = () => { state.sel = null; state.overview = false; if (state.mode === 'columns') render(false); else { highlight(); renderPanel(); renderRail(); writeHash(); } };
+document.getElementById('fit').onclick = () => cy.animate({ fit: { eles: cy.elements().not('.gone'), padding: 36 }, duration: 250 });
+document.getElementById('png').onclick = () => {
+  const blob = cy.png({ output: 'blob', full: true, scale: 2, bg: css('--page') });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = `${M.job.id}-lineage-${state.mode}.png`; a.click();
+};
+const THEMES = ['auto', 'light', 'dark'];
+let theme = 'auto';
+try { theme = localStorage.getItem('lineage-theme') || 'auto'; } catch {}
+const themeParam = new URLSearchParams(location.search).get('theme');
+if (THEMES.includes(themeParam)) theme = themeParam;
+function applyTheme() {
+  if (theme === 'auto') document.documentElement.removeAttribute('data-theme'); else document.documentElement.setAttribute('data-theme', theme);
+  document.getElementById('theme').textContent = { auto: '◐ Auto', light: '☀ Light', dark: '☾ Dark' }[theme];
+  cy.style(style());
+  if (cy.edges()[0].style('curve-style') !== 'round-taxi') cy.style().selector('edge').style('curve-style', 'taxi').update();
+}
+document.getElementById('theme').onclick = () => { theme = THEMES[(THEMES.indexOf(theme) + 1) % 3]; try { localStorage.setItem('lineage-theme', theme); } catch {} applyTheme(); };
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => theme === 'auto' && applyTheme());
+
+document.addEventListener('keydown', e => {
+  if (e.target === q) return;
+  if (e.key === '/') { q.focus(); e.preventDefault(); }
+  else if (e.key === 'Escape') document.getElementById('close').click();
+  else if (e.key === 't') setMode('tables');
+  else if (e.key === 'c') setMode('columns');
+  else if (e.key === 'f') document.getElementById('fit').click();
+});
+
+function writeHash() {
+  const s = state.sel;
+  const h = state.mode + (s ? '/' + s.type + '/' + encodeURIComponent(s.id) : '');
+  if (location.hash.slice(1) !== h) history.replaceState(null, '', '#' + h);
+}
+function readHash() {
+  const [mode, type, id] = location.hash.slice(1).split('/');
+  if (mode === 'tables' || mode === 'columns') state.mode = mode;
+  if (type && id) state.sel = { type, id: decodeURIComponent(id) };
+  if (state.mode === 'columns' && (!state.sel || state.sel.type !== 'column')) state.sel = { type: 'column', id: DEFAULT_COLUMN };
+}
+
+document.getElementById('title').innerHTML = `${esc(M.job.name)} <span>· data lineage</span>`;
+document.getElementById('subtitle').textContent = `${M.job.file} · ${(git.commit || '').slice(0, 7)} · ${M.generated_at.slice(0, 10)}`;
+applyTheme();
+readHash();
+render(true);
+requestAnimationFrame(() => document.body.classList.add('ready'));
+window.addEventListener('resize', () => cy.resize());
+</script>
+
+
+</body></html>
