@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FolderSync</title>
+<style>
+  :root {
+    --bg: #f6f7f9; --panel: #fff; --text: #1d2330; --muted: #6b7280; --border: #dfe3ea;
+    --accent: #2f6fed; --same: #e9f7ee; --newest: #d5f2df; --older: #fff1d6; --missing: #fde2e2;
+    --danger: #c0392b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14171c; --panel: #1c2027; --text: #e5e7eb; --muted: #9aa3b2; --border: #2e343e;
+      --accent: #5b8cff; --same: #1d2a22; --newest: #1f3d2a; --older: #43361a; --missing: #4a2226;
+      --danger: #ff6b5b;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 14px/1.4 system-ui, sans-serif; background: var(--bg); color: var(--text); }
+  header { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 12px 16px;
+           background: var(--panel); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 5; }
+  header h1 { font-size: 16px; margin: 0 12px 0 0; }
+  button, select, input, textarea { font: inherit; color: inherit; }
+  button { background: var(--panel); border: 1px solid var(--border); border-radius: 6px; padding: 5px 10px; cursor: pointer; }
+  button:hover { border-color: var(--accent); }
+  button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  button.danger { color: var(--danger); }
+  select, input, textarea { background: var(--panel); border: 1px solid var(--border); border-radius: 6px; padding: 5px 8px; }
+  .spacer { flex: 1; }
+  main { padding: 12px 16px; }
+  .bar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 10px; }
+  .muted { color: var(--muted); }
+  .errors { color: var(--danger); white-space: pre-wrap; margin-bottom: 8px; }
+  .tablewrap { overflow-x: auto; background: var(--panel); border: 1px solid var(--border); border-radius: 8px; }
+  table { border-collapse: collapse; width: 100%; }
+  th, td { padding: 5px 8px; border-bottom: 1px solid var(--border); text-align: left; white-space: nowrap; }
+  th { position: sticky; top: 0; background: var(--panel); font-weight: 600; }
+  td.path { font-family: ui-monospace, monospace; white-space: normal; word-break: break-all; min-width: 240px; }
+  td.cell { cursor: pointer; font-size: 12px; min-width: 150px; }
+  td.cell.newest { background: var(--newest); }
+  td.cell.older { background: var(--older); }
+  td.cell.missing { background: var(--missing); color: var(--muted); }
+  td.cell.same { background: var(--same); }
+  td.cell.src { outline: 2px solid var(--accent); outline-offset: -2px; font-weight: 600; }
+  td.cell.del { text-decoration: line-through; }
+  .badge { font-size: 11px; padding: 1px 6px; border-radius: 10px; border: 1px solid var(--border); }
+  .b-diff { color: #b7791f; } .b-missing { color: var(--danger); } .b-same { color: #2f855a; }
+  #log { margin-top: 12px; font-family: ui-monospace, monospace; font-size: 12px; white-space: pre-wrap; max-height: 200px; overflow: auto; }
+  .ok { color: #2f855a; } .bad { color: var(--danger); }
+  dialog { border: 1px solid var(--border); border-radius: 10px; background: var(--panel); color: var(--text); width: min(900px, 95vw); }
+  dialog::backdrop { background: rgba(0,0,0,.4); }
+  .folder { border: 1px solid var(--border); border-radius: 8px; padding: 8px; margin: 8px 0; display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 6px; }
+  .folder label, .grid label { display: flex; flex-direction: column; font-size: 12px; color: var(--muted); gap: 2px; }
+  .folder input, .folder select { color: var(--text); }
+  pre.diff { max-height: 70vh; overflow: auto; font-size: 12px; margin: 0; }
+  pre.diff .add { color: #2f855a; } pre.diff .rem { color: var(--danger); } pre.diff .hunk { color: var(--accent); }
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+<header>
+  <h1>FolderSync</h1>
+  <label>Profile <select id="profile"></select></label>
+  <button id="editBtn">Edit</button>
+  <button id="newBtn">New</button>
+  <button id="dupBtn">Duplicate</button>
+  <button id="delBtn" class="danger">Delete</button>
+  <span class="spacer"></span>
+  <button id="scanBtn" class="primary">Scan / Compare</button>
+</header>
+
+<main>
+  <div class="errors" id="errors"></div>
+  <div class="bar">
+    <label><input type="checkbox" id="onlyDiff" checked> Only differences</label>
+    <input id="search" placeholder="Filter path…" size="28">
+    <span class="muted" id="summary"></span>
+    <span class="spacer"></span>
+    <label>Bulk source
+      <select id="bulkSrc"></select>
+    </label>
+    <button id="selAll">Select all shown</button>
+    <button id="selNone">Select none</button>
+    <button id="syncBtn" class="primary">Sync selected</button>
+  </div>
+  <p class="muted">Click a folder cell to make it the source for that row (it gets copied to the other folders).
+    Shift-click a cell to mark that copy for deletion instead. Green = newest, orange = older, red = missing.</p>
+  <div class="tablewrap"><table id="tbl"></table></div>
+  <div id="log"></div>
+</main>
+
+<dialog id="editDlg">
+  <form method="dialog" id="editForm">
+    <h3 style="margin-top:0">Edit profile</h3>
+    <div class="grid" style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      <label>Profile name <input id="pName" required></label>
+      <label>Compare mode
+        <select id="pCompare">
+          <option value="mtime">Size + modified time (fast)</option>
+          <option value="hash">Checksum when times differ (accurate)</option>
+        </select>
+      </label>
+    </div>
+    <label class="muted" style="display:block;margin-top:8px">Exclude patterns (one per line, e.g. .git, *.pyc, build/*)
+      <textarea id="pExclude" rows="3" style="width:100%"></textarea></label>
+    <div id="pFolders"></div>
+    <button type="button" id="addFolder">+ Add folder</button>
+    <div class="bar" style="margin-top:12px;justify-content:flex-end">
+      <button value="cancel" formnovalidate>Cancel</button>
+      <button value="save" class="primary" id="saveProfile">Save</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="diffDlg">
+  <div class="bar">
+    <strong id="diffTitle"></strong><span class="spacer"></span>
+    <select id="diffA"></select> vs <select id="diffB"></select>
+    <button id="diffClose">Close</button>
+  </div>
+  <pre class="diff" id="diffOut"></pre>
+</dialog>
+
+<script>
+let config = null, data = null, rowState = {}, editing = null;
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+async function api(path, body) {
+  const r = await fetch(path, body ? {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body)} : {});
+  const j = await r.json();
+  if (!r.ok) throw new Error(j.error || r.statusText);
+  return j;
+}
+
+function fmtSize(n) {
+  const u = ['B','KB','MB','GB']; let i = 0;
+  while (n >= 1024 && i < u.length - 1) { n /= 1024; i++; }
+  return (i ? n.toFixed(1) : n) + ' ' + u[i];
+}
+const fmtTime = t => new Date(t * 1000).toLocaleString();
+const profileName = () => $('profile').value;
+const profile = () => config.profiles[profileName()];
+
+// ---------------------------------------------------------------- profiles
+async function loadConfig() {
+  config = await api('/api/config');
+  renderProfiles();
+}
+function renderProfiles() {
+  $('profile').innerHTML = Object.keys(config.profiles)
+    .map(n => `<option ${n === config.active ? 'selected' : ''}>${esc(n)}</option>`).join('');
+  renderBulkSrc();
+}
+function renderBulkSrc() {
+  const fs = profile().folders;
+  $('bulkSrc').innerHTML = '<option value="row">Per row (newest / clicked)</option>' +
+    fs.map((f, i) => `<option value="${i}">${esc(f.name)}</option>`).join('');
+}
+async function saveConfig() { await api('/api/config', config); }
+
+$('profile').onchange = async () => {
+  config.active = profileName(); await saveConfig();
+  data = null; renderBulkSrc(); renderTable();
+};
+
+function folderRow(f = {type: 'local'}) {
+  const d = document.createElement('div');
+  d.className = 'folder';
+  const v = k => esc(f[k] ?? '');
+  d.innerHTML = `
+    <label>Name <input data-k="name" value="${v('name')}" required></label>
+    <label>Type <select data-k="type"><option value="local">Local</option><option value="ssh">SSH</option></select></label>
+    <label style="grid-column: span 2">Path <input data-k="path" value="${v('path')}" required></label>
+    <label class="ssh">Host <input data-k="host" value="${v('host')}"></label>
+    <label class="ssh">Port <input data-k="port" type="number" value="${v('port') || 22}"></label>
+    <label class="ssh">User <input data-k="user" value="${v('user')}"></label>
+    <label class="ssh">Key file <input data-k="key_file" value="${v('key_file')}" placeholder="~/.ssh/id_ed25519"></label>
+    <label class="ssh">Password <input data-k="password" type="password" value="${v('password')}" placeholder="(optional)"></label>
+    <div style="display:flex;align-items:end;gap:4px">
+      <button type="button" data-act="up">↑</button><button type="button" data-act="down">↓</button>
+      <button type="button" class="danger" data-act="rm">Remove</button>
+    </div>`;
+  const sel = d.querySelector('[data-k=type]');
+  sel.value = f.type || 'local';
+  const upd = () => d.querySelectorAll('.ssh').forEach(e => e.classList.toggle('hidden', sel.value !== 'ssh'));
+  sel.onchange = upd; upd();
+  d.onclick = e => {
+    const act = e.target.dataset.act;
+    if (act === 'rm') d.remove();
+    if (act === 'up' && d.previousElementSibling) d.parentNode.insertBefore(d, d.previousElementSibling);
+    if (act === 'down' && d.nextElementSibling) d.parentNode.insertBefore(d.nextElementSibling, d);
+  };
+  return d;
+}
+
+function openEditor(name, p) {
+  editing = name;
+  $('pName').value = name;
+  $('pCompare').value = p.compare || 'mtime';
+  $('pExclude').value = (p.exclude || []).join('\n');
+  $('pFolders').innerHTML = '';
+  (p.folders || []).forEach(f => $('pFolders').appendChild(folderRow(f)));
+  $('editDlg').showModal();
+}
+$('addFolder').onclick = () => $('pFolders').appendChild(folderRow());
+$('editBtn').onclick = () => openEditor(profileName(), profile());
+$('newBtn').onclick = () => openEditor(null, {folders: [
+  {name: 'Folder 1', type: 'local'}, {name: 'Folder 2', type: 'local'}, {name: 'Server', type: 'ssh', port: 22}],
+  exclude: ['.git', '__pycache__', '.DS_Store'], compare: 'mtime'});
+$('dupBtn').onclick = () => openEditor(null, JSON.parse(JSON.stringify(profile())));
+$('delBtn').onclick = async () => {
+  if (Object.keys(config.profiles).length < 2) return alert('Cannot delete the last profile');
+  if (!confirm(`Delete profile "${profileName()}"?`)) return;
+  delete config.profiles[profileName()];
+  config.active = Object.keys(config.profiles)[0];
+  await saveConfig(); data = null; renderProfiles(); renderTable();
+};
+
+$('editDlg').addEventListener('close', async () => {
+  if ($('editDlg').returnValue !== 'save') return;
+  const name = $('pName').value.trim();
+  const folders = [...$('pFolders').children].map(d => {
+    const f = {};
+    d.querySelectorAll('[data-k]').forEach(i => { f[i.dataset.k] = i.type === 'number' ? Number(i.value) : i.value.trim(); });
+    if (f.type !== 'ssh') ['host','port','user','key_file','password'].forEach(k => delete f[k]);
+    return f;
+  });
+  if (!name || folders.length < 2) return alert('Need a name and at least 2 folders');
+  if (editing && editing !== name) delete config.profiles[editing];
+  config.profiles[name] = {
+    folders, compare: $('pCompare').value,
+    exclude: $('pExclude').value.split('\n').map(s => s.trim()).filter(Boolean),
+  };
+  config.active = name;
+  try { await saveConfig(); } catch (e) { return alert(e.message); }
+  data = null; renderProfiles(); renderTable();
+});
+
+// ---------------------------------------------------------------- scan & table
+$('scanBtn').onclick = scan;
+async function scan() {
+  $('scanBtn').disabled = true; $('scanBtn').textContent = 'Scanning…';
+  $('errors').textContent = '';
+  try {
+    data = await api('/api/scan?profile=' + encodeURIComponent(profileName()));
+    rowState = {};
+    for (const r of data.rows) rowState[r.path] = {sel: false, src: r.newest, del: new Set()};
+    $('errors').textContent = data.errors.join('\n');
+  } catch (e) { $('errors').textContent = e.message; }
+  $('scanBtn').disabled = false; $('scanBtn').textContent = 'Scan / Compare';
+  renderTable();
+}
+
+function visibleRows() {
+  if (!data) return [];
+  const q = $('search').value.toLowerCase();
+  return data.rows.filter(r =>
+    (!$('onlyDiff').checked || !r.status.startsWith('same')) && (!q || r.path.toLowerCase().includes(q)));
+}
+
+function renderTable() {
+  const t = $('tbl');
+  if (!data) { t.innerHTML = '<tr><td class="muted">Press “Scan / Compare”.</td></tr>'; $('summary').textContent = ''; return; }
+  const counts = {};
+  data.rows.forEach(r => counts[r.status] = (counts[r.status] || 0) + 1);
+  $('summary').textContent = `${data.rows.length} files · ` + Object.entries(counts).map(([k, v]) => `${v} ${k}`).join(' · ');
+  const rows = visibleRows();
+  let h = '<tr><th></th><th>Path</th><th>Status</th>' +
+    data.folders.map(f => `<th>${esc(f.name)}${f.type === 'ssh' ? ' <span class="badge">ssh</span>' : ''}</th>`).join('') +
+    '<th></th></tr>';
+  for (const r of rows.slice(0, 3000)) {
+    const st = rowState[r.path];
+    const mt = r.entries.filter(Boolean).map(e => e.mtime);
+    const same = r.status.startsWith('same');
+    h += `<tr data-p="${esc(r.path)}"><td><input type="checkbox" class="sel" ${st.sel ? 'checked' : ''}></td>` +
+      `<td class="path">${esc(r.path)}</td>` +
+      `<td><span class="badge b-${r.status.split('-')[0]}">${r.status}</span></td>`;
+    r.entries.forEach((e, i) => {
+      let cls = 'cell ';
+      if (!e) cls += 'missing';
+      else if (same) cls += 'same';
+      else cls += e.mtime >= Math.max(...mt) - 2 ? 'newest' : 'older';
+      if (st.src === i && !same) cls += ' src';
+      if (st.del.has(i)) cls += ' del';
+      h += `<td class="${cls}" data-i="${i}" title="${e && e.hash ? 'md5 ' + e.hash : ''}">` +
+        (e ? `${fmtSize(e.size)}<br><span class="muted">${fmtTime(e.mtime)}</span>` : '— missing —') + '</td>';
+    });
+    h += `<td>${r.entries.filter(Boolean).length > 1 && !same ? '<button class="diffbtn">Diff</button>' : ''}</td></tr>`;
+  }
+  if (rows.length > 3000) h += `<tr><td colspan="99" class="muted">…${rows.length - 3000} more rows, use the filter</td></tr>`;
+  t.innerHTML = h;
+}
+
+$('tbl').onclick = e => {
+  const tr = e.target.closest('tr[data-p]'); if (!tr) return;
+  const path = tr.dataset.p, st = rowState[path], row = data.rows.find(r => r.path === path);
+  if (e.target.classList.contains('sel')) { st.sel = e.target.checked; return; }
+  if (e.target.classList.contains('diffbtn')) return openDiff(row);
+  const td = e.target.closest('td.cell'); if (!td) return;
+  const i = +td.dataset.i;
+  if (e.shiftKey) {
+    if (!row.entries[i]) return;
+    st.del.has(i) ? st.del.delete(i) : st.del.add(i);
+  } else {
+    if (!row.entries[i]) return;
+    st.src = i; st.del.delete(i);
+  }
+  st.sel = true;
+  renderTable();
+};
+$('onlyDiff').onchange = renderTable;
+$('search').oninput = renderTable;
+$('selAll').onclick = () => { visibleRows().forEach(r => { if (!r.status.startsWith('same')) rowState[r.path].sel = true; }); renderTable(); };
+$('selNone').onclick = () => { Object.values(rowState).forEach(s => s.sel = false); renderTable(); };
+
+$('syncBtn').onclick = async () => {
+  if (!data) return;
+  const bulk = $('bulkSrc').value, actions = [], lines = [];
+  for (const r of data.rows) {
+    const st = rowState[r.path];
+    if (!st.sel) continue;
+    if (st.del.size) {
+      actions.push({path: r.path, op: 'delete', targets: [...st.del]});
+      lines.push(`DELETE ${r.path} in ${[...st.del].map(i => data.folders[i].name).join(', ')}`);
+      continue;
+    }
+    const src = bulk === 'row' ? st.src : +bulk;
+    const e = r.entries[src];
+    if (!e) { lines.push(`SKIP ${r.path} (missing in ${data.folders[src].name})`); continue; }
+    const targets = r.entries.map((_, i) => i).filter(i => i !== src);
+    actions.push({path: r.path, op: 'copy', source: src, targets, mtime: e.mtime});
+    lines.push(`${r.path}: ${data.folders[src].name} → ${targets.map(i => data.folders[i].name).join(', ')}`);
+  }
+  if (!actions.length) return alert('Nothing selected');
+  const preview = lines.slice(0, 30).join('\n') + (lines.length > 30 ? `\n…and ${lines.length - 30} more` : '');
+  if (!confirm(`Apply ${actions.length} action(s)? Existing files will be overwritten.\n\n${preview}`)) return;
+  $('syncBtn').disabled = true; $('syncBtn').textContent = 'Syncing…';
+  try {
+    const res = await api('/api/sync', {profile: profileName(), actions});
+    $('log').innerHTML = res.log.map(l => `<div class="${l.ok ? 'ok' : 'bad'}">${l.ok ? '✓' : '✗'} ${esc(l.msg)}</div>`).join('');
+  } catch (e) { $('log').innerHTML = `<div class="bad">${esc(e.message)}</div>`; }
+  $('syncBtn').disabled = false; $('syncBtn').textContent = 'Sync selected';
+  await scan();
+};
+
+// ---------------------------------------------------------------- diff
+let diffRow = null;
+function openDiff(row) {
+  diffRow = row;
+  const idx = row.entries.map((e, i) => e ? i : -1).filter(i => i >= 0);
+  const opts = idx.map(i => `<option value="${i}">${esc(data.folders[i].name)}</option>`).join('');
+  $('diffA').innerHTML = opts; $('diffB').innerHTML = opts;
+  const others = idx.filter(i => i !== row.newest);
+  $('diffA').value = others[0] ?? idx[0]; $('diffB').value = row.newest;
+  $('diffTitle').textContent = row.path;
+  $('diffDlg').showModal();
+  loadDiff();
+}
+async function loadDiff() {
+  $('diffOut').textContent = 'Loading…';
+  try {
+    const q = new URLSearchParams({profile: profileName(), path: diffRow.path, a: $('diffA').value, b: $('diffB').value});
+    const {diff} = await api('/api/diff?' + q);
+    $('diffOut').innerHTML = diff ? diff.split('\n').map(l => {
+      const c = l.startsWith('@@') ? 'hunk' : l.startsWith('+') ? 'add' : l.startsWith('-') ? 'rem' : '';
+      return `<span class="${c}">${esc(l)}</span>`;
+    }).join('\n') : '(contents identical)';
+  } catch (e) { $('diffOut').textContent = e.message; }
+}
+$('diffA').onchange = loadDiff; $('diffB').onchange = loadDiff;
+$('diffClose').onclick = () => $('diffDlg').close();
+
+loadConfig().then(renderTable).catch(e => $('errors').textContent = e.message);
+</script>
+</body>
+</html>
